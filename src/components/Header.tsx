@@ -15,7 +15,7 @@ export default function Header() {
   ]
 
   return (
-    <header className="w-full bg-white border-b border-gray-100 sticky top-0 z-50">
+    <header className={`w-full bg-white border-b border-gray-100 sticky top-0 transition-all duration-300 ${isOpen ? 'z-[999]' : 'z-50'}`}>
       <div className="max-w-7xl mx-auto px-4 h-20 flex items-center justify-between">
         <Link href="/" className="font-heading text-2xl font-bold text-[#002D62] relative z-[120]">
           Intech
@@ -63,7 +63,7 @@ export default function Header() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setIsOpen(false)}
-              className="fixed inset-0 bg-[#002D62]/20 backdrop-blur-sm z-[100] md:hidden"
+              className="fixed inset-0 bg-[#002D62]/40 backdrop-blur-md z-[100] md:hidden"
             />
 
             {/* Drawer */}
@@ -72,7 +72,7 @@ export default function Header() {
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
               transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-              className="fixed top-0 right-0 h-full w-[80%] max-w-sm bg-white z-[110] shadow-2xl md:hidden flex flex-col p-8 pt-24"
+              className="fixed top-0 right-0 h-full w-full bg-white z-[110] shadow-2xl md:hidden flex flex-col p-8 pt-24"
             >
               <nav className="flex flex-col gap-6 mb-12">
                 {navLinks.map((link) => (
