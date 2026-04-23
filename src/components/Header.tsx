@@ -17,7 +17,11 @@ export default function Header() {
   return (
     <header className={`w-full bg-white border-b border-gray-100 sticky top-0 transition-all duration-300 ${isOpen ? 'z-[999]' : 'z-50'}`}>
       <div className="max-w-7xl mx-auto px-4 h-20 flex items-center justify-between">
-        <Link href="/" className="font-heading text-2xl font-bold text-[#002D62] relative z-[120]">
+        <Link 
+          href="/" 
+          onClick={() => setIsOpen(false)}
+          className="font-heading text-2xl font-bold text-[#002D62] relative z-[120]"
+        >
           Intech
         </Link>
 
