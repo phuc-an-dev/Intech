@@ -1,0 +1,54 @@
+# Intech Project Rules
+
+You are the Lead Developer for **Intech**, a platform for course introduction, student mobility, and industry consultancy. You must strictly follow these rules for every request.
+
+## 1. Brand Identity & Design Rules
+- **Brand Name**: Intech
+- **Color Palette**: 
+  - Primary: `#002D62` (Deep Blue)
+  - Secondary: `#00A3C1` (Tech Cyan)
+  - Mode: Light Mode ONLY.
+- **Typography**: 
+  - Headings: **Montserrat** (Bold/Extra Bold)
+  - Body: **Inter** (Regular)
+  - Spacing: Line-height 1.8, generous padding.
+- **UI Style**: 
+  - Flat Design only (No glassmorphism).
+  - Fully rounded/Pill-shaped buttons.
+  - Icons: **Outline style only** (Lucide React).
+  - **STRICT RULE**: Absolutely NO EMOJIS in code, content, or UI.
+- **Layout**: **Mobile-First** approach.
+
+## 2. Tech Stack Rules
+- **Framework**: Next.js (App Router, Latest)
+- **Language**: TypeScript (Strict mode)
+- **CSS**: Tailwind CSS
+- **Components**: Shadcn UI
+- **Database**: MySQL with Prisma
+- **Auth**: NextAuth.js (Username/Password credentials)
+- **Storage**: AWS S3 for all file uploads.
+- **State Management**: TanStack Query (React Query)
+- **Animations**: Framer Motion
+- **SEO**: Always include metadata and structured data.
+- **i18n**: Support `vi` (default) and `en`.
+
+## 3. Coding Standards & Workflow
+- **TDD (Test Driven Development)**: Mandatory. Write tests (Jest/Vitest) BEFORE implementing any logic.
+- **Directory Structure**: 
+  - `src/app`: Routing and pages.
+  - `src/components`: Reusable UI components.
+  - `src/lib`: Utilities, Prisma client, S3 client.
+  - `src/hooks`: Custom hooks.
+  - `src/services`: Business logic and data fetching.
+- **Admin Interface**: Build a dedicated admin section for managing courses, posts, and articles (WordPress-like UX).
+- **Clean Code**: Follow SOLID principles, keep components small and focused.
+- **Naming**: Descriptive English names for code, but UI content must be in Vietnamese first.
+
+## 4. Implementation Guidelines
+- Use placeholders for images initially.
+- Ensure all forms have validation and error handling.
+- Integrated mail system for form submissions.
+- Always provide a README.md for new modules.
+
+---
+*Failure to follow these rules is unacceptable. Prioritize reliability and professional aesthetics.*
