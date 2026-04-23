@@ -48,7 +48,7 @@ export default function Home() {
         >
           <motion.h1 
             variants={itemVariants}
-            className="font-heading text-4xl md:text-7xl font-extrabold text-[#002D62] mb-8 leading-[1.1]"
+            className="font-heading text-4xl md:text-7xl font-extrabold text-[#002D62] mb-8 leading-tight"
           >
             Intech: Chạm tri thức,<br />
             <span className="text-[#00A3C1]">Kiến tạo tương lai.</span>

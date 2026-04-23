@@ -21,7 +21,7 @@ export default function ComingSoon() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2, duration: 0.5 }}
-          className="font-heading text-4xl md:text-6xl font-extrabold text-[#002D62] mb-6"
+          className="font-heading text-4xl md:text-6xl font-extrabold text-[#002D62] mb-6 leading-tight"
         >
           Tính năng đang được <br />
           <span className="text-[#00A3C1]">Kiến tạo.</span>

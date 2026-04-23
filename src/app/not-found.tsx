@@ -42,7 +42,7 @@ export default function NotFound() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3, duration: 0.5 }}
         >
-          <h2 className="font-heading text-3xl md:text-5xl font-extrabold text-[#002D62] mb-6">
+          <h2 className="font-heading text-3xl md:text-5xl font-extrabold text-[#002D62] mb-6 leading-tight">
             Không tìm thấy trang.
           </h2>
           <p className="text-[#4A4A4A] text-lg md:text-xl mb-12 max-w-lg mx-auto">
