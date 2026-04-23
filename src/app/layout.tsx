@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Montserrat, Inter } from "next/font/google";
 import Link from "next/link";
+import Header from "@/components/Header";
 import "./globals.css";
 
 const montserrat = Montserrat({
@@ -28,24 +29,7 @@ export default function RootLayout({
   return (
     <html lang="vi">
       <body className={`${montserrat.variable} ${inter.variable} antialiased flex flex-col min-h-screen`}>
-        {/* Header Navigation */}
-        <header className="w-full bg-white border-b border-gray-100 sticky top-0 z-50">
-          <div className="max-w-7xl mx-auto px-4 h-20 flex items-center justify-between">
-            <Link href="/" className="font-heading text-2xl font-bold text-[#002D62]">
-              Intech
-            </Link>
-            <nav className="hidden md:flex gap-8">
-              <Link href="/courses" className="font-medium text-[#1A1A1A] hover:text-[#00A3C1] transition-colors">Khóa học</Link>
-              <Link href="/coming-soon" className="font-medium text-[#1A1A1A] hover:text-[#00A3C1] transition-colors">Mobility</Link>
-              <Link href="/coming-soon" className="font-medium text-[#1A1A1A] hover:text-[#00A3C1] transition-colors">Chuyên gia</Link>
-            </nav>
-            <div className="flex items-center gap-4">
-              <Link href="/contact" className="hidden md:inline-flex bg-[#002D62] text-white px-6 py-2.5 rounded-full font-semibold hover:bg-[#001f44] transition-colors">
-                Liên hệ ngay
-              </Link>
-            </div>
-          </div>
-        </header>
+        <Header />
 
         {/* Main Content */}
         <main className="flex-1 w-full">
