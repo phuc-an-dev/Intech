@@ -66,7 +66,7 @@ export default function Home() {
             className="flex flex-col sm:flex-row gap-5 w-full sm:w-auto justify-center"
           >
             <Link 
-              href="/courses" 
+              href="/coming-soon" 
               className="flex items-center justify-center gap-3 bg-[#002D62] text-white px-10 py-5 rounded-full font-bold text-lg hover:bg-[#001f44] transition-all transform hover:scale-105"
             >
               Khám phá khóa học
@@ -256,7 +256,7 @@ export default function Home() {
               Đừng bỏ lỡ cơ hội trở thành một phần của cộng đồng học thuật hiện đại và năng động.
             </p>
             <Link 
-              href="/register" 
+              href="/coming-soon" 
               className="inline-flex items-center justify-center gap-3 bg-white text-[#00A3C1] px-12 py-5 rounded-full font-bold text-xl hover:bg-[#F4F7F9] transition-all transform hover:scale-105"
             >
               Đăng ký ngay
