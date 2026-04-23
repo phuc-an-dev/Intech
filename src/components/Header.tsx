@@ -11,7 +11,7 @@ export default function Header() {
   const navLinks = [
     { name: 'Khóa học', href: '/courses' },
     { name: 'Mobility', href: '/coming-soon' },
-    { name: 'Chuyên gia', href: '/coming-soon' },
+    { name: 'Chuyên gia', href: '/consultant' },
   ]
 
   return (

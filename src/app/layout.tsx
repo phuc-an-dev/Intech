@@ -50,7 +50,7 @@ export default function RootLayout({
               <ul className="space-y-3 text-[#F4F7F9]/80">
                 <li><Link href="/courses" className="hover:text-white transition-colors">Khóa học</Link></li>
                 <li><Link href="/coming-soon" className="hover:text-white transition-colors">Student Mobility</Link></li>
-                <li><Link href="/coming-soon" className="hover:text-white transition-colors">Chuyên gia</Link></li>
+                <li><Link href="/consultant" className="hover:text-white transition-colors">Chuyên gia</Link></li>
               </ul>
             </div>
             <div>
