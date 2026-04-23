@@ -35,7 +35,7 @@ export default function RootLayout({
               Intech
             </Link>
             <nav className="hidden md:flex gap-8">
-              <Link href="/coming-soon" className="font-medium text-[#1A1A1A] hover:text-[#00A3C1] transition-colors">Khóa học</Link>
+              <Link href="/courses" className="font-medium text-[#1A1A1A] hover:text-[#00A3C1] transition-colors">Khóa học</Link>
               <Link href="/coming-soon" className="font-medium text-[#1A1A1A] hover:text-[#00A3C1] transition-colors">Mobility</Link>
               <Link href="/coming-soon" className="font-medium text-[#1A1A1A] hover:text-[#00A3C1] transition-colors">Chuyên gia</Link>
             </nav>
@@ -64,7 +64,7 @@ export default function RootLayout({
             <div>
               <h3 className="font-bold text-lg mb-4 text-[#00A3C1]">Khám phá</h3>
               <ul className="space-y-3 text-[#F4F7F9]/80">
-                <li><Link href="/coming-soon" className="hover:text-white transition-colors">Khóa học</Link></li>
+                <li><Link href="/courses" className="hover:text-white transition-colors">Khóa học</Link></li>
                 <li><Link href="/coming-soon" className="hover:text-white transition-colors">Student Mobility</Link></li>
                 <li><Link href="/coming-soon" className="hover:text-white transition-colors">Chuyên gia</Link></li>
               </ul>

@@ -66,7 +66,7 @@ export default function Home() {
             className="flex flex-col sm:flex-row gap-5 w-full sm:w-auto justify-center"
           >
             <Link 
-              href="/coming-soon" 
+              href="/courses" 
               className="flex items-center justify-center gap-3 bg-[#002D62] text-white px-10 py-5 rounded-full font-bold text-lg hover:bg-[#001f44] transition-all transform hover:scale-105"
             >
               Khám phá khóa học
