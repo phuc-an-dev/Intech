@@ -265,7 +265,7 @@ export default function Home() {
         <div className="absolute bottom-0 left-0 w-96 h-96 bg-white rounded-full mix-blend-overlay filter blur-3xl opacity-10"></div>
         
         <div className="max-w-7xl mx-auto px-4 relative z-10">
-          <div className="bg-white/5 border border-white/10 rounded-3xl p-8 md:p-16 backdrop-blur-sm">
+          <div className="md:bg-white/5 md:border border-white/10 rounded-3xl md:p-16 md:backdrop-blur-sm">
             <div className="flex flex-col lg:flex-row gap-12 items-center">
               <motion.div 
                 className="flex-1"
@@ -299,7 +299,7 @@ export default function Home() {
               </motion.div>
               
               <motion.div 
-                className="w-full max-w-md bg-white rounded-2xl p-8 shadow-2xl"
+                className="w-full lg:max-w-md bg-white rounded-3xl p-6 md:p-8 shadow-2xl"
                 initial={{ opacity: 0, scale: 0.95 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
@@ -334,7 +334,7 @@ export default function Home() {
       </section>
 
       {/* 6. Vision 2030 */}
-      <section className="py-24 bg-white text-center px-4">
+      <section className="pt-24 pb-32 md:pb-40 bg-white text-center px-4">
         <motion.div 
           className="max-w-4xl mx-auto"
           initial={{ opacity: 0, y: 20 }}
@@ -343,7 +343,7 @@ export default function Home() {
         >
           <div className="text-[#00A3C1] font-bold tracking-widest uppercase mb-4">Tầm nhìn 2030</div>
           <h2 className="font-heading text-3xl md:text-5xl font-bold text-[#002D62] leading-tight">
-            "Trở thành một trong 5 đơn vị đào tạo và tư vấn giải pháp công nghiệp hàng đầu Việt Nam, hướng tới mở rộng toàn khu vực Đông Nam Á."
+            &quot;Trở thành một trong 5 đơn vị đào tạo và tư vấn giải pháp công nghiệp hàng đầu Việt Nam, hướng tới mở rộng toàn khu vực Đông Nam Á.&quot;
           </h2>
         </motion.div>
       </section>

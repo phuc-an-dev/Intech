@@ -25,6 +25,7 @@ export default function RegistrationModal({ isOpen, onClose, courseInfo }: Regis
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setMounted(true);
   }, []);
 
@@ -32,6 +33,7 @@ export default function RegistrationModal({ isOpen, onClose, courseInfo }: Regis
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = "hidden";
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setFormStatus("idle"); // reset status when opened
     } else {
       document.body.style.overflow = "unset";

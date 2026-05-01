@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Montserrat, Inter } from "next/font/google";
 import Link from "next/link";
+import NextTopLoader from "nextjs-toploader";
 import Header from "@/components/Header";
 import BackToTop from "@/components/BackToTop";
 import "./globals.css";
@@ -30,6 +31,7 @@ export default function RootLayout({
   return (
     <html lang="vi" className="scroll-smooth">
       <body className={`${montserrat.variable} ${inter.variable} antialiased flex flex-col min-h-screen`}>
+        <NextTopLoader color="#00A3C1" showSpinner={false} height={3} />
         <Header />
         <BackToTop />
 

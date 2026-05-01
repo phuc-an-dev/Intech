@@ -17,6 +17,18 @@ export default function Header() {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
+  // Lock scroll when mobile menu is open
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = 'unset'
+    }
+    return () => {
+      document.body.style.overflow = 'unset'
+    }
+  }, [isOpen])
+
   const navLinks = [
     { name: 'Về chúng tôi', href: '/about' },
     { name: 'Khóa học', href: '/courses' },
@@ -25,49 +37,51 @@ export default function Header() {
   ]
 
   return (
-    <header className={`w-full sticky top-0 transition-all duration-300 ${isOpen ? 'z-[999]' : 'z-50'} ${isScrolled ? 'bg-white/80 backdrop-blur-md border-b border-gray-200/50 shadow-sm py-1' : 'bg-white border-b border-gray-100 py-0'}`}>
-      <div className="max-w-7xl mx-auto px-4 h-20 flex items-center justify-between">
-        <Link 
-          href="/" 
-          onClick={() => setIsOpen(false)}
-          className="font-heading text-2xl font-bold text-[#002D62] relative z-[120]"
-        >
-          Intech
-        </Link>
-
-        {/* Desktop Navigation */}
-        <nav className="hidden md:flex gap-8">
-          {navLinks.map((link) => (
-            <Link 
-              key={link.name} 
-              href={link.href} 
-              className="font-medium text-[#1A1A1A] hover:text-[#00A3C1] transition-colors"
-            >
-              {link.name}
-            </Link>
-          ))}
-        </nav>
-
-        <div className="flex items-center gap-3">
+    <>
+      <header className={`w-full sticky top-0 transition-all duration-300 ${isOpen ? 'z-[1010]' : 'z-50'} ${isScrolled ? 'bg-white/80 backdrop-blur-md border-b border-gray-200/50 shadow-sm py-1' : 'bg-white border-b border-gray-100 py-0'}`}>
+        <div className="max-w-7xl mx-auto px-4 h-16 md:h-20 flex items-center justify-between">
           <Link 
-            href="/contact" 
-            className="hidden md:inline-flex bg-[#002D62] text-white px-6 py-2.5 rounded-full font-semibold hover:bg-[#001f44] transition-colors"
+            href="/" 
+            onClick={() => setIsOpen(false)}
+            className="font-heading text-2xl font-bold text-[#002D62] relative z-[1011]"
           >
-            Liên hệ ngay
+            Intech
           </Link>
 
-          {/* Mobile Menu Toggle */}
-          <button 
-            onClick={() => setIsOpen(!isOpen)}
-            className="md:hidden p-2 text-[#002D62] relative z-[120]"
-            aria-label="Toggle Menu"
-          >
-            {isOpen ? <X className="w-8 h-8" /> : <Menu className="w-8 h-8" />}
-          </button>
-        </div>
-      </div>
+          {/* Desktop Navigation */}
+          <nav className="hidden md:flex gap-8">
+            {navLinks.map((link) => (
+              <Link 
+                key={link.name} 
+                href={link.href} 
+                className="font-medium text-[#1A1A1A] hover:text-[#00A3C1] transition-colors"
+              >
+                {link.name}
+              </Link>
+            ))}
+          </nav>
 
-      {/* Mobile Menu Drawer */}
+          <div className="flex items-center gap-3">
+            <Link 
+              href="/contact" 
+              className="hidden md:inline-flex bg-[#002D62] text-white px-6 py-2.5 rounded-full font-semibold hover:bg-[#001f44] transition-colors"
+            >
+              Liên hệ ngay
+            </Link>
+
+            {/* Mobile Menu Toggle */}
+            <button 
+              onClick={() => setIsOpen(!isOpen)}
+              className="md:hidden p-2 text-[#002D62] relative z-[1011]"
+              aria-label="Toggle Menu"
+            >
+              {isOpen ? <X className="w-8 h-8" /> : <Menu className="w-8 h-8" />}
+            </button>
+          </div>
+        </div>
+      </header>
+
+      {/* Mobile Menu Drawer - Moved outside header to avoid sticky/blur constraints */}
       <AnimatePresence>
         {isOpen && (
           <>
@@ -77,7 +91,7 @@ export default function Header() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setIsOpen(false)}
-              className="fixed inset-0 bg-[#002D62]/40 backdrop-blur-md z-[100] md:hidden"
+              className="fixed inset-0 bg-[#002D62]/40 backdrop-blur-md z-[1000] md:hidden"
             />
 
             {/* Drawer */}
@@ -86,7 +100,7 @@ export default function Header() {
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
               transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-              className="fixed top-0 right-0 h-full w-full bg-white z-[110] shadow-2xl md:hidden flex flex-col p-8 pt-24"
+              className="fixed top-0 right-0 h-full w-full bg-white z-[1001] shadow-2xl md:hidden flex flex-col p-6 pt-24"
             >
               <nav className="flex flex-col gap-6 mb-12">
                 {navLinks.map((link) => (
@@ -118,6 +132,6 @@ export default function Header() {
           </>
         )}
       </AnimatePresence>
-    </header>
+    </>
   )
 }

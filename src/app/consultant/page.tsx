@@ -145,7 +145,7 @@ export default function ConsultantPage() {
                 </div>
 
                 <p className="text-[#4A4A4A] text-lg mb-10 leading-relaxed italic">
-                  "{expert.bio}"
+                  &quot;{expert.bio}&quot;
                 </p>
 
                 <div className="flex flex-col sm:flex-row gap-4">

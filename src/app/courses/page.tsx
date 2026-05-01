@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Search, Filter, BookOpen, Loader2 } from "lucide-react";
+import { Search, Filter, BookOpen, Loader2, ChevronDown, ChevronUp } from "lucide-react";
 import CourseCard from "@/components/CourseCard";
 import { courses, topics, levelLabels, type TopicSlug, type CourseLevel } from "@/data/courses";
 
@@ -13,10 +13,10 @@ export default function CoursesPage() {
   const [debouncedSearch, setDebouncedSearch] = useState("");
   const [shuffledCourses, setShuffledCourses] = useState(courses);
   const [isTyping, setIsTyping] = useState(false);
+  const [isFilterOpen, setIsFilterOpen] = useState(false);
 
   // Debounce search query (500ms delay)
   useEffect(() => {
-    setIsTyping(true);
     const handler = setTimeout(() => {
       setDebouncedSearch(searchQuery);
       setIsTyping(false);
@@ -27,6 +27,7 @@ export default function CoursesPage() {
   // Shuffle courses ONLY once on client side to avoid SSR Hydration mismatch
   useEffect(() => {
     const shuffled = [...courses].sort(() => Math.random() - 0.5);
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setShuffledCourses(shuffled);
   }, []);
 
@@ -73,13 +74,22 @@ export default function CoursesPage() {
         
         {/* Sidebar / Filters */}
         <aside className="w-full lg:w-1/4 shrink-0">
-          <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 sticky top-28">
-            <div className="flex items-center gap-2 mb-6 text-[#002D62]">
-              <Filter className="w-5 h-5" />
-              <h2 className="font-heading font-bold text-xl">Bộ lọc</h2>
+          <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 sticky top-24 md:top-28 z-30">
+            <div 
+              className="flex items-center justify-between lg:mb-6 cursor-pointer lg:cursor-default"
+              onClick={() => window.innerWidth < 1024 && setIsFilterOpen(!isFilterOpen)}
+            >
+              <div className="flex items-center gap-2 text-[#002D62]">
+                <Filter className="w-5 h-5" />
+                <h2 className="font-heading font-bold text-xl">Bộ lọc</h2>
+              </div>
+              <div className="lg:hidden text-gray-500 bg-gray-50 p-1.5 rounded-lg">
+                {isFilterOpen ? <ChevronUp className="w-5 h-5" /> : <ChevronDown className="w-5 h-5" />}
+              </div>
             </div>
 
-            <div className="mb-8">
+            <div className={`mt-6 lg:mt-0 ${isFilterOpen ? 'block' : 'hidden'} lg:block`}>
+              <div className="mb-8">
               <h3 className="font-semibold text-gray-700 text-sm mb-3 uppercase tracking-wider">Tìm kiếm</h3>
               <div className="relative">
                 {isTyping ? (
@@ -176,6 +186,7 @@ export default function CoursesPage() {
                 </button>
               </div>
             )}
+            </div>
           </div>
         </aside>
 

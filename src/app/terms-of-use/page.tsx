@@ -55,7 +55,7 @@ export default function TermsOfUsePage() {
             <h2 className="font-heading text-2xl font-bold text-[#002D62] mb-4">4. Giới hạn trách nhiệm về thông tin trực tuyến</h2>
             <ul className="list-disc pl-6 space-y-3">
               <li>
-                Thông tin về các khóa học và giải pháp trên website (như sơ đồ lộ trình "Start Small. Scale Fast. Go Global") mang tính chất giới thiệu và tham khảo. Intech có quyền cập nhật hoặc thay đổi nội dung này bất kỳ lúc nào mà không cần thông báo trước.
+                Thông tin về các khóa học và giải pháp trên website (như sơ đồ lộ trình &quot;Start Small. Scale Fast. Go Global&quot;) mang tính chất giới thiệu và tham khảo. Intech có quyền cập nhật hoặc thay đổi nội dung này bất kỳ lúc nào mà không cần thông báo trước.
               </li>
             </ul>
           </section>

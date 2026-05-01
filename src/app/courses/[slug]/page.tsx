@@ -193,10 +193,6 @@ export default async function CourseDetailPage(props: { params: Promise<{ slug: 
                   price: course.price
                 }} 
               />
-              
-              <p className="text-center text-xs text-gray-400 mt-4">
-                Nếu bạn có mã ưu đãi, bạn có thể áp dụng ở bước thanh toán.
-              </p>
             </div>
           </div>
 
