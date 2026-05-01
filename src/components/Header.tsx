@@ -1,13 +1,17 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import Link from 'next/link'
+import { Link } from '@/i18n/routing'
 import { Menu, X, ArrowRight } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
+import { useTranslations } from 'next-intl'
+import LanguageSwitcher from './LanguageSwitcher'
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
+  const t = useTranslations('nav')
+  const tCommon = useTranslations('common')
 
   useEffect(() => {
     const handleScroll = () => {
@@ -30,10 +34,10 @@ export default function Header() {
   }, [isOpen])
 
   const navLinks = [
-    { name: 'Về chúng tôi', href: '/about' },
-    { name: 'Khóa học', href: '/courses' },
-    { name: 'Mobility', href: '/coming-soon' },
-    { name: 'Chuyên gia', href: '/consultant' },
+    { name: t('about'), href: '/about' as const },
+    { name: t('courses'), href: '/courses' as const },
+    { name: t('student_mobility'), href: '/coming-soon' as const },
+    { name: t('contact_us'), href: '/contact' as const },
   ]
 
   return (
@@ -49,7 +53,7 @@ export default function Header() {
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex gap-8">
+          <nav className="hidden md:flex gap-8 items-center">
             {navLinks.map((link) => (
               <Link 
                 key={link.name} 
@@ -62,11 +66,15 @@ export default function Header() {
           </nav>
 
           <div className="flex items-center gap-3">
+            <div className="hidden md:block">
+              <LanguageSwitcher />
+            </div>
+            
             <Link 
               href="/contact" 
               className="hidden md:inline-flex bg-[#002D62] text-white px-6 py-2.5 rounded-full font-semibold hover:bg-[#001f44] transition-colors"
             >
-              Liên hệ ngay
+              {tCommon('register')}
             </Link>
 
             {/* Mobile Menu Toggle */}
@@ -102,6 +110,10 @@ export default function Header() {
               transition={{ type: 'spring', damping: 25, stiffness: 200 }}
               className="fixed top-0 right-0 h-full w-full bg-white z-[1001] shadow-2xl md:hidden flex flex-col p-6 pt-24"
             >
+              <div className="mb-8">
+                <LanguageSwitcher />
+              </div>
+
               <nav className="flex flex-col gap-6 mb-12">
                 {navLinks.map((link) => (
                   <Link 
@@ -122,7 +134,7 @@ export default function Header() {
                   onClick={() => setIsOpen(false)}
                   className="flex items-center justify-center gap-2 bg-[#002D62] text-white w-full py-5 rounded-2xl font-bold text-lg hover:bg-[#001f44] transition-colors"
                 >
-                  Liên hệ ngay
+                  {tCommon('register')}
                 </Link>
                 <p className="text-center text-[#4A4A4A] mt-8 text-sm">
                   Intech: Chạm tri thức, Kiến tạo tương lai.

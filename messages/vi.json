@@ -1,0 +1,801 @@
+{
+  "meta": {
+    "title": "Intech - Chạm tri thức, Kiến tạo tương lai",
+    "description": "Nền tảng giới thiệu khóa học, student mobility và Industry consultant hàng đầu."
+  },
+  "nav": {
+    "about": "Về chúng tôi",
+    "courses": "Khóa học",
+    "student_mobility": "Student Mobility",
+    "privacy_policy": "Chính sách bảo mật",
+    "terms_of_use": "Điều khoản sử dụng",
+    "contact_us": "Liên hệ"
+  },
+  "footer": {
+    "tagline": "Chạm tri thức, Kiến tạo tương lai. Nền tảng kết nối học thuật và định hướng nghề nghiệp vững chắc dành cho thế hệ trẻ.",
+    "explore": "Khám phá",
+    "legal_contact": "Pháp lý & Liên hệ",
+    "rights": "Intech. All rights reserved."
+  },
+  "common": {
+    "email": "Email",
+    "see_more": "Xem thêm",
+    "register": "Đăng ký ngay"
+  },
+  "courses": {
+    "page_title": "Danh Mục Đào Tạo",
+    "page_description": "Trang bị kiến thức thực chiến, đón đầu xu hướng công nghiệp 4.0 với các chuyên đề đào tạo chuyên sâu từ Intech Global Academy.",
+    "filters": {
+      "title": "Bộ lọc",
+      "search": "Tìm kiếm",
+      "search_placeholder": "Tên, từ khóa, kỹ năng...",
+      "topics": "Chuyên đề",
+      "all_topics": "Tất cả chuyên đề",
+      "levels": "Cấp độ",
+      "all_levels": "Tất cả cấp độ",
+      "clear": "Xóa tất cả bộ lọc"
+    },
+    "results_count": "Tìm thấy <span /> khóa học phù hợp",
+    "no_results": {
+      "title": "Không tìm thấy khóa học",
+      "description": "Thử thay đổi từ khóa tìm kiếm hoặc bỏ bớt các bộ lọc chuyên đề/cấp độ."
+    },
+    "detail": {
+      "back_to_list": "Quay lại danh sách khóa học",
+      "course_label": "Khóa học",
+      "duration": "Thời lượng",
+      "hours": "giờ",
+      "sessions": "Số buổi học",
+      "sessions_label": "buổi",
+      "outcomes_title": "Kết quả đầu ra",
+      "prerequisites_title": "Điều kiện tiên quyết",
+      "prerequisites_desc": "Để tham gia khóa học này một cách hiệu quả nhất, học viên cần hoàn thành khóa học nền tảng sau:",
+      "skills_title": "Từ khóa kỹ năng",
+      "tuition_label": "Học phí đầu tư",
+      "benefit_1": "Cam kết chất lượng đầu ra theo chuẩn công nghiệp.",
+      "benefit_2": "Tài liệu và framework thực chiến độc quyền.",
+      "benefit_3": "Hỗ trợ bảo lưu và học lại linh hoạt."
+    },
+    "levels": {
+      "foundation": "Lớp 1 – Nền tảng",
+      "tools": "Lớp 2 – Công cụ",
+      "application": "Lớp 3 – Ứng dụng",
+      "advanced": "Lớp 4 – Nâng cao",
+      "strategic": "Lớp 5 – Chiến lược"
+    }
+  },
+  "home": {
+    "hero": {
+      "tagline": "Kiến tạo nhân lực công nghiệp tương lai",
+      "title_line1": "Khởi đầu nhỏ.",
+      "title_line2": "Tăng trưởng nhanh.",
+      "title_line3": "Vươn tầm quốc tế.",
+      "description": "Hệ sinh thái đào tạo và tư vấn giải pháp công nghiệp hàng đầu, giúp cá nhân và doanh nghiệp làm chủ công nghệ 4.0, sẵn sàng hội nhập chuỗi cung ứng toàn cầu.",
+      "cta_explore": "Khám phá khóa học",
+      "cta_consult": "Nhận tư vấn giải pháp"
+    },
+    "pillars": {
+      "title": "Hệ sinh thái toàn diện",
+      "description": "Intech Global Academy tích hợp ba trụ cột chiến lược nhằm mang lại giá trị bền vững cho cả cá nhân và doanh nghiệp.",
+      "pillar1": {
+        "title": "Education (Đào tạo thực chiến)",
+        "desc": "Chương trình đào tạo từ cơ bản đến nâng cao về AI, Lean, IoT và Chuỗi cung ứng, được thiết kế bởi các chuyên gia đầu ngành."
+      },
+      "pillar2": {
+        "title": "Industry Consultancy",
+        "desc": "Tối ưu hóa vận hành, chuyển đổi số nhà máy và tư vấn quản trị tuân thủ giúp doanh nghiệp nâng cao năng lực cạnh tranh."
+      },
+      "pillar3": {
+        "title": "Student Mobility",
+        "desc": "Lộ trình sự nghiệp toàn cầu, kết nối học viên với các thị trường lao động trình độ cao tại nước ngoài một cách bền vững."
+      }
+    },
+    "featured_courses": {
+      "title": "Đào tạo trọng tâm",
+      "description": "Các chương trình được thiết kế bám sát nhu cầu thực tế của ngành công nghiệp và logistics, cập nhật xu hướng công nghệ mới nhất.",
+      "view_all": "Xem tất cả khóa học"
+    },
+    "why_choose_us": {
+      "title": "Tại sao chọn Intech Global Academy?",
+      "item1_title": "Học từ thực tế (Practice-based)",
+      "item1_desc": "Chương trình bám sát nhu cầu thực tế của ngành công nghiệp và logistics.",
+      "item2_title": "Hệ sinh thái toàn diện",
+      "item2_desc": "Không chỉ học, học viên được tư vấn lộ trình nghề nghiệp và kết nối quốc tế.",
+      "item3_title": "Đội ngũ chuyên gia",
+      "item3_desc": "Giảng viên là những người trực tiếp vận hành tại các doanh nghiệp lớn.",
+      "item4_title": "Nền tảng hiện đại",
+      "item4_desc": "Ứng dụng LMS giúp trải nghiệm học tập online/offline linh hoạt."
+    },
+    "workshop": {
+      "tag": "Workshop Miễn Phí",
+      "title": "AI-Powered Workflow",
+      "description": "Tối ưu hóa hiệu suất công việc với kỹ thuật Prompting đỉnh cao và quy trình tự động hóa bằng AI chỉ trong 03 buổi.",
+      "benefit1": "Làm chủ ChatGPT, Gemini & Claude cho công việc",
+      "benefit2": "Tự động hóa báo cáo và xử lý dữ liệu",
+      "date": "Khai giảng: 15/06/2026 - Hình thức: Online",
+      "form": {
+        "title": "Đăng ký tham gia ngay",
+        "name_label": "Họ và tên *",
+        "name_placeholder": "Nhập họ và tên",
+        "email_label": "Email *",
+        "email_placeholder": "Nhập email",
+        "phone_label": "Số điện thoại *",
+        "phone_placeholder": "Nhập số điện thoại",
+        "submit": "Giữ chỗ của tôi",
+        "privacy": "Thông tin của bạn được bảo mật tuyệt đối."
+      }
+    },
+    "vision": {
+      "tag": "Tầm nhìn 2030",
+      "text": "\"Trở thành một trong 5 đơn vị đào tạo và tư vấn giải pháp công nghiệp hàng đầu Việt Nam, hướng tới mở rộng toàn khu vực Đông Nam Á.\""
+    }
+  },
+  "data": {
+    "topics": {
+      "ai-in-action": {
+        "name": "AI Ứng dụng",
+        "description": "Chuyển đổi tư duy từ làm việc thủ công sang hợp tác với AI để tối ưu hiệu suất cá nhân và tổ chức."
+      },
+      "quality-management": {
+        "name": "Quản lý Chất lượng",
+        "description": "Chuyển dịch tư duy từ kiểm tra chất lượng sang kiểm soát và dự báo chất lượng dựa trên dữ liệu."
+      },
+      "operations-optimization": {
+        "name": "Tối ưu hóa Vận hành",
+        "description": "Trang bị khả năng giải quyết các bài toán đánh đổi trong kinh doanh từ mô hình toán học đến mô phỏng phức tạp."
+      },
+      "data-analytics-digital-scm": {
+        "name": "Phân tích & Chuỗi cung ứng số",
+        "description": "Chuyển hóa dữ liệu thô thành thông tin có giá trị để ra quyết định và xây dựng Supply Chain Analyst thực thụ."
+      },
+      "compliance-legal": {
+        "name": "Quản trị Tuân thủ & Pháp lý",
+        "description": "Trang bị kiến thức về luật chơi toàn cầu, từ hải quan, quy tắc xuất xứ đến tiêu chuẩn vận hành quốc tế."
+      },
+      "iot-computer-vision": {
+        "name": "IoT & Computer Vision",
+        "description": "Xóa nhòa khoảng cách giữa thế giới vật lý và số thông qua cảm biến và camera thông minh."
+      },
+      "professional-skills": {
+        "name": "Kỹ năng Chuyên nghiệp",
+        "description": "Trang bị kỹ năng mềm và tư duy quản trị giúp nhân sự kỹ thuật chuyển hóa năng lực thành giá trị kinh doanh."
+      }
+    },
+    "courses": {
+      "ai-001": {
+        "title": "Basic Prompt Engineering",
+        "description": "Làm chủ kỹ năng điều khiển AI thông qua ngôn ngữ. Tập trung vào việc tạo ra các 'câu lệnh vàng' để giải quyết nhanh các tác vụ văn phòng Logistics hàng ngày.",
+        "tags": [
+          "prompt engineering",
+          "AI",
+          "logistics",
+          "ChatGPT",
+          "tự động hóa"
+        ],
+        "learningOutcome": "Bộ thư viện Prompt chuẩn cho 20 tình huống Logistics phổ biến."
+      },
+      "ai-002": {
+        "title": "AI-Driven Data Analysis",
+        "description": "Biến AI thành một 'Chuyên gia phân tích dữ liệu riêng'. Học cách tải dữ liệu vận hành lên AI để tìm lỗi, phân loại và vẽ biểu đồ xu hướng tự động.",
+        "tags": [
+          "AI",
+          "phân tích dữ liệu",
+          "Excel",
+          "báo cáo",
+          "logistics"
+        ],
+        "learningOutcome": "Báo cáo phân tích hiệu suất vận hành được thực hiện chỉ trong 5 phút."
+      },
+      "ai-003": {
+        "title": "GenAI in Supply Chain Planning",
+        "description": "Sử dụng AI để sáng tạo nội dung và giải pháp. Tập trung vào soạn thảo SOP, kịch bản điều phối vận tải và phương án ứng phó đứt gãy chuỗi cung ứng.",
+        "tags": [
+          "GenAI",
+          "SOP",
+          "supply chain",
+          "vận tải",
+          "contingency plan"
+        ],
+        "learningOutcome": "Bộ quy trình SOP và kế hoạch dự phòng (Contingency Plan) chuẩn hóa."
+      },
+      "ai-004": {
+        "title": "Low-code AI Agent Design",
+        "description": "Tự thiết kế các 'Robot phần mềm' (AI Agents) am hiểu tài liệu riêng của công ty để hỗ trợ tra cứu chính sách hải quan, quy định kho bãi hoặc trả lời khách hàng 24/7.",
+        "tags": [
+          "AI agent",
+          "low-code",
+          "ChatGPT",
+          "Zapier",
+          "tự động hóa",
+          "chatbot"
+        ],
+        "learningOutcome": "Một Custom AI Agent hoạt động thực tế trên nền tảng như ChatGPT hoặc Zapier."
+      },
+      "ai-005": {
+        "title": "AI Strategic Leadership",
+        "description": "Dành cho nhà quản lý để hoạch định tương lai. Tập trung vào quản trị sự thay đổi, bảo mật thông tin doanh nghiệp khi dùng AI và đo lường hiệu quả AI trong vận hành.",
+        "tags": [
+          "AI governance",
+          "chiến lược",
+          "quản lý",
+          "roadmap",
+          "bảo mật"
+        ],
+        "learningOutcome": "Bản lộ trình (Roadmap) triển khai AI cho đơn vị/doanh nghiệp."
+      },
+      "qm-001": {
+        "title": "Lean Thinking 4.0",
+        "description": "Loại bỏ lãng phí và tối ưu hóa dòng chảy giá trị. Tập trung tinh gọn hóa quy trình từ kho bãi đến sản xuất bằng công nghệ số.",
+        "tags": [
+          "lean",
+          "VSM",
+          "tinh gọn",
+          "kho bãi",
+          "sản xuất"
+        ],
+        "learningOutcome": "Bản sơ đồ chuỗi giá trị (VSM) hiện tại và tương lai của doanh nghiệp."
+      },
+      "qm-002": {
+        "title": "Six Sigma Green Belt",
+        "description": "Phương pháp luận giải quyết vấn đề dựa trên dữ liệu (DMAIC). Giúp giảm tỷ lệ sai sót và biến động trong mọi quy trình vận hành.",
+        "tags": [
+          "six sigma",
+          "DMAIC",
+          "dữ liệu",
+          "cải tiến",
+          "green belt"
+        ],
+        "learningOutcome": "01 Dự án cải tiến thực tế giúp tiết kiệm chi phí hoặc thời gian cho công ty."
+      },
+      "qm-003": {
+        "title": "Applied SPC",
+        "description": "Kiểm soát quy trình bằng thống kê thực chiến. Sử dụng phần mềm Minitab/Excel để giám sát và cảnh báo sớm các nguy cơ về chất lượng.",
+        "tags": [
+          "SPC",
+          "thống kê",
+          "Minitab",
+          "control chart",
+          "chất lượng"
+        ],
+        "learningOutcome": "Hệ thống biểu đồ kiểm soát (Control Charts) cho các chỉ số quan trọng (KPIs)."
+      },
+      "qm-004": {
+        "title": "DoE for Process Optimization",
+        "description": "Kỹ thuật thiết kế thí nghiệm để tìm ra thông số vận hành tối ưu. Đặc biệt quan trọng khi thiết lập dây chuyền và cải tiến kỹ thuật.",
+        "tags": [
+          "DoE",
+          "thiết kế thí nghiệm",
+          "tối ưu hóa",
+          "thông số",
+          "kỹ thuật"
+        ],
+        "learningOutcome": "Báo cáo tối ưu hóa thông số (nhiệt độ, áp suất, thời gian) để đạt chất lượng cao nhất."
+      },
+      "qm-005": {
+        "title": "Quality 4.0 Strategy",
+        "description": "Tích hợp AI và IoT vào hệ thống quản lý chất lượng. Chuyển từ phòng ngừa sang dự báo chất lượng thông minh (Predictive Quality).",
+        "tags": [
+          "Quality 4.0",
+          "AI",
+          "IoT",
+          "predictive quality",
+          "QA/QC",
+          "chuyển đổi số"
+        ],
+        "learningOutcome": "Đề án chuyển đổi số cho bộ phận Quản lý chất lượng (QA/QC)."
+      },
+      "ops-001": {
+        "title": "Inventory Masterclass",
+        "description": "Tối ưu hóa dòng vốn nằm trong kho. Học cách thiết lập điểm đặt hàng lại (Reorder Point) và mức tồn kho an toàn để không bao giờ mất đơn hàng do thiếu hàng.",
+        "tags": [
+          "tồn kho",
+          "reorder point",
+          "safety stock",
+          "SKU",
+          "kho bãi"
+        ],
+        "learningOutcome": "Một file Dashboard quản lý và tối ưu tồn kho cho ít nhất 100 SKUs."
+      },
+      "ops-002": {
+        "title": "Routing & Fleet Ops",
+        "description": "Cắt giảm 15-20% chi phí vận tải thông qua sắp xếp lộ trình thông minh. Ứng dụng các thuật toán đơn giản để quản lý đội xe và tải trọng hiệu quả.",
+        "tags": [
+          "routing",
+          "vận tải",
+          "đội xe",
+          "tối ưu lộ trình",
+          "logistics"
+        ],
+        "learningOutcome": "Bản kế hoạch điều xe tối ưu cho một mạng lưới giao nhận thực tế."
+      },
+      "ops-003": {
+        "title": "Warehouse Flow Design",
+        "description": "Tăng 30% tốc độ lấy hàng (Picking) bằng cách sắp xếp lại vị trí hàng hóa và luồng di chuyển. Học cách vẽ lại mặt bằng kho thông minh.",
+        "tags": [
+          "kho bãi",
+          "layout",
+          "picking",
+          "material flow",
+          "warehouse design"
+        ],
+        "learningOutcome": "Bản thiết kế Layout kho tối ưu hóa không gian và luồng di chuyển (Material Flow)."
+      },
+      "ops-004": {
+        "title": "Supply Chain Network Design",
+        "description": "Thiết kế bản đồ logistics cho toàn doanh nghiệp. Trả lời câu hỏi chiến lược về vị trí kho bãi và trung tâm phân phối để giảm chi phí tổng thể.",
+        "tags": [
+          "network design",
+          "phân phối",
+          "kho bãi",
+          "chiến lược",
+          "GIS"
+        ],
+        "learningOutcome": "Đề án xác định vị trí kho tối ưu dựa trên dữ liệu địa lý và chi phí."
+      },
+      "ops-005": {
+        "title": "Simulation & Decision Support",
+        "description": "Đỉnh cao của tối ưu hóa. Sử dụng mô phỏng (AnyLogic/Arena) để dự đoán nút thắt cổ chai và thử nghiệm thay đổi mà không gây rủi ro cho vận hành thực.",
+        "tags": [
+          "simulation",
+          "AnyLogic",
+          "Arena",
+          "bottleneck",
+          "mô phỏng",
+          "decision support"
+        ],
+        "learningOutcome": "Mô hình mô phỏng hoàn chỉnh cho một dây chuyền hoặc hệ thống Logistics."
+      },
+      "da-001": {
+        "title": "Logistics Dashboarding",
+        "description": "Biến những bảng tính Excel rời rạc thành hệ thống báo cáo tự động trên Power BI. Giúp nhà quản lý nắm bắt tình hình kho vận chỉ trong 3 giây nhìn màn hình.",
+        "tags": [
+          "Power BI",
+          "dashboard",
+          "KPI",
+          "Excel",
+          "báo cáo"
+        ],
+        "learningOutcome": "Một hệ thống Dashboard báo cáo KPI thực tế của doanh nghiệp."
+      },
+      "da-002": {
+        "title": "SQL for Supply Chain",
+        "description": "Phá vỡ rào cản giữa 'Dân vận hành' và 'Dân IT'. Học viên làm chủ kỹ năng trích xuất dữ liệu thô từ hệ thống ERP/WMS để phục vụ các phân tích chuyên sâu.",
+        "tags": [
+          "SQL",
+          "ERP",
+          "WMS",
+          "dữ liệu",
+          "truy vấn",
+          "database"
+        ],
+        "learningOutcome": "Khả năng tự viết câu lệnh lấy dữ liệu từ ERP/WMS mà không cần hỗ trợ từ IT."
+      },
+      "da-003": {
+        "title": "Advanced Demand Planning",
+        "description": "Dự báo nhu cầu chính xác hơn để giảm tồn kho thừa và tránh cháy hàng. Tập trung vào xử lý dữ liệu lịch sử và biến động thị trường.",
+        "tags": [
+          "demand planning",
+          "forecasting",
+          "dự báo",
+          "tồn kho",
+          "mua hàng"
+        ],
+        "learningOutcome": "Mô hình dự báo nhu cầu (Forecasting Model) ứng dụng vào kế hoạch mua hàng."
+      },
+      "da-004": {
+        "title": "Digital Twin Foundation",
+        "description": "Xây dựng 'Bản sao số' để theo dõi toàn cảnh chuỗi cung ứng. Giúp nhận diện rủi ro tiềm ẩn tại bất kỳ mắt xích nào từ nhà cung cấp đến khách hàng.",
+        "tags": [
+          "digital twin",
+          "bản sao số",
+          "supply chain",
+          "rủi ro",
+          "data flow"
+        ],
+        "learningOutcome": "Sơ đồ dòng chảy dữ liệu (Data Flow) xuyên suốt chuỗi cung ứng số."
+      },
+      "da-005": {
+        "title": "Digital Transformation Roadmap",
+        "description": "Hoạch định chiến lược đầu tư công nghệ. Giúp lãnh đạo chọn đúng công cụ, đúng thời điểm để tránh lãng phí tiền bạc vào các dự án số hóa thất bại.",
+        "tags": [
+          "chuyển đổi số",
+          "roadmap",
+          "chiến lược",
+          "công nghệ",
+          "lãnh đạo"
+        ],
+        "learningOutcome": "Bản lộ trình (Roadmap) chuyển đổi số chi tiết cho đơn vị hoặc công ty."
+      },
+      "cl-001": {
+        "title": "Customs & Trade Practice",
+        "description": "Làm chủ nghiệp vụ Hải quan thực chiến. Học viên biết cách kiểm soát hồ sơ, áp mã thuế đúng và tự tin làm việc với cơ quan chức năng.",
+        "tags": [
+          "hải quan",
+          "xuất nhập khẩu",
+          "thuế quan",
+          "mã HS",
+          "thủ tục"
+        ],
+        "learningOutcome": "Bộ quy trình tự kiểm tra (Checklist) hồ sơ xuất nhập khẩu chuẩn chỉnh."
+      },
+      "cl-002": {
+        "title": "Operations Standards (ISO)",
+        "description": "Xây dựng nền tảng vận hành chuẩn quốc tế. Giúp doanh nghiệp luôn ở trạng thái sẵn sàng đánh giá từ các khách hàng lớn và tổ chức chứng nhận.",
+        "tags": [
+          "ISO",
+          "tiêu chuẩn",
+          "chứng nhận",
+          "vận hành",
+          "an toàn môi trường"
+        ],
+        "learningOutcome": "Kế hoạch triển khai và duy trì hệ thống quản lý ISO tại đơn vị."
+      },
+      "cl-003": {
+        "title": "FTA & Rules of Origin Master",
+        "description": "Biết cách thiết lập chuỗi cung ứng đáp ứng quy tắc xuất xứ để hưởng lợi ích tối đa từ các hiệp định thương mại tự do.",
+        "tags": [
+          "FTA",
+          "quy tắc xuất xứ",
+          "thuế quan ưu đãi",
+          "thương mại tự do",
+          "C/O"
+        ],
+        "learningOutcome": "Bản phân tích khả năng tận dụng FTA cho danh mục sản phẩm của công ty."
+      },
+      "cl-004": {
+        "title": "Legal Risk in Logistics",
+        "description": "Kỹ thuật soạn thảo hợp đồng và xử lý khủng hoảng pháp lý. Tập trung vào bảo vệ quyền lợi doanh nghiệp khi có sự cố hư hỏng, mất mát hàng hóa.",
+        "tags": [
+          "hợp đồng",
+          "pháp lý",
+          "rủi ro",
+          "khiếu nại",
+          "logistics law"
+        ],
+        "learningOutcome": "Mẫu hợp đồng Logistics và quy trình xử lý khiếu nại (Claim) tiêu chuẩn."
+      },
+      "cl-005": {
+        "title": "Integrity & Digital Compliance",
+        "description": "Quản trị sự minh bạch và bảo mật trong chuỗi cung ứng số. Đáp ứng các yêu cầu khắt khe về đạo đức kinh doanh của thị trường quốc tế.",
+        "tags": [
+          "tuân thủ số",
+          "bảo mật dữ liệu",
+          "đạo đức kinh doanh",
+          "minh bạch",
+          "ESG"
+        ],
+        "learningOutcome": "Bản dự thảo 'Chính sách tuân thủ nội bộ' và quy trình bảo mật dữ liệu số."
+      },
+      "iot-001": {
+        "title": "Industrial IoT & Sensors",
+        "description": "Nền tảng về 'giác quan' của máy móc. Học cách kết nối vạn vật trong nhà máy và kho bãi để dữ liệu luôn chảy về trung tâm một cách tự động.",
+        "tags": [
+          "IoT",
+          "cảm biến",
+          "nhà máy thông minh",
+          "kết nối",
+          "sensor map"
+        ],
+        "learningOutcome": "Một bản thiết kế hệ thống cảm biến (Sensor Map) cho một khu vực vận hành cụ thể."
+      },
+      "iot-002": {
+        "title": "Computer Vision in Ops",
+        "description": "Ứng dụng AI Camera để thay thế mắt người trong các tác vụ lặp đi lặp lại: đếm hàng, phân loại sản phẩm và giám sát an toàn 24/7.",
+        "tags": [
+          "computer vision",
+          "AI camera",
+          "phân loại",
+          "giám sát",
+          "an toàn lao động"
+        ],
+        "learningOutcome": "Đề án ứng dụng Camera thông minh để giải quyết 01 vấn đề giám sát thực tế."
+      },
+      "iot-003": {
+        "title": "Real-time Monitoring Systems",
+        "description": "Xây dựng hệ thống 'phản ứng nhanh'. Dữ liệu từ cảm biến được hiển thị tức thì trên điện thoại/máy tính để can thiệp kịp thời khi có sự cố.",
+        "tags": [
+          "real-time",
+          "monitoring",
+          "dashboard",
+          "cảnh báo",
+          "IoT"
+        ],
+        "learningOutcome": "Một Dashboard giám sát thời gian thực (Real-time) kết nối với thiết bị giả lập/thực tế."
+      },
+      "iot-004": {
+        "title": "Predictive Maintenance (AIoT)",
+        "description": "Chuyển từ 'Hỏng mới sửa' sang 'Biết trước để ngừa'. Sử dụng dữ liệu IoT để dự đoán tuổi thọ linh kiện, giúp giảm 50% thời gian dừng máy đột ngột.",
+        "tags": [
+          "predictive maintenance",
+          "AIoT",
+          "bảo trì",
+          "dự đoán",
+          "downtime"
+        ],
+        "learningOutcome": "Kế hoạch bảo trì dự báo (Predictive Maintenance Plan) dựa trên dữ liệu cảm biến."
+      },
+      "iot-005": {
+        "title": "AIoT Strategic Roadmap",
+        "description": "Tầm nhìn chiến lược về kết nối thông minh. Cách lựa chọn công nghệ, đảm bảo an ninh mạng và tích hợp toàn bộ dữ liệu hiện trường vào bộ não của doanh nghiệp.",
+        "tags": [
+          "AIoT",
+          "roadmap",
+          "an ninh mạng",
+          "hạ tầng IoT",
+          "chiến lược số"
+        ],
+        "learningOutcome": "Bản lộ trình (Roadmap) triển khai hạ tầng IoT/Vision toàn diện cho doanh nghiệp."
+      },
+      "ps-001": {
+        "title": "Technical Presentation Excellence",
+        "description": "Biến số liệu khô khan thành câu chuyện thuyết phục. Tập trung vào kỹ thuật kể chuyện bằng dữ liệu (Data Storytelling) dành riêng cho báo cáo vận hành.",
+        "tags": [
+          "presentation",
+          "data storytelling",
+          "báo cáo",
+          "slide",
+          "thuyết trình"
+        ],
+        "learningOutcome": "Một bộ Slide báo cáo chuyên môn đạt chuẩn 'Executive Ready'."
+      },
+      "ps-002": {
+        "title": "Structural Problem Solving",
+        "description": "Làm chủ các phương pháp tư duy có hệ thống để bóc tách các vấn đề hóc búa trong doanh nghiệp. Không giải quyết phần ngọn, tập trung vào căn nguyên.",
+        "tags": [
+          "problem solving",
+          "root cause",
+          "tư duy hệ thống",
+          "action plan",
+          "phân tích"
+        ],
+        "learningOutcome": "Ma trận giải quyết vấn đề và kế hoạch hành động khắc phục (Action Plan)."
+      },
+      "ps-003": {
+        "title": "Project Execution for Engineers",
+        "description": "Kỹ năng điều phối dự án cải tiến. Học viên biết cách kiểm soát tiến độ, quản lý nhà thầu và các bên liên quan để dự án không bị 'vỡ trận'.",
+        "tags": [
+          "project management",
+          "Gantt",
+          "tiến độ",
+          "nhà thầu",
+          "rủi ro dự án"
+        ],
+        "learningOutcome": "Biểu đồ Gantt và bảng quản trị rủi ro cho một dự án thực tế tại công ty."
+      },
+      "ps-004": {
+        "title": "Operational Leadership",
+        "description": "Kỹ năng quản lý nhân sự tại hiện trường. Tập trung vào việc tạo động lực cho nhân viên cấp dưới, quản lý hiệu suất và dẫn dắt sự thay đổi.",
+        "tags": [
+          "leadership",
+          "quản lý nhân sự",
+          "hiệu suất",
+          "động lực",
+          "change management"
+        ],
+        "learningOutcome": "Kỹ năng xử lý 10 tình huống xung đột nhân sự điển hình."
+      },
+      "ps-005": {
+        "title": "Supply Chain Executive Path",
+        "description": "Tư duy của một lãnh đạo cấp cao. Cách nhìn nhận chuỗi cung ứng dưới góc độ tài chính và chiến lược để định vị bản thân lên các vị trí quản lý tầm cỡ.",
+        "tags": [
+          "supply chain",
+          "lãnh đạo cấp cao",
+          "tài chính",
+          "chiến lược",
+          "career path"
+        ],
+        "learningOutcome": "Hồ sơ năng lực cá nhân (Professional Portfolio) và lộ trình thăng tiến sự nghiệp."
+      }
+    }
+  },
+  "about": {
+    "title": "Về Chúng Tôi",
+    "subtitle": "Intech Global Academy là đơn vị tiên phong tại Việt Nam tích hợp mô hình hệ sinh thái đào tạo và tư vấn công nghiệp thực chiến.",
+    "intro_title": "Thu hẹp khoảng cách giữa học thuật và thực tiễn",
+    "intro_desc": "Chúng tôi được xây dựng trên nền tảng hiểu biết sâu sắc về thị trường công nghiệp nội địa. Bằng việc kết nối ba trụ cột chiến lược là Industry (Công nghiệp) – Education (Đào tạo) – Global Mobility (Phái cử quốc tế), Intech Global Academy kiến tạo một lộ trình phát triển toàn diện cho thế hệ nhân lực công nghiệp tương lai tại Việt Nam và khu vực Đông Nam Á.",
+    "mission_title": "Sứ mệnh của chúng tôi",
+    "mission_desc": "Đóng vai trò là cầu nối chiến lược giữa các hệ sinh thái quan trọng của nền kinh tế hiện đại.",
+    "mission_industry_title": "Đối với Doanh nghiệp (Industry)",
+    "mission_industry_desc": "Nâng cao năng lực vận hành, tối ưu hóa quy trình và thúc đẩy chuyển đổi số thực chất cho các đơn vị sản xuất và logistics.",
+    "mission_education_title": "Đối với Người học (Education)",
+    "mission_education_desc": "Chuẩn hóa kỹ năng và trang bị kiến thức thực chiến cho sinh viên và nhân sự đi làm, giúp họ sẵn sàng cho vị trí trình độ cao.",
+    "mission_mobility_title": "Đối với Thị trường quốc tế (Mobility)",
+    "mission_mobility_desc": "Mở ra cơ hội nghề nghiệp và học tập xuyên biên giới thông qua hệ sinh thái học tập và trải nghiệm quốc tế.",
+    "focus_title": "Hệ giá trị FOCUS",
+    "focus_subtitle": "Tại Intech Global Academy, mọi hoạt động đều được định hướng bởi 5 giá trị then chốt.",
+    "focus_f_title": "Future-oriented (Tiên phong)",
+    "focus_f_desc": "Luôn đi đầu trong việc cập nhật công nghệ (AI, IoT) và đón đầu các xu hướng công nghiệp tương lai.",
+    "focus_o_title": "Optimization (Tối ưu)",
+    "focus_o_desc": "Cam kết mang lại hiệu quả cao nhất trong việc cải tiến quy trình doanh nghiệp và lộ trình cá nhân.",
+    "focus_c_title": "Connectivity (Kết nối)",
+    "focus_c_desc": "Xây dựng mạng lưới liên kết chặt chẽ giữa Nhà trường – Doanh nghiệp – Thị trường lao động toàn cầu.",
+    "focus_u_title": "Unleash (Khai phóng)",
+    "focus_u_desc": "Khai phá tiềm năng vô hạn của con người và giải phóng sức mạnh công nghệ để tạo ra những đột phá mới.",
+    "focus_s_title": "Synergy (Cộng hưởng)",
+    "focus_s_desc": "Tạo nên sức mạnh tổng thể từ sự gắn kết giữa 3 mảng hoạt động chính, cùng đối tác và học viên vươn tầm.",
+    "cta_title": "Sẵn sàng bắt đầu hành trình?",
+    "cta_desc": "Khám phá các khóa học chuyên sâu được thiết kế riêng cho lĩnh vực công nghiệp, giúp bạn làm chủ công nghệ và tối ưu hóa vận hành.",
+    "cta_button": "Khám phá danh mục đào tạo",
+    "legal_title": "Thông tin pháp lý",
+    "privacy_title": "Chính sách bảo mật",
+    "privacy_desc": "Đọc hiểu cách chúng tôi thu thập, sử dụng và bảo vệ dữ liệu, thông tin cá nhân của bạn trên hệ thống.",
+    "terms_title": "Điều khoản sử dụng",
+    "terms_desc": "Tìm hiểu các quy định, quyền lợi và trách nhiệm pháp lý khi bạn sử dụng dịch vụ của Intech."
+  },
+  "contact": {
+    "title": "Liên Hệ Trực Tiếp",
+    "subtitle": "Intech Global Academy luôn sẵn lòng lắng nghe và hỗ trợ định hướng sự nghiệp công nghiệp của bạn.",
+    "info_title": "Thông tin liên lạc",
+    "office_label": "Văn phòng chính",
+    "office_address": "Toà nhà Intech\nThành phố Hồ Chí Minh, Việt Nam",
+    "company_name": "Công ty TNHH Intech Global",
+    "tax_code": "Mã số thuế: 03xxxxxx",
+    "form_title": "Gửi thông điệp cho chúng tôi",
+    "form_subtitle": "Điền thông tin bên dưới, chuyên viên tư vấn sẽ liên hệ với bạn trong vòng 24 giờ.",
+    "form_success_title": "Đã gửi thành công!",
+    "form_success_desc": "Cảm ơn bạn đã liên hệ. Chúng tôi đã ghi nhận thông tin và sẽ phản hồi sớm nhất.",
+    "form_send_more": "Gửi thêm câu hỏi khác",
+    "name_label": "Họ và tên",
+    "name_placeholder": "VD: Nguyễn Văn A",
+    "phone_label": "Số điện thoại",
+    "phone_placeholder": "VD: 0912...",
+    "email_label": "Email",
+    "email_placeholder": "VD: email@example.com",
+    "interest_label": "Chủ đề quan tâm",
+    "interest_placeholder": "-- Chọn chủ đề --",
+    "interest_course": "Tư vấn khóa học đào tạo",
+    "interest_corporate": "Đào tạo doanh nghiệp (In-house)",
+    "interest_mobility": "Chương trình Mobility",
+    "interest_other": "Hợp tác & Vấn đề khác",
+    "message_label": "Nội dung tin nhắn",
+    "message_placeholder": "Bạn cần chúng tôi hỗ trợ cụ thể về vấn đề gì?",
+    "submit_button": "Gửi yêu cầu",
+    "submitting": "Đang gửi..."
+  },
+  "consultant": {
+    "title_line1": "Đồng hành cùng",
+    "title_line2": "Chuyên gia đầu ngành.",
+    "subtitle": "Nhận sự tư vấn trực tiếp từ những chuyên gia đang làm việc tại các tập đoàn công nghệ và tổ chức giáo dục hàng đầu thế giới.",
+    "expert_badge": "Chuyên gia quốc tế",
+    "consult_badge": "Tư vấn 1:1",
+    "rating_count": "({count} đánh giá)",
+    "specialty_label": "Chuyên môn",
+    "education_label": "Học vấn",
+    "book_button": "Đặt lịch tư vấn",
+    "roadmap_button": "Xem lộ trình chi tiết",
+    "why_title": "Giá trị từ sự dẫn dắt",
+    "why_subtitle": "Sự khác biệt của Intech nằm ở mạng lưới chuyên gia thực thụ, không chỉ là giảng viên.",
+    "why_item1_title": "Kinh nghiệm thực tế",
+    "why_item1_desc": "Học hỏi từ những dự án thật, lỗi thật và cách xử lý chuyên nghiệp từ thị trường.",
+    "why_item2_title": "Kết nối mạng lưới",
+    "why_item2_desc": "Mở rộng networking với những người có tầm ảnh hưởng lớn trong ngành.",
+    "why_item3_title": "Định hướng dài hạn",
+    "why_item3_desc": "Không chỉ là học kiến thức, bạn sẽ nhận được lộ trình sự nghiệp vững chắc.",
+    "faq_text": "Bạn còn thắc mắc về quy trình tư vấn?",
+    "workflow_link": "Xem quy trình làm việc",
+    "experts": {
+      "1": {
+        "name": "TS. Nguyễn Văn A",
+        "role": "Chuyên gia Giải pháp Phần mềm",
+        "experience": "15+ năm kinh nghiệm",
+        "specialty": "Cloud Architecture & Microservices",
+        "education": "Tiến sĩ CNTT - Đại học Stanford",
+        "bio": "Cựu kỹ sư trưởng tại Google với nhiều năm kinh nghiệm xây dựng hệ thống quy mô lớn."
+      },
+      "2": {
+        "name": "ThS. Trần Thị B",
+        "role": "Chuyên gia Tư vấn Nghề nghiệp",
+        "experience": "10+ năm kinh nghiệm",
+        "specialty": "Career Coaching & HR Strategy",
+        "education": "Thạc sĩ Quản trị nhân sự - Đại học Melbourne",
+        "bio": "Giúp hàng ngàn sinh viên kết nối thành công với các tập đoàn đa quốc gia."
+      },
+      "3": {
+        "name": "Ông Lê Văn C",
+        "role": "Chuyên gia Chuyển đổi số",
+        "experience": "12+ năm kinh nghiệm",
+        "specialty": "Digital Transformation & AI Strategy",
+        "education": "Cử nhân Kinh tế - Đại học Ngoại thương",
+        "bio": "Đã tư vấn chiến lược cho hơn 50 doanh nghiệp trong và ngoài nước."
+      }
+    }
+  },
+  "privacy": {
+    "title": "CHÍNH SÁCH BẢO MẬT TRỰC TUYẾN",
+    "intro": "Chính sách này quy định cách Intech Global Academy thu thập và xử lý thông tin khi bạn truy cập và tương tác với các tính năng trên website.",
+    "section1_title": "1. Thu thập thông tin tự động",
+    "section1_item1_title": "Dữ liệu truy cập:",
+    "section1_item1_desc": "Chúng tôi tự động thu thập thông tin qua Cookies và các công nghệ tương tự, bao gồm địa chỉ IP, loại trình duyệt, ngôn ngữ và thời gian truy cập để tối ưu hóa hiển thị website.",
+    "section1_item2_title": "Cookies:",
+    "section1_item2_desc": "Website sử dụng cookies để ghi nhớ tùy chọn của người dùng và phân tích lưu lượng truy cập nhằm cải thiện trải nghiệm người dùng trên trang.",
+    "section2_title": "2. Thu thập thông tin do người dùng cung cấp",
+    "section2_item1_title": "Biểu mẫu liên hệ/Đăng ký:",
+    "section2_item1_desc": "Khi bạn sử dụng các form trên website (như đăng ký nhận tin, yêu cầu tư vấn khóa học, tham gia workshop), chúng tôi thu thập họ tên, email và số điện thoại của bạn.",
+    "section2_item2_title": "Mục đích:",
+    "section2_item2_desc": "Thông tin này chỉ được sử dụng để phản hồi các yêu cầu từ phía bạn, cung cấp thông tin về khóa học (như Workshop AI-Powered Workflow) hoặc các chương trình đào tạo mà bạn quan tâm.",
+    "section3_title": "3. Bảo mật thông tin trực tuyến",
+    "section3_desc1": "Chúng tôi sử dụng giao thức HTTPS/SSL để mã hóa dữ liệu truyền tải giữa trình duyệt của bạn và máy chủ website nhằm ngăn chặn sự can thiệp trái phép.",
+    "section3_desc2": "Dữ liệu cá nhân thu thập qua website được lưu trữ trong môi trường kiểm soát nghiêm ngặt và tuyệt đối không được chia sẻ cho bất kỳ bên thứ ba nào vì mục đích tiếp thị.",
+    "footer_update": "Cập nhật lần cuối: 01/05/2026",
+    "footer_contact": "Mọi thắc mắc về chính sách bảo mật, vui lòng liên hệ email: hello@intech.edu.vn"
+  },
+  "terms": {
+    "title": "ĐIỀU KHOẢN SỬ DỤNG WEBSITE",
+    "intro": "Bằng việc truy cập vào website của Intech Global Academy, bạn đồng ý tuân thủ các quy định dưới đây.",
+    "section1_title": "1. Quyền sở hữu trí tuệ trên website",
+    "section1_desc1": "Toàn bộ nội dung hiển thị trên website bao gồm: Tagline, mô tả khóa học, danh mục đào tạo (AI Ứng dụng, Quản lý chất lượng, IoT...), hình ảnh và mã nguồn đều thuộc quyền sở hữu trí tuệ của Intech.",
+    "section1_desc2": "Người dùng chỉ được phép xem và tham khảo nội dung. Mọi hành vi sao chép, trích dẫn nội dung trực tuyến cho mục đích thương mại mà không có sự đồng ý bằng văn bản từ Intech đều bị nghiêm cấm.",
+    "section2_title": "2. Quy tắc ứng xử trực tuyến",
+    "section2_item1_title": "Hành vi bị cấm:",
+    "section2_item1_desc": "Không được sử dụng bất kỳ công cụ tự động nào (bots, scrapers) để thu thập dữ liệu từ website; không thực hiện các hành vi gây cản trở hoặc làm quá tải hạ tầng kỹ thuật của trang web.",
+    "section2_item2_title": "Thông tin phản hồi:",
+    "section2_item2_desc": "Người dùng cam kết không gửi các nội dung vi phạm pháp luật, xúc phạm hoặc chứa mã độc thông qua các biểu mẫu liên hệ trên website.",
+    "section3_title": "3. Liên kết đến bên thứ ba",
+    "section3_desc": "Website có thể chứa các liên kết đến các trang web khác (ví dụ: các công cụ AI như ChatGPT, Gemini hoặc các nền tảng quản lý học tập). Intech không chịu trách nhiệm về nội dung hay chính sách bảo mật của các trang web bên thứ ba này.",
+    "section4_title": "4. Giới hạn trách nhiệm về thông tin trực tuyến",
+    "section4_desc": "Thông tin về các khóa học và giải pháp trên website (như sơ đồ lộ trình \"Start Small. Scale Fast. Go Global\") mang tính chất giới thiệu và tham khảo. Intech có quyền cập nhật hoặc thay đổi nội dung này bất kỳ lúc nào mà không cần thông báo trước.",
+    "footer_update": "Cập nhật lần cuối: 01/05/2026",
+    "footer_contact": "Mọi thắc mắc về điều khoản sử dụng, vui lòng liên hệ email: hello@intech.edu.vn"
+  },
+  "coming_soon": {
+    "title": "Tính năng đang được phát triển",
+    "description": "Chúng tôi đang nỗ lực hoàn thiện phân hệ này để mang lại trải nghiệm tốt nhất cho bạn trong thời gian tới. Vui lòng quay lại sau nhé!",
+    "back_to_home": "Quay lại trang chủ",
+    "email_placeholder": "Email của bạn",
+    "notify_button": "Nhận thông báo"
+  },
+  "registration": {
+    "modal_title": "Đăng ký khóa học",
+    "modal_subtitle": "Vui lòng điền đầy đủ thông tin bên dưới để hoàn tất đăng ký.",
+    "success_title": "Đăng ký thành công!",
+    "success_desc": "Cảm ơn bạn đã đăng ký. Bộ phận tuyển sinh của Intech sẽ liên hệ với bạn qua số điện thoại để tư vấn chi tiết trong thời gian sớm nhất.",
+    "close_button": "Đóng cửa sổ",
+    "course_info_title": "Thông tin khóa học",
+    "course_name": "Tên khóa học",
+    "topic": "Chủ đề",
+    "level": "Cấp độ",
+    "duration": "Thời lượng",
+    "duration_value": "{hours} giờ ({sessions} buổi)",
+    "fee": "Học phí",
+    "personal_info_title": "Thông tin cá nhân",
+    "name_label": "Họ và tên",
+    "phone_label": "Số điện thoại",
+    "email_label": "Email",
+    "school_work_label": "Trường đang học / Công tác",
+    "school_work_placeholder": "VD: ĐH Bách Khoa TP.HCM",
+    "academic_year_label": "Năm học",
+    "academic_year_placeholder": "-- Chọn năm học --",
+    "year_1": "Năm 1",
+    "year_2": "Năm 2",
+    "year_3": "Năm 3",
+    "year_4": "Năm 4",
+    "graduated": "Mới tốt nghiệp",
+    "working": "Đã đi làm",
+    "major_label": "Ngành học",
+    "major_placeholder": "VD: Quản lý công nghiệp",
+    "survey_title": "Khảo sát ngắn",
+    "source_label": "Bạn biết đến IntechISC qua đâu?",
+    "source_placeholder": "-- Chọn kênh tiếp cận --",
+    "source_facebook_ig": "Facebook / Instagram",
+    "source_friend": "Bạn bè giới thiệu",
+    "source_tiktok": "TikTok",
+    "source_google": "Google Search",
+    "source_club": "Câu lạc bộ trường",
+    "source_other": "Khác",
+    "goal_label": "Bạn muốn đạt được gì sau khóa học?",
+    "goal_placeholder": "Mục tiêu hoặc kỳ vọng của bạn là gì?",
+    "submit_button": "Gửi thông tin đăng ký",
+    "submitting": "Đang gửi đăng ký...",
+    "privacy_note": "Bằng việc đăng ký, bạn đồng ý với chính sách bảo mật của Intech."
+  },
+  "thank_you": {
+    "contact_title": "Cảm ơn bạn đã liên hệ!",
+    "contact_desc": "Chúng tôi đã nhận được thông điệp của bạn. Chuyên viên tư vấn sẽ phản hồi trong vòng 24 giờ làm việc.",
+    "registration_title": "Đăng ký thành công!",
+    "registration_desc": "Cảm ơn bạn đã đăng ký. Bộ phận tuyển sinh Intech sẽ liên hệ qua số điện thoại để tư vấn chi tiết trong thời gian sớm nhất.",
+    "default_title": "Cảm ơn bạn!",
+    "default_desc": "Chúng tôi đã nhận được thông tin và sẽ liên hệ với bạn sớm.",
+    "back_home": "Về trang chủ",
+    "explore_courses": "Khám phá khóa học"
+  }
+}

@@ -1,9 +1,10 @@
 "use client";
 
 import { motion } from "framer-motion";
-import Link from "next/link";
+import { Link } from "@/i18n/routing";
 import { ArrowRight, Clock, BookOpen, Tag } from "lucide-react";
-import { type Course, levelLabels, getTopicBySlug } from "@/data/courses";
+import { type Course, getTopicBySlug } from "@/data/courses";
+import { useTranslations } from "next-intl";
 
 // Helper function to generate a consistent gradient based on topic slug
 const getGradientByTopic = (slug: string) => {
@@ -20,9 +21,16 @@ const getGradientByTopic = (slug: string) => {
 };
 
 export default function CourseCard({ course }: { course: Course }) {
+  const t = useTranslations('data.courses');
+  const tTopics = useTranslations('data.topics');
+  const tLevels = useTranslations('courses.levels');
   const topic = getTopicBySlug(course.topicSlug);
   const gradientClass = getGradientByTopic(course.topicSlug);
   
+  // Use course.id as key for translations
+  const courseKey = course.id as any;
+  const topicKey = course.topicSlug as any;
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -39,13 +47,13 @@ export default function CourseCard({ course }: { course: Course }) {
           {/* Badges */}
           <div className="absolute top-4 left-4 z-10">
             <span className="bg-white/95 backdrop-blur-sm text-[#002D62] text-xs font-bold px-3 py-1.5 rounded-full shadow-md">
-              {levelLabels[course.level]}
+              {tLevels(course.level)}
             </span>
           </div>
 
           <div className="absolute top-4 right-4 z-10">
             <span className="bg-[#002D62]/90 backdrop-blur-sm text-white text-xs font-medium px-3 py-1.5 rounded-full shadow-md">
-              {topic?.name || "Khóa học"}
+              {tTopics(`${topicKey}.name`)}
             </span>
           </div>
 
@@ -55,24 +63,26 @@ export default function CourseCard({ course }: { course: Course }) {
             <div className="absolute inset-0 bg-white/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
             {/* Placeholder Icon/Text based on title initials */}
             <span className="text-white/40 font-heading text-6xl font-black tracking-tighter opacity-50 group-hover:scale-110 transition-transform duration-500">
-              {course.title.substring(0, 2).toUpperCase()}
+              {t(`${courseKey}.title`).substring(0, 2).toUpperCase()}
             </span>
           </div>
 
           <div className="p-6 flex flex-col flex-1">
             <h3 className="font-heading font-bold text-[#002D62] text-xl mb-3 line-clamp-2">
-              {course.title}
+              {t(`${courseKey}.title`)}
             </h3>
             
             <p className="text-gray-600 text-sm mb-4 line-clamp-2">
-              {course.description}
+              {t(`${courseKey}.description`)}
             </p>
 
             {/* Tags */}
             <div className="flex flex-wrap gap-2 mb-4">
-              {course.tags.slice(0, 3).map((tag, idx) => (
+              {/* Note: Tags translation is a bit tricky with lists, assuming they are available as t.raw or similar if needed, 
+                  but for now we can use keys or index if they are in the JSON */}
+              {course.tags.slice(0, 3).map((_, idx) => (
                 <span key={idx} className="inline-flex items-center gap-1 text-[10px] font-medium text-gray-500 bg-gray-100 px-2 py-1 rounded-md uppercase tracking-wider">
-                  <Tag className="w-3 h-3" /> {tag}
+                  <Tag className="w-3 h-3" /> {t(`${courseKey}.tags.${idx}` as any)}
                 </span>
               ))}
               {course.tags.length > 3 && (

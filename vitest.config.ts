@@ -3,11 +3,11 @@ import react from '@vitejs/plugin-react'
 import path from 'path'
 
 export default defineConfig({
-  plugins: [react()],
+  plugins: [react() as any],
   test: {
     environment: 'jsdom',
     globals: true,
-    setupFiles: './src/test/setup.ts',
+    setupFiles: './src/test/setup.tsx',
     coverage: {
       provider: 'v8',
       reporter: ['text', 'json', 'html'],

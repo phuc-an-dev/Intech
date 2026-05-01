@@ -6,10 +6,13 @@ describe('Header Component', () => {
   it('renders the logo and desktop navigation', () => {
     render(<Header />)
     expect(screen.getByText('Intech')).toBeInTheDocument()
-    expect(screen.getByText('Khóa học')).toBeInTheDocument()
+    expect(screen.getByText('about')).toBeInTheDocument()
+    expect(screen.getByText('courses')).toBeInTheDocument()
+    expect(screen.getByText('student_mobility')).toBeInTheDocument()
+    expect(screen.getByText('contact_us')).toBeInTheDocument()
   })
 
-  it('renders the mobile menu toggle on small screens', () => {
+  it('renders the mobile menu toggle', () => {
     render(<Header />)
     const toggle = screen.getByLabelText('Toggle Menu')
     expect(toggle).toBeInTheDocument()
@@ -21,10 +24,7 @@ describe('Header Component', () => {
     
     // Open
     fireEvent.click(toggle)
-    expect(screen.getAllByText('Liên hệ ngay').length).toBeGreaterThan(0)
-    
-    // Close
-    fireEvent.click(toggle)
-    // Drawer might still be in DOM due to AnimatePresence but should be hidden or exiting
+    // The drawer contains 'register' button
+    expect(screen.getAllByText('register').length).toBeGreaterThan(0)
   })
 })

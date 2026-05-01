@@ -1,9 +1,14 @@
-"use client";
+'use client';
 
-import { useState, useEffect } from "react";
-import { createPortal } from "react-dom";
-import { motion, AnimatePresence } from "framer-motion";
-import { X, Send, CheckCircle2, BookOpen, Info } from "lucide-react";
+import { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { z } from 'zod';
+import { motion, AnimatePresence } from 'framer-motion';
+import { X, Send, BookOpen, Info } from 'lucide-react';
+import { useTranslations } from 'next-intl';
+import { useRouter } from '@/i18n/routing';
 
 export interface CourseInfo {
   title: string;
@@ -20,37 +25,63 @@ interface RegistrationModalProps {
   courseInfo: CourseInfo;
 }
 
+const registrationSchema = z.object({
+  name: z.string().min(2, 'Vui lòng nhập họ tên'),
+  phone: z.string().regex(/^0[3-9]\d{8}$/, 'Số điện thoại không hợp lệ'),
+  email: z.string().email('Email không hợp lệ'),
+  school: z.string().min(2, 'Vui lòng nhập trường/công ty'),
+  academicYear: z.string().optional(),
+  major: z.string().optional(),
+  source: z.string().optional(),
+  goal: z.string().optional(),
+});
+type RegistrationFormData = z.infer<typeof registrationSchema>;
+
 export default function RegistrationModal({ isOpen, onClose, courseInfo }: RegistrationModalProps) {
-  const [formStatus, setFormStatus] = useState<"idle" | "submitting" | "success">("idle");
+  const t = useTranslations('registration');
+  const router = useRouter();
   const [mounted, setMounted] = useState(false);
+  const [apiError, setApiError] = useState('');
 
-  useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    setMounted(true);
-  }, []);
+  const { register, handleSubmit, reset, formState: { errors, isSubmitting } } = useForm<RegistrationFormData>({
+    resolver: zodResolver(registrationSchema),
+  });
 
-  // Prevent background scrolling when modal is open
+  useEffect(() => { setMounted(true); }, []);
+
   useEffect(() => {
     if (isOpen) {
-      document.body.style.overflow = "hidden";
-      // eslint-disable-next-line react-hooks/set-state-in-effect
-      setFormStatus("idle"); // reset status when opened
+      document.body.style.overflow = 'hidden';
+      reset();
+      setApiError('');
     } else {
-      document.body.style.overflow = "unset";
+      document.body.style.overflow = 'unset';
     }
-    return () => {
-      document.body.style.overflow = "unset";
-    };
-  }, [isOpen]);
+    return () => { document.body.style.overflow = 'unset'; };
+  }, [isOpen, reset]);
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setFormStatus("submitting");
-    
-    // Simulate API call
-    setTimeout(() => {
-      setFormStatus("success");
-    }, 1500);
+  const onSubmit = async (data: RegistrationFormData) => {
+    setApiError('');
+    const res = await fetch('/api/registration', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        ...data,
+        courseTitle: courseInfo.title,
+        topicName: courseInfo.topicName,
+        levelLabel: courseInfo.levelLabel,
+        durationHours: courseInfo.durationHours,
+        durationSessions: courseInfo.durationSessions,
+        price: courseInfo.price,
+      }),
+    });
+    if (res.ok) {
+      onClose();
+      router.push('/thank-you?type=registration' as never);
+    } else {
+      const json = await res.json().catch(() => ({}));
+      setApiError(json.error ?? 'Gửi thất bại. Vui lòng thử lại.');
+    }
   };
 
   if (!mounted) return null;
@@ -89,169 +120,148 @@ export default function RegistrationModal({ isOpen, onClose, courseInfo }: Regis
                   <div className="w-10 h-10 bg-white/10 rounded-xl flex items-center justify-center">
                     <BookOpen className="w-5 h-5 text-[#00A3C1]" />
                   </div>
-                  <h2 className="font-heading font-bold text-2xl">Đăng ký khóa học</h2>
+                  <h2 className="font-heading font-bold text-2xl">{t("modal_title")}</h2>
                 </div>
                 <p className="text-white/70 text-sm pl-[3.25rem]">
-                  Vui lòng điền đầy đủ thông tin bên dưới để hoàn tất đăng ký.
+                  {t("modal_subtitle")}
                 </p>
               </div>
 
               {/* Body */}
               <div className="p-5 md:p-8 overflow-y-auto">
-                {formStatus === "success" ? (
-                  <motion.div 
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    className="text-center py-10"
-                  >
-                    <div className="w-20 h-20 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                      <CheckCircle2 className="w-10 h-10 text-emerald-600" />
+                <div className="space-y-8">
+                  {/* Course info (read-only) */}
+                  <div className="bg-[#F4F7F9] rounded-2xl p-5 border border-[#002D62]/5 relative overflow-hidden">
+                    <div className="absolute top-0 right-0 p-4 opacity-5 pointer-events-none">
+                      <Info className="w-32 h-32" />
                     </div>
-                    <h3 className="font-heading font-bold text-2xl text-[#002D62] mb-3">Đăng ký thành công!</h3>
-                    <p className="text-gray-600 mb-8 leading-relaxed max-w-sm mx-auto">
-                      Cảm ơn bạn đã đăng ký. Bộ phận tuyển sinh của Intech sẽ liên hệ với bạn qua số điện thoại để tư vấn chi tiết trong thời gian sớm nhất.
-                    </p>
-                    <button 
-                      onClick={onClose}
-                      className="w-full sm:w-auto px-10 py-4 bg-[#F4F7F9] text-[#002D62] font-bold rounded-xl hover:bg-gray-200 transition-colors"
-                    >
-                      Đóng cửa sổ
-                    </button>
-                  </motion.div>
-                ) : (
-                  <div className="space-y-8">
-                    
-                    {/* Thông tin khóa học (Read-only) */}
-                    <div className="bg-[#F4F7F9] rounded-2xl p-5 border border-[#002D62]/5 relative overflow-hidden">
-                      <div className="absolute top-0 right-0 p-4 opacity-5 pointer-events-none">
-                        <Info className="w-32 h-32" />
+                    <h3 className="text-xs font-bold text-[#002D62] uppercase tracking-wider mb-4 border-b border-gray-200 pb-2 relative z-10">
+                      {t('course_info_title')}
+                    </h3>
+                    <div className="space-y-3 relative z-10">
+                      <div>
+                        <span className="text-gray-500 text-xs font-semibold uppercase tracking-wide block mb-1">{t('course_name')}</span>
+                        <strong className="text-[#002D62] text-lg leading-tight">{courseInfo.title}</strong>
                       </div>
-                      <h3 className="text-xs font-bold text-[#002D62] uppercase tracking-wider mb-4 border-b border-gray-200 pb-2 relative z-10">
-                        Thông tin khóa học
-                      </h3>
-                      <div className="space-y-3 relative z-10">
+                      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-2">
                         <div>
-                          <span className="text-gray-500 text-xs font-semibold uppercase tracking-wide block mb-1">Tên khóa học</span>
-                          <strong className="text-[#002D62] text-lg leading-tight">{courseInfo.title}</strong>
+                          <span className="text-gray-500 text-xs font-semibold uppercase tracking-wide block mb-0.5">{t('topic')}</span>
+                          <span className="font-medium text-sm">{courseInfo.topicName}</span>
                         </div>
-                        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-2">
-                          <div>
-                            <span className="text-gray-500 text-xs font-semibold uppercase tracking-wide block mb-0.5">Chủ đề</span>
-                            <span className="font-medium text-sm">{courseInfo.topicName}</span>
-                          </div>
-                          <div>
-                            <span className="text-gray-500 text-xs font-semibold uppercase tracking-wide block mb-0.5">Cấp độ</span>
-                            <span className="font-medium text-sm">{courseInfo.levelLabel}</span>
-                          </div>
-                          <div>
-                            <span className="text-gray-500 text-xs font-semibold uppercase tracking-wide block mb-0.5">Thời lượng</span>
-                            <span className="font-medium text-sm">{courseInfo.durationHours} giờ ({courseInfo.durationSessions} buổi)</span>
-                          </div>
-                          <div>
-                            <span className="text-gray-500 text-xs font-semibold uppercase tracking-wide block mb-0.5">Học phí</span>
-                            <span className="font-bold text-[#00A3C1] text-sm">{courseInfo.price.toLocaleString("vi-VN")} VNĐ</span>
-                          </div>
+                        <div>
+                          <span className="text-gray-500 text-xs font-semibold uppercase tracking-wide block mb-0.5">{t('level')}</span>
+                          <span className="font-medium text-sm">{courseInfo.levelLabel}</span>
+                        </div>
+                        <div>
+                          <span className="text-gray-500 text-xs font-semibold uppercase tracking-wide block mb-0.5">{t('duration')}</span>
+                          <span className="font-medium text-sm">{t('duration_value', { hours: courseInfo.durationHours, sessions: courseInfo.durationSessions })}</span>
+                        </div>
+                        <div>
+                          <span className="text-gray-500 text-xs font-semibold uppercase tracking-wide block mb-0.5">{t('fee')}</span>
+                          <span className="font-bold text-[#00A3C1] text-sm">{courseInfo.price.toLocaleString('vi-VN')} VNĐ</span>
                         </div>
                       </div>
                     </div>
+                  </div>
 
-                    <form onSubmit={handleSubmit} className="space-y-8">
-                      {/* Section 1: Thông tin cá nhân */}
-                      <div>
-                        <h3 className="text-lg font-bold text-[#002D62] mb-4 flex items-center gap-2">
-                          <span className="w-6 h-6 rounded-full bg-[#00A3C1]/10 text-[#00A3C1] flex items-center justify-center text-sm">1</span>
-                          Thông tin cá nhân
-                        </h3>
-                        <div className="space-y-5">
+                  <form onSubmit={handleSubmit(onSubmit)} className="space-y-8" noValidate>
+                    {/* Section 1: Personal info */}
+                    <div>
+                      <h3 className="text-lg font-bold text-[#002D62] mb-4 flex items-center gap-2">
+                        <span className="w-6 h-6 rounded-full bg-[#00A3C1]/10 text-[#00A3C1] flex items-center justify-center text-sm">1</span>
+                        {t('personal_info_title')}
+                      </h3>
+                      <div className="space-y-5">
+                        <div className="space-y-1.5">
+                          <label htmlFor="modal-name" className="text-sm font-bold text-gray-700">{t('name_label')} <span className="text-rose-500">*</span></label>
+                          <input id="modal-name" type="text" placeholder="VD: Nguyễn Văn A" {...register('name')}
+                            className="w-full px-4 py-3.5 rounded-xl bg-[#F4F7F9] border border-transparent focus:bg-white focus:border-[#00A3C1] focus:ring-2 focus:ring-[#00A3C1]/20 outline-none transition-all font-medium" />
+                          {errors.name && <p className="text-rose-500 text-xs">{errors.name.message}</p>}
+                        </div>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                           <div className="space-y-1.5">
-                            <label htmlFor="modal-name" className="text-sm font-bold text-gray-700">Họ và tên <span className="text-rose-500">*</span></label>
-                            <input type="text" id="modal-name" required placeholder="VD: Nguyễn Văn A" className="w-full px-4 py-3.5 rounded-xl bg-[#F4F7F9] border border-transparent focus:bg-white focus:border-[#00A3C1] focus:ring-2 focus:ring-[#00A3C1]/20 outline-none transition-all font-medium" />
+                            <label htmlFor="modal-phone" className="text-sm font-bold text-gray-700">{t('phone_label')} <span className="text-rose-500">*</span></label>
+                            <input id="modal-phone" type="tel" placeholder="VD: 0912..." {...register('phone')}
+                              className="w-full px-4 py-3.5 rounded-xl bg-[#F4F7F9] border border-transparent focus:bg-white focus:border-[#00A3C1] focus:ring-2 focus:ring-[#00A3C1]/20 outline-none transition-all font-medium" />
+                            {errors.phone && <p className="text-rose-500 text-xs">{errors.phone.message}</p>}
                           </div>
-                          
-                          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                            <div className="space-y-1.5">
-                              <label htmlFor="modal-phone" className="text-sm font-bold text-gray-700">Số điện thoại <span className="text-rose-500">*</span></label>
-                              <input type="tel" id="modal-phone" required placeholder="VD: 0912..." className="w-full px-4 py-3.5 rounded-xl bg-[#F4F7F9] border border-transparent focus:bg-white focus:border-[#00A3C1] focus:ring-2 focus:ring-[#00A3C1]/20 outline-none transition-all font-medium" />
-                            </div>
-                            <div className="space-y-1.5">
-                              <label htmlFor="modal-email" className="text-sm font-bold text-gray-700">Email <span className="text-rose-500">*</span></label>
-                              <input type="email" id="modal-email" required placeholder="email@example.com" className="w-full px-4 py-3.5 rounded-xl bg-[#F4F7F9] border border-transparent focus:bg-white focus:border-[#00A3C1] focus:ring-2 focus:ring-[#00A3C1]/20 outline-none transition-all font-medium" />
-                            </div>
-                          </div>
-
-                          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                            <div className="space-y-1.5 md:col-span-2">
-                              <label htmlFor="modal-school" className="text-sm font-bold text-gray-700">Trường đang học / Công tác <span className="text-rose-500">*</span></label>
-                              <input type="text" id="modal-school" required placeholder="VD: ĐH Bách Khoa TP.HCM" className="w-full px-4 py-3.5 rounded-xl bg-[#F4F7F9] border border-transparent focus:bg-white focus:border-[#00A3C1] focus:ring-2 focus:ring-[#00A3C1]/20 outline-none transition-all font-medium" />
-                            </div>
-                            <div className="space-y-1.5">
-                              <label htmlFor="modal-year" className="text-sm font-bold text-gray-700">Năm học</label>
-                              <select id="modal-year" className="w-full px-4 py-3.5 rounded-xl bg-[#F4F7F9] border border-transparent focus:bg-white focus:border-[#00A3C1] focus:ring-2 focus:ring-[#00A3C1]/20 outline-none transition-all font-medium text-gray-700">
-                                <option value="">-- Chọn năm học --</option>
-                                <option value="1">Năm 1</option>
-                                <option value="2">Năm 2</option>
-                                <option value="3">Năm 3</option>
-                                <option value="4">Năm 4</option>
-                                <option value="graduated">Mới tốt nghiệp</option>
-                                <option value="working">Đã đi làm</option>
-                              </select>
-                            </div>
-                            <div className="space-y-1.5">
-                              <label htmlFor="modal-major" className="text-sm font-bold text-gray-700">Ngành học</label>
-                              <input type="text" id="modal-major" placeholder="VD: Quản lý công nghiệp" className="w-full px-4 py-3.5 rounded-xl bg-[#F4F7F9] border border-transparent focus:bg-white focus:border-[#00A3C1] focus:ring-2 focus:ring-[#00A3C1]/20 outline-none transition-all font-medium" />
-                            </div>
+                          <div className="space-y-1.5">
+                            <label htmlFor="modal-email" className="text-sm font-bold text-gray-700">{t('email_label')} <span className="text-rose-500">*</span></label>
+                            <input id="modal-email" type="email" placeholder="email@example.com" {...register('email')}
+                              className="w-full px-4 py-3.5 rounded-xl bg-[#F4F7F9] border border-transparent focus:bg-white focus:border-[#00A3C1] focus:ring-2 focus:ring-[#00A3C1]/20 outline-none transition-all font-medium" />
+                            {errors.email && <p className="text-rose-500 text-xs">{errors.email.message}</p>}
                           </div>
                         </div>
-                      </div>
-
-                      {/* Section 2: Marketing & Insight */}
-                      <div>
-                        <h3 className="text-lg font-bold text-[#002D62] mb-4 flex items-center gap-2">
-                          <span className="w-6 h-6 rounded-full bg-[#00A3C1]/10 text-[#00A3C1] flex items-center justify-center text-sm">2</span>
-                          Khảo sát ngắn
-                        </h3>
-                        <div className="space-y-5">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                          <div className="space-y-1.5 md:col-span-2">
+                            <label htmlFor="modal-school" className="text-sm font-bold text-gray-700">{t('school_work_label')} <span className="text-rose-500">*</span></label>
+                            <input id="modal-school" type="text" placeholder={t('school_work_placeholder')} {...register('school')}
+                              className="w-full px-4 py-3.5 rounded-xl bg-[#F4F7F9] border border-transparent focus:bg-white focus:border-[#00A3C1] focus:ring-2 focus:ring-[#00A3C1]/20 outline-none transition-all font-medium" />
+                            {errors.school && <p className="text-rose-500 text-xs">{errors.school.message}</p>}
+                          </div>
                           <div className="space-y-1.5">
-                            <label htmlFor="modal-source" className="text-sm font-bold text-gray-700">Bạn biết đến IntechISC qua đâu?</label>
-                            <select id="modal-source" className="w-full px-4 py-3.5 rounded-xl bg-[#F4F7F9] border border-transparent focus:bg-white focus:border-[#00A3C1] focus:ring-2 focus:ring-[#00A3C1]/20 outline-none transition-all font-medium text-gray-700">
-                              <option value="">-- Chọn kênh tiếp cận --</option>
-                              <option value="facebook_ig">Facebook / Instagram</option>
-                              <option value="friend">Bạn bè giới thiệu</option>
-                              <option value="tiktok">TikTok</option>
-                              <option value="google">Google Search</option>
-                              <option value="club">Câu lạc bộ trường</option>
-                              <option value="other">Khác</option>
+                            <label htmlFor="modal-year" className="text-sm font-bold text-gray-700">{t('academic_year_label')}</label>
+                            <select id="modal-year" {...register('academicYear')}
+                              className="w-full px-4 py-3.5 rounded-xl bg-[#F4F7F9] border border-transparent focus:bg-white focus:border-[#00A3C1] focus:ring-2 focus:ring-[#00A3C1]/20 outline-none transition-all font-medium text-gray-700">
+                              <option value="">{t('academic_year_placeholder')}</option>
+                              <option value="1">{t('year_1')}</option>
+                              <option value="2">{t('year_2')}</option>
+                              <option value="3">{t('year_3')}</option>
+                              <option value="4">{t('year_4')}</option>
+                              <option value="graduated">{t('graduated')}</option>
+                              <option value="working">{t('working')}</option>
                             </select>
                           </div>
                           <div className="space-y-1.5">
-                            <label htmlFor="modal-goal" className="text-sm font-bold text-gray-700">Bạn muốn đạt được gì sau khóa học?</label>
-                            <textarea id="modal-goal" rows={3} placeholder="Mục tiêu hoặc kỳ vọng của bạn là gì?" className="w-full px-4 py-3.5 rounded-xl bg-[#F4F7F9] border border-transparent focus:bg-white focus:border-[#00A3C1] focus:ring-2 focus:ring-[#00A3C1]/20 outline-none transition-all resize-none font-medium"></textarea>
+                            <label htmlFor="modal-major" className="text-sm font-bold text-gray-700">{t('major_label')}</label>
+                            <input id="modal-major" type="text" placeholder={t('major_placeholder')} {...register('major')}
+                              className="w-full px-4 py-3.5 rounded-xl bg-[#F4F7F9] border border-transparent focus:bg-white focus:border-[#00A3C1] focus:ring-2 focus:ring-[#00A3C1]/20 outline-none transition-all font-medium" />
                           </div>
                         </div>
                       </div>
+                    </div>
 
-                      <div className="pt-4 border-t border-gray-100">
-                        <button 
-                          type="submit" 
-                          disabled={formStatus === "submitting"}
-                          className="w-full py-4 bg-[#002D62] text-white rounded-xl font-bold text-lg hover:bg-[#00A3C1] transition-all duration-300 shadow-md hover:shadow-xl hover:-translate-y-0.5 transform flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed disabled:transform-none"
-                        >
-                          {formStatus === "submitting" ? (
-                            <>Đang gửi đăng ký...</>
-                          ) : (
-                            <>
-                              Gửi thông tin đăng ký
-                              <Send className="w-5 h-5" />
-                            </>
-                          )}
-                        </button>
-                        <p className="text-center text-xs text-gray-500 pt-3">
-                          Bằng việc đăng ký, bạn đồng ý với chính sách bảo mật của Intech.
-                        </p>
+                    {/* Section 2: Survey */}
+                    <div>
+                      <h3 className="text-lg font-bold text-[#002D62] mb-4 flex items-center gap-2">
+                        <span className="w-6 h-6 rounded-full bg-[#00A3C1]/10 text-[#00A3C1] flex items-center justify-center text-sm">2</span>
+                        {t('survey_title')}
+                      </h3>
+                      <div className="space-y-5">
+                        <div className="space-y-1.5">
+                          <label htmlFor="modal-source" className="text-sm font-bold text-gray-700">{t('source_label')}</label>
+                          <select id="modal-source" {...register('source')}
+                            className="w-full px-4 py-3.5 rounded-xl bg-[#F4F7F9] border border-transparent focus:bg-white focus:border-[#00A3C1] focus:ring-2 focus:ring-[#00A3C1]/20 outline-none transition-all font-medium text-gray-700">
+                            <option value="">{t('source_placeholder')}</option>
+                            <option value="facebook_ig">{t('source_facebook_ig')}</option>
+                            <option value="friend">{t('source_friend')}</option>
+                            <option value="tiktok">{t('source_tiktok')}</option>
+                            <option value="google">{t('source_google')}</option>
+                            <option value="club">{t('source_club')}</option>
+                            <option value="other">{t('source_other')}</option>
+                          </select>
+                        </div>
+                        <div className="space-y-1.5">
+                          <label htmlFor="modal-goal" className="text-sm font-bold text-gray-700">{t('goal_label')}</label>
+                          <textarea id="modal-goal" rows={3} placeholder={t('goal_placeholder')} {...register('goal')}
+                            className="w-full px-4 py-3.5 rounded-xl bg-[#F4F7F9] border border-transparent focus:bg-white focus:border-[#00A3C1] focus:ring-2 focus:ring-[#00A3C1]/20 outline-none transition-all resize-none font-medium" />
+                        </div>
                       </div>
-                    </form>
-                  </div>
-                )}
+                    </div>
+
+                    {apiError && (
+                      <p className="text-rose-600 text-sm bg-rose-50 border border-rose-200 px-4 py-3 rounded-xl">{apiError}</p>
+                    )}
+
+                    <div className="pt-4 border-t border-gray-100">
+                      <button type="submit" disabled={isSubmitting}
+                        className="w-full py-4 bg-[#002D62] text-white rounded-xl font-bold text-lg hover:bg-[#00A3C1] transition-all duration-300 shadow-md hover:shadow-xl hover:-translate-y-0.5 transform flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed disabled:transform-none">
+                        {isSubmitting ? t('submitting') : <>{t('submit_button')} <Send className="w-5 h-5" /></>}
+                      </button>
+                      <p className="text-center text-xs text-gray-500 pt-3">{t('privacy_note')}</p>
+                    </div>
+                  </form>
+                </div>
               </div>
             </motion.div>
           </div>
