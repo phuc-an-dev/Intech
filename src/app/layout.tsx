@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Montserrat, Inter } from "next/font/google";
 import Link from "next/link";
 import Header from "@/components/Header";
+import BackToTop from "@/components/BackToTop";
 import "./globals.css";
 
 const montserrat = Montserrat({
@@ -27,9 +28,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="vi">
+    <html lang="vi" className="scroll-smooth">
       <body className={`${montserrat.variable} ${inter.variable} antialiased flex flex-col min-h-screen`}>
         <Header />
+        <BackToTop />
 
         {/* Main Content */}
         <main className="flex-1 w-full">
@@ -48,17 +50,17 @@ export default function RootLayout({
             <div>
               <h3 className="font-bold text-lg mb-4 text-[#00A3C1]">Khám phá</h3>
               <ul className="space-y-3 text-[#F4F7F9]/80">
+                <li><Link href="/about" className="hover:text-white transition-colors">Về chúng tôi</Link></li>
                 <li><Link href="/courses" className="hover:text-white transition-colors">Khóa học</Link></li>
                 <li><Link href="/coming-soon" className="hover:text-white transition-colors">Student Mobility</Link></li>
-                <li><Link href="/consultant" className="hover:text-white transition-colors">Chuyên gia</Link></li>
               </ul>
             </div>
             <div>
-              <h3 className="font-bold text-lg mb-4 text-[#00A3C1]">Liên hệ</h3>
+              <h3 className="font-bold text-lg mb-4 text-[#00A3C1]">Pháp lý & Liên hệ</h3>
               <ul className="space-y-3 text-[#F4F7F9]/80">
-                <li>Email: hello@intech.edu.vn</li>
-                <li>Hotline: 1900 1234</li>
-                <li>Địa chỉ: TP. Hồ Chí Minh, VN</li>
+                <li><Link href="/privacy-policy" className="hover:text-white transition-colors">Chính sách bảo mật</Link></li>
+                <li><Link href="/terms-of-use" className="hover:text-white transition-colors">Điều khoản sử dụng</Link></li>
+                <li className="pt-2">Email: hello@intech.edu.vn</li>
               </ul>
             </div>
           </div>

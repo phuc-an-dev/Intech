@@ -1,21 +1,31 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { Menu, X, ArrowRight } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false)
+  const [isScrolled, setIsScrolled] = useState(false)
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 20)
+    }
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
 
   const navLinks = [
+    { name: 'Về chúng tôi', href: '/about' },
     { name: 'Khóa học', href: '/courses' },
     { name: 'Mobility', href: '/coming-soon' },
     { name: 'Chuyên gia', href: '/consultant' },
   ]
 
   return (
-    <header className={`w-full bg-white border-b border-gray-100 sticky top-0 transition-all duration-300 ${isOpen ? 'z-[999]' : 'z-50'}`}>
+    <header className={`w-full sticky top-0 transition-all duration-300 ${isOpen ? 'z-[999]' : 'z-50'} ${isScrolled ? 'bg-white/80 backdrop-blur-md border-b border-gray-200/50 shadow-sm py-1' : 'bg-white border-b border-gray-100 py-0'}`}>
       <div className="max-w-7xl mx-auto px-4 h-20 flex items-center justify-between">
         <Link 
           href="/" 
@@ -38,7 +48,7 @@ export default function Header() {
           ))}
         </nav>
 
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-3">
           <Link 
             href="/contact" 
             className="hidden md:inline-flex bg-[#002D62] text-white px-6 py-2.5 rounded-full font-semibold hover:bg-[#001f44] transition-colors"

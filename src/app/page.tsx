@@ -1,273 +1,352 @@
-'use client'
+"use client";
 
-import Link from 'next/link'
-import { BookOpen, Globe, Users, ArrowRight, ShieldCheck, Zap, BarChart3, Star, CheckCircle2 } from 'lucide-react'
-import { motion, Variants } from 'framer-motion'
+import { motion } from "framer-motion";
+import Link from "next/link";
+import { ArrowRight, BookOpen, Briefcase, Globe, CheckCircle, Calendar, Users, MonitorPlay } from "lucide-react";
+import CourseCard from "@/components/CourseCard";
+import { courses } from "@/data/courses";
 
 export default function Home() {
-  const containerVariants: Variants = {
+  // Lấy 3 khóa học tiêu biểu (ví dụ: lấy 3 khóa học đầu tiên của các mảng khác nhau hoặc 3 khóa học đầu tiên)
+  const highlightedCourses = courses.slice(0, 3);
+
+  const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.2
-      }
-    }
-  }
+        staggerChildren: 0.1,
+      },
+    },
+  };
 
-  const itemVariants: Variants = {
+  const itemVariants = {
     hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.5, ease: "easeOut" }
-    }
-  }
+    visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
+  };
 
   return (
-    <main className="flex min-h-screen flex-col items-center bg-white">
-      {/* Hero Section */}
-      <section className="w-full bg-[#F4F7F9] py-24 md:py-40 flex flex-col items-center px-4 text-center overflow-hidden relative">
-        {/* Subtle Background Pattern (Flat Design) */}
-        <div className="absolute top-0 left-0 w-full h-full opacity-5 pointer-events-none">
-          <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-              <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
-                <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#002D62" strokeWidth="1"/>
-              </pattern>
-            </defs>
-            <rect width="100%" height="100%" fill="url(#grid)" />
-          </svg>
+    <div className="w-full">
+      {/* 1. Hero Section */}
+      <section className="relative pt-24 pb-32 md:pt-32 md:pb-40 overflow-hidden bg-[#F4F7F9]">
+        <div className="absolute inset-0 z-0">
+          <div className="absolute top-0 right-0 w-1/2 h-full bg-[#00A3C1]/5 skew-x-12 translate-x-20"></div>
+          <div className="absolute bottom-0 left-0 w-1/3 h-1/2 bg-[#002D62]/5 -skew-x-12 -translate-x-20"></div>
         </div>
-
-        <motion.div 
-          initial="hidden"
-          animate="visible"
-          variants={containerVariants}
-          className="relative z-10 max-w-5xl mx-auto"
-        >
-          <motion.h1 
-            variants={itemVariants}
-            className="font-heading text-4xl md:text-7xl font-extrabold text-[#002D62] mb-8 leading-tight"
-          >
-            Intech: Chạm tri thức,<br />
-            <span className="text-[#00A3C1]">Kiến tạo tương lai.</span>
-          </motion.h1>
-          
-          <motion.p 
-            variants={itemVariants}
-            className="text-[#1A1A1A] text-lg md:text-2xl max-w-3xl mx-auto mb-12 font-medium"
-          >
-            Nền tảng kết nối học thuật, mang đến cơ hội vươn ra thế giới qua các chương trình Mobility và sự đồng hành của chuyên gia đầu ngành.
-          </motion.p>
-          
-          <motion.div 
-            variants={itemVariants}
-            className="flex flex-col sm:flex-row gap-5 w-full sm:w-auto justify-center"
-          >
-            <Link 
-              href="/courses" 
-              className="flex items-center justify-center gap-3 bg-[#002D62] text-white px-10 py-5 rounded-full font-bold text-lg hover:bg-[#001f44] transition-all transform hover:scale-105"
+        
+        <div className="max-w-7xl mx-auto px-4 relative z-10">
+          <div className="flex flex-col md:flex-row items-center gap-12">
+            <motion.div 
+              className="flex-1 text-center md:text-left"
+              initial={{ opacity: 0, x: -30 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6 }}
             >
-              Khám phá khóa học
-              <ArrowRight className="w-6 h-6" />
-            </Link>
-            <Link 
-              href="/contact" 
-              className="flex items-center justify-center gap-3 bg-transparent border-2 border-[#00A3C1] text-[#00A3C1] px-10 py-5 rounded-full font-bold text-lg hover:bg-[#00A3C1] hover:text-white transition-all transform hover:scale-105"
+              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white border border-[#00A3C1]/20 text-[#00A3C1] text-sm font-medium mb-6">
+                <span className="w-2 h-2 rounded-full bg-[#00A3C1] animate-pulse"></span>
+                Kiến tạo nhân lực công nghiệp tương lai
+              </div>
+              <h1 className="font-heading text-4xl md:text-5xl lg:text-6xl font-extrabold text-[#002D62] leading-tight mb-6">
+                Khởi đầu nhỏ.<br className="hidden md:block" /> 
+                Tăng trưởng nhanh.<br className="hidden md:block" /> 
+                <span className="text-[#00A3C1]">Vươn tầm quốc tế.</span>
+              </h1>
+              <p className="text-lg text-gray-600 mb-8 max-w-2xl mx-auto md:mx-0">
+                Hệ sinh thái đào tạo và tư vấn giải pháp công nghiệp hàng đầu, giúp cá nhân và doanh nghiệp làm chủ công nghệ 4.0, sẵn sàng hội nhập chuỗi cung ứng toàn cầu.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
+                <Link 
+                  href="/courses" 
+                  className="inline-flex justify-center items-center gap-2 px-8 py-3.5 bg-[#002D62] text-white rounded-full font-medium hover:bg-[#002D62]/90 transition-all shadow-lg hover:shadow-xl hover:-translate-y-0.5"
+                >
+                  Khám phá khóa học
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
+                <Link 
+                  href="/contact" 
+                  className="inline-flex justify-center items-center gap-2 px-8 py-3.5 bg-white text-[#002D62] border border-[#002D62]/20 rounded-full font-medium hover:bg-gray-50 transition-all shadow-sm hover:shadow"
+                >
+                  Nhận tư vấn giải pháp
+                </Link>
+              </div>
+            </motion.div>
+            
+            <motion.div 
+              className="flex-1 w-full max-w-lg"
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
             >
-              Nhận tư vấn ngay
-            </Link>
-          </motion.div>
-        </motion.div>
+              {/* Hero Image Placeholder */}
+              <div className="aspect-[4/3] rounded-3xl bg-slate-200 w-full flex items-center justify-center relative overflow-hidden shadow-2xl border-4 border-white">
+                <span className="text-slate-400 font-medium">1024x768 Hero Image Placeholder</span>
+                <div className="absolute inset-0 bg-gradient-to-tr from-[#002D62]/10 to-transparent"></div>
+              </div>
+            </motion.div>
+          </div>
+        </div>
       </section>
 
-      {/* Strategic Partners Section */}
-      <section className="w-full py-16 border-b border-gray-100">
+      {/* 2. Core Pillars */}
+      <section className="py-24 bg-white relative">
         <div className="max-w-7xl mx-auto px-4">
-          <p className="text-center text-[#4A4A4A] font-bold uppercase tracking-widest text-sm mb-10">
-            Đối tác chiến lược
-          </p>
-          <div className="flex flex-wrap justify-center items-center gap-12 md:gap-24 opacity-60 grayscale hover:grayscale-0 transition-all duration-500">
-            {/* Using text-based logos as per brand wordmark style */}
-            <span className="font-heading text-2xl font-black text-[#002D62]">TECH-UNI</span>
-            <span className="font-heading text-2xl font-black text-[#002D62]">GLOBAL-ED</span>
-            <span className="font-heading text-2xl font-black text-[#002D62]">VINA-INNO</span>
-            <span className="font-heading text-2xl font-black text-[#002D62]">FUTURE-LAB</span>
-          </div>
-        </div>
-      </section>
-
-      {/* Core Domains Section */}
-      <section className="w-full max-w-7xl mx-auto px-4 py-24 md:py-32">
-        <div className="text-center mb-20">
-          <h2 className="font-heading text-3xl md:text-5xl font-bold text-[#002D62] mb-6">
-            Lĩnh vực chuyên môn
-          </h2>
-          <div className="w-24 h-1.5 bg-[#00A3C1] mx-auto rounded-full mb-8"></div>
-          <p className="text-[#4A4A4A] text-lg max-w-2xl mx-auto font-medium">
-            Chúng tôi tập trung vào 3 trụ cột chính để kiến tạo bệ phóng vững chắc cho sự nghiệp của bạn.
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
-          {/* Card 1 */}
           <motion.div 
-            whileHover={{ y: -10 }}
-            className="bg-white p-10 rounded-3xl border border-gray-100 shadow-[0_10px_40px_rgba(0,0,0,0.03)] flex flex-col items-center text-center transition-all"
+            className="text-center max-w-3xl mx-auto mb-16"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
           >
-            <div className="w-20 h-20 bg-[#F4F7F9] rounded-full flex items-center justify-center mb-8 text-[#00A3C1]">
-              <BookOpen className="w-10 h-10" strokeWidth={1.5} />
-            </div>
-            <h3 className="font-heading text-2xl font-bold text-[#002D62] mb-5">
-              Giới thiệu khóa học
-            </h3>
-            <p className="text-[#4A4A4A] leading-relaxed">
-              Tiếp cận các khóa học chất lượng cao, bám sát nhu cầu thực tế của thị trường lao động. Hệ thống bài giảng được thiết kế bởi các chuyên gia.
-            </p>
-          </motion.div>
-
-          {/* Card 2 */}
-          <motion.div 
-            whileHover={{ y: -10 }}
-            className="bg-[#002D62] p-10 rounded-3xl shadow-[0_20px_50px_rgba(0,45,98,0.15)] flex flex-col items-center text-center text-white transition-all"
-          >
-            <div className="w-20 h-20 bg-white/10 rounded-full flex items-center justify-center mb-8 text-[#00A3C1]">
-              <Globe className="w-10 h-10" strokeWidth={1.5} />
-            </div>
-            <h3 className="font-heading text-2xl font-bold mb-5">
-              Student Mobility
-            </h3>
-            <p className="text-white/80 leading-relaxed">
-              Cơ hội trao đổi và học tập tại các quốc gia phát triển, mở rộng thế giới quan và mạng lưới quốc tế thông qua các chương trình liên kết.
-            </p>
-          </motion.div>
-
-          {/* Card 3 */}
-          <motion.div 
-            whileHover={{ y: -10 }}
-            className="bg-white p-10 rounded-3xl border border-gray-100 shadow-[0_10px_40px_rgba(0,0,0,0.03)] flex flex-col items-center text-center transition-all"
-          >
-            <div className="w-20 h-20 bg-[#F4F7F9] rounded-full flex items-center justify-center mb-8 text-[#00A3C1]">
-              <Users className="w-10 h-10" strokeWidth={1.5} />
-            </div>
-            <h3 className="font-heading text-2xl font-bold text-[#002D62] mb-5">
-              Industry Consultant
-            </h3>
-            <p className="text-[#4A4A4A] leading-relaxed">
-              Nhận tư vấn trực tiếp từ các chuyên gia đang làm việc trong ngành, định hướng nghề nghiệp rõ ràng và thực tiễn.
-            </p>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Why Choose Us Section */}
-      <section className="w-full bg-[#F4F7F9] py-24 md:py-32">
-        <div className="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
-          <div>
-            <h2 className="font-heading text-3xl md:text-5xl font-bold text-[#002D62] mb-8">
-              Tại sao chọn Intech?
+            <h2 className="font-heading text-3xl md:text-4xl font-bold text-[#002D62] mb-4">
+              Hệ sinh thái toàn diện
             </h2>
-            <div className="space-y-8">
-              <div className="flex gap-5">
-                <div className="flex-shrink-0 w-12 h-12 bg-white rounded-full flex items-center justify-center text-[#00A3C1] shadow-sm">
-                  <ShieldCheck className="w-6 h-6" />
-                </div>
-                <div>
-                  <h4 className="font-bold text-[#002D62] text-xl mb-2">Uy tín & Tin cậy</h4>
-                  <p className="text-[#4A4A4A]">Cam kết chất lượng đào tạo và hỗ trợ học viên tận tâm trong suốt lộ trình học tập.</p>
-                </div>
+            <p className="text-gray-600">
+              Intech Global Academy tích hợp ba trụ cột chiến lược nhằm mang lại giá trị bền vững cho cả cá nhân và doanh nghiệp.
+            </p>
+          </motion.div>
+
+          <motion.div 
+            className="grid grid-cols-1 md:grid-cols-3 gap-8"
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+          >
+            {/* Pillar 1 */}
+            <motion.div variants={itemVariants} className="bg-[#F4F7F9] rounded-3xl p-8 hover:shadow-lg transition-shadow border border-white">
+              <div className="w-14 h-14 bg-[#00A3C1]/10 rounded-2xl flex items-center justify-center mb-6">
+                <BookOpen className="w-7 h-7 text-[#00A3C1]" />
               </div>
-              <div className="flex gap-5">
-                <div className="flex-shrink-0 w-12 h-12 bg-white rounded-full flex items-center justify-center text-[#00A3C1] shadow-sm">
-                  <Zap className="w-6 h-6" />
-                </div>
-                <div>
-                  <h4 className="font-bold text-[#002D62] text-xl mb-2">Lộ trình tối ưu</h4>
-                  <p className="text-[#4A4A4A]">Tiết kiệm thời gian với các chương trình học tập trung vào kỹ năng then chốt.</p>
-                </div>
+              <h3 className="font-heading font-bold text-xl text-[#002D62] mb-3">Education (Đào tạo thực chiến)</h3>
+              <p className="text-gray-600 leading-relaxed">
+                Chương trình đào tạo từ cơ bản đến nâng cao về AI, Lean, IoT và Chuỗi cung ứng, được thiết kế bởi các chuyên gia đầu ngành.
+              </p>
+            </motion.div>
+
+            {/* Pillar 2 */}
+            <motion.div variants={itemVariants} className="bg-[#002D62] rounded-3xl p-8 hover:shadow-lg transition-shadow shadow-xl text-white transform md:-translate-y-4">
+              <div className="w-14 h-14 bg-white/10 rounded-2xl flex items-center justify-center mb-6">
+                <Briefcase className="w-7 h-7 text-[#00A3C1]" />
               </div>
-              <div className="flex gap-5">
-                <div className="flex-shrink-0 w-12 h-12 bg-white rounded-full flex items-center justify-center text-[#00A3C1] shadow-sm">
-                  <BarChart3 className="w-6 h-6" />
-                </div>
-                <div>
-                  <h4 className="font-bold text-[#002D62] text-xl mb-2">Kết quả thực tiễn</h4>
-                  <p className="text-[#4A4A4A]">Học viên sau khi hoàn thành khóa học có đủ năng lực để tham gia vào thị trường lao động quốc tế.</p>
-                </div>
+              <h3 className="font-heading font-bold text-xl text-white mb-3">Industry Consultancy</h3>
+              <p className="text-white/80 leading-relaxed">
+                Tối ưu hóa vận hành, chuyển đổi số nhà máy và tư vấn quản trị tuân thủ giúp doanh nghiệp nâng cao năng lực cạnh tranh.
+              </p>
+            </motion.div>
+
+            {/* Pillar 3 */}
+            <motion.div variants={itemVariants} className="bg-[#F4F7F9] rounded-3xl p-8 hover:shadow-lg transition-shadow border border-white">
+              <div className="w-14 h-14 bg-[#00A3C1]/10 rounded-2xl flex items-center justify-center mb-6">
+                <Globe className="w-7 h-7 text-[#00A3C1]" />
               </div>
-            </div>
-          </div>
-          <div className="relative h-[400px] md:h-[500px] bg-white rounded-[40px] shadow-2xl overflow-hidden border-8 border-white">
-            {/* Image Placeholder with consistent style */}
-            <div className="absolute inset-0 bg-[#002D62]/5 flex items-center justify-center">
-              <span className="text-[#002D62]/20 font-heading text-2xl font-bold">Featured Image</span>
-            </div>
-          </div>
+              <h3 className="font-heading font-bold text-xl text-[#002D62] mb-3">Student Mobility</h3>
+              <p className="text-gray-600 leading-relaxed">
+                Lộ trình sự nghiệp toàn cầu, kết nối học viên với các thị trường lao động trình độ cao tại nước ngoài một cách bền vững.
+              </p>
+            </motion.div>
+          </motion.div>
         </div>
       </section>
 
-      {/* Testimonials Section */}
-      <section className="w-full py-24 md:py-32">
+      {/* 3. Featured Courses */}
+      <section className="py-24 bg-[#F4F7F9]">
         <div className="max-w-7xl mx-auto px-4">
-          <div className="text-center mb-20">
-            <h2 className="font-heading text-3xl md:text-5xl font-bold text-[#002D62] mb-6">
-              Cảm nhận từ học viên
-            </h2>
-            <p className="text-[#4A4A4A] text-lg max-w-2xl mx-auto font-medium">
-              Những câu chuyện thành công từ cộng đồng học viên Intech.
-            </p>
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
+            <motion.div 
+              className="max-w-2xl"
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+            >
+              <h2 className="font-heading text-3xl md:text-4xl font-bold text-[#002D62] mb-4">
+                Đào tạo trọng tâm
+              </h2>
+              <p className="text-gray-600">
+                Các chương trình được thiết kế bám sát nhu cầu thực tế của ngành công nghiệp và logistics, cập nhật xu hướng công nghệ mới nhất.
+              </p>
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+            >
+              <Link 
+                href="/courses"
+                className="inline-flex items-center gap-2 text-[#002D62] font-semibold hover:text-[#00A3C1] transition-colors"
+              >
+                Xem tất cả khóa học
+                <ArrowRight className="w-5 h-5" />
+              </Link>
+            </motion.div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {[1, 2, 3].map((i) => (
-              <div key={i} className="bg-white p-8 rounded-3xl border border-gray-100 shadow-[0_4px_20px_rgba(0,0,0,0.02)]">
-                <div className="flex text-[#00A3C1] mb-6">
-                  {[1, 2, 3, 4, 5].map((star) => (
-                    <Star key={star} className="w-5 h-5 fill-current" />
-                  ))}
+          <motion.div 
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-50px" }}
+          >
+            {highlightedCourses.map((course) => (
+              <CourseCard key={course.id} course={course} />
+            ))}
+          </motion.div>
+        </div>
+      </section>
+
+      {/* 4. Why Choose Us */}
+      <section className="py-24 bg-white overflow-hidden">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="flex flex-col lg:flex-row gap-16 items-center">
+            <motion.div 
+              className="flex-1 w-full"
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+            >
+              <div className="aspect-square md:aspect-[4/3] lg:aspect-square rounded-[2rem] bg-slate-200 w-full flex items-center justify-center relative overflow-hidden">
+                <span className="text-slate-400 font-medium">800x800 Placeholder (LMS/Learning)</span>
+                <div className="absolute inset-0 border-8 border-white/50 rounded-[2rem]"></div>
+              </div>
+            </motion.div>
+            
+            <motion.div 
+              className="flex-1"
+              variants={containerVariants}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+            >
+              <h2 className="font-heading text-3xl md:text-4xl font-bold text-[#002D62] mb-10">
+                Tại sao chọn Intech Global Academy?
+              </h2>
+              
+              <div className="space-y-8">
+                {[
+                  {
+                    icon: <MonitorPlay className="w-6 h-6 text-white" />,
+                    title: "Học từ thực tế (Practice-based)",
+                    desc: "Chương trình bám sát nhu cầu thực tế của ngành công nghiệp và logistics."
+                  },
+                  {
+                    icon: <Globe className="w-6 h-6 text-white" />,
+                    title: "Hệ sinh thái toàn diện",
+                    desc: "Không chỉ học, học viên được tư vấn lộ trình nghề nghiệp và kết nối quốc tế."
+                  },
+                  {
+                    icon: <Users className="w-6 h-6 text-white" />,
+                    title: "Đội ngũ chuyên gia",
+                    desc: "Giảng viên là những người trực tiếp vận hành tại các doanh nghiệp lớn."
+                  },
+                  {
+                    icon: <MonitorPlay className="w-6 h-6 text-white" />,
+                    title: "Nền tảng hiện đại",
+                    desc: "Ứng dụng LMS giúp trải nghiệm học tập online/offline linh hoạt."
+                  }
+                ].map((item, idx) => (
+                  <motion.div key={idx} variants={itemVariants} className="flex gap-4">
+                    <div className="w-12 h-12 bg-[#00A3C1] rounded-xl flex items-center justify-center shrink-0 shadow-md">
+                      {item.icon}
+                    </div>
+                    <div>
+                      <h3 className="font-heading font-bold text-lg text-[#002D62] mb-1">{item.title}</h3>
+                      <p className="text-gray-600">{item.desc}</p>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* 5. Lead Magnet */}
+      <section className="py-24 bg-[#002D62] relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-96 h-96 bg-[#00A3C1] rounded-full mix-blend-multiply filter blur-3xl opacity-30"></div>
+        <div className="absolute bottom-0 left-0 w-96 h-96 bg-white rounded-full mix-blend-overlay filter blur-3xl opacity-10"></div>
+        
+        <div className="max-w-7xl mx-auto px-4 relative z-10">
+          <div className="bg-white/5 border border-white/10 rounded-3xl p-8 md:p-16 backdrop-blur-sm">
+            <div className="flex flex-col lg:flex-row gap-12 items-center">
+              <motion.div 
+                className="flex-1"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+              >
+                <div className="inline-block px-3 py-1 rounded-full bg-[#00A3C1]/20 text-[#00A3C1] font-semibold text-sm mb-6 uppercase tracking-wider">
+                  Workshop Miễn Phí
                 </div>
-                <p className="text-[#1A1A1A] italic mb-8 leading-relaxed">
-                  "Intech đã giúp tôi thay đổi hoàn toàn tư duy về việc học. Chương trình Mobility mở ra cho tôi cơ hội thực tập tại Singapore mà tôi chưa từng nghĩ tới."
+                <h2 className="font-heading text-3xl md:text-5xl font-bold text-white mb-6 leading-tight">
+                  AI-Powered Workflow
+                </h2>
+                <p className="text-white/80 text-lg mb-8 max-w-xl">
+                  Tối ưu hóa hiệu suất công việc với kỹ thuật Prompting đỉnh cao và quy trình tự động hóa bằng AI chỉ trong 03 buổi.
                 </p>
-                <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 bg-[#F4F7F9] rounded-full flex items-center justify-center text-[#002D62] font-bold">
-                    A{i}
+                <ul className="space-y-4 mb-8">
+                  <li className="flex items-center gap-3 text-white/90">
+                    <CheckCircle className="w-5 h-5 text-[#00A3C1]" />
+                    Làm chủ ChatGPT, Gemini & Claude cho công việc
+                  </li>
+                  <li className="flex items-center gap-3 text-white/90">
+                    <CheckCircle className="w-5 h-5 text-[#00A3C1]" />
+                    Tự động hóa báo cáo và xử lý dữ liệu
+                  </li>
+                  <li className="flex items-center gap-3 text-white/90">
+                    <Calendar className="w-5 h-5 text-[#00A3C1]" />
+                    Khai giảng: 15/06/2026 - Hình thức: Online
+                  </li>
+                </ul>
+              </motion.div>
+              
+              <motion.div 
+                className="w-full max-w-md bg-white rounded-2xl p-8 shadow-2xl"
+                initial={{ opacity: 0, scale: 0.95 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+              >
+                <h3 className="font-heading font-bold text-2xl text-[#002D62] mb-6 text-center">
+                  Đăng ký tham gia ngay
+                </h3>
+                <form className="space-y-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Họ và tên *</label>
+                    <input type="text" className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#00A3C1] focus:border-transparent outline-none transition-all" placeholder="Nhập họ và tên" />
                   </div>
                   <div>
-                    <h5 className="font-bold text-[#002D62]">Nguyễn Văn A{i}</h5>
-                    <p className="text-sm text-[#4A4A4A]">Học viên Khóa React Pro</p>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Email *</label>
+                    <input type="email" className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#00A3C1] focus:border-transparent outline-none transition-all" placeholder="Nhập email" />
                   </div>
-                </div>
-              </div>
-            ))}
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Số điện thoại *</label>
+                    <input type="tel" className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#00A3C1] focus:border-transparent outline-none transition-all" placeholder="Nhập số điện thoại" />
+                  </div>
+                  <button type="button" className="w-full py-4 mt-2 bg-[#00A3C1] text-white rounded-full font-bold text-lg hover:bg-[#008ba5] transition-colors shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">
+                    Giữ chỗ của tôi
+                  </button>
+                  <p className="text-center text-xs text-gray-500 mt-4">
+                    Thông tin của bạn được bảo mật tuyệt đối.
+                  </p>
+                </form>
+              </motion.div>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Final CTA Section */}
-      <section className="w-full px-4 mb-24">
-        <div className="max-w-6xl mx-auto bg-[#00A3C1] rounded-[40px] p-10 md:p-20 text-center text-white overflow-hidden relative">
-          <div className="relative z-10">
-            <h2 className="font-heading text-3xl md:text-5xl font-bold mb-8">
-              Sẵn sàng bắt đầu hành trình của bạn?
-            </h2>
-            <p className="text-white/90 text-xl mb-12 max-w-2xl mx-auto">
-              Đừng bỏ lỡ cơ hội trở thành một phần của cộng đồng học thuật hiện đại và năng động.
-            </p>
-            <Link 
-              href="/coming-soon" 
-              className="inline-flex items-center justify-center gap-3 bg-white text-[#00A3C1] px-12 py-5 rounded-full font-bold text-xl hover:bg-[#F4F7F9] transition-all transform hover:scale-105"
-            >
-              Đăng ký ngay
-              <CheckCircle2 className="w-6 h-6" />
-            </Link>
-          </div>
-          {/* Abstract decoration */}
-          <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full -translate-y-1/2 translate-x-1/2 blur-3xl"></div>
-          <div className="absolute bottom-0 left-0 w-64 h-64 bg-white/10 rounded-full translate-y-1/2 -translate-x-1/2 blur-3xl"></div>
-        </div>
+      {/* 6. Vision 2030 */}
+      <section className="py-24 bg-white text-center px-4">
+        <motion.div 
+          className="max-w-4xl mx-auto"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+        >
+          <div className="text-[#00A3C1] font-bold tracking-widest uppercase mb-4">Tầm nhìn 2030</div>
+          <h2 className="font-heading text-3xl md:text-5xl font-bold text-[#002D62] leading-tight">
+            "Trở thành một trong 5 đơn vị đào tạo và tư vấn giải pháp công nghiệp hàng đầu Việt Nam, hướng tới mở rộng toàn khu vực Đông Nam Á."
+          </h2>
+        </motion.div>
       </section>
-    </main>
-  )
+    </div>
+  );
 }
