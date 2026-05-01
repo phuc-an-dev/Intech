@@ -23,9 +23,17 @@ export async function generateMetadata(props: { params: Promise<{ slug: string, 
   
   const tData = await getTranslations({ locale, namespace: 'data' });
   
+  const title = `${tData(`courses.${course.id}.title`)} | Intech Global Academy`
+  const description = tData(`courses.${course.id}.description`)
   return {
-    title: `${tData(`courses.${course.id}.title`)} | Intech Global Academy`,
-    description: tData(`courses.${course.id}.description`),
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      locale: locale === 'vi' ? 'vi_VN' : 'en_US',
+      type: 'website',
+    },
   };
 }
 

@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { Link } from '@/i18n/routing'
+import { Link, usePathname } from '@/i18n/routing'
 import { Menu, X, ArrowRight } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useTranslations } from 'next-intl'
@@ -12,6 +12,7 @@ export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false)
   const t = useTranslations('nav')
   const tCommon = useTranslations('common')
+  const pathname = usePathname()
 
   useEffect(() => {
     const handleScroll = () => {
@@ -54,15 +55,18 @@ export default function Header() {
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex gap-8 items-center">
-            {navLinks.map((link) => (
-              <Link 
-                key={link.name} 
-                href={link.href} 
-                className="font-medium text-[#1A1A1A] hover:text-[#00A3C1] transition-colors"
-              >
-                {link.name}
-              </Link>
-            ))}
+            {navLinks.map((link) => {
+              const isActive = pathname === link.href || pathname.startsWith(link.href + '/')
+              return (
+                <Link
+                  key={link.name}
+                  href={link.href}
+                  className={`font-medium transition-colors ${isActive ? 'text-[#00A3C1] font-bold' : 'text-[#1A1A1A] hover:text-[#00A3C1]'}`}
+                >
+                  {link.name}
+                </Link>
+              )
+            })}
           </nav>
 
           <div className="flex items-center gap-3">
@@ -115,17 +119,20 @@ export default function Header() {
               </div>
 
               <nav className="flex flex-col gap-6 mb-12">
-                {navLinks.map((link) => (
-                  <Link 
-                    key={link.name} 
-                    href={link.href} 
-                    onClick={() => setIsOpen(false)}
-                    className="text-2xl font-heading font-bold text-[#002D62] hover:text-[#00A3C1] transition-colors flex items-center justify-between group"
-                  >
-                    {link.name}
-                    <ArrowRight className="w-6 h-6 opacity-0 group-hover:opacity-100 transition-opacity" />
-                  </Link>
-                ))}
+                {navLinks.map((link) => {
+                  const isActive = pathname === link.href || pathname.startsWith(link.href + '/')
+                  return (
+                    <Link
+                      key={link.name}
+                      href={link.href}
+                      onClick={() => setIsOpen(false)}
+                      className={`text-2xl font-heading font-bold transition-colors flex items-center justify-between group ${isActive ? 'text-[#00A3C1]' : 'text-[#002D62] hover:text-[#00A3C1]'}`}
+                    >
+                      {link.name}
+                      <ArrowRight className="w-6 h-6 opacity-0 group-hover:opacity-100 transition-opacity" />
+                    </Link>
+                  )
+                })}
               </nav>
 
               <div className="mt-auto">

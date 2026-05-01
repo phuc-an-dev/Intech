@@ -24,9 +24,9 @@
 
 | Hạng mục | Trạng thái | Ghi chú |
 |----------|-----------|---------|
-| `npm run build` | ✅ PASS | 94 trang, 2 API routes mới, 0 lỗi |
+| `npm run build` | ✅ PASS | 94+ trang, 2 API routes, /robots.txt, 0 lỗi |
 | `npm test` | ✅ PASS | 25/25 tests |
-| Deploy-ready | 🚧 Phase 2 chưa xong | Email + validation chưa có |
+| Deploy-ready | 🚧 Phase 4 chưa xong | Tests + cleanup còn lại |
 
 ---
 
@@ -90,21 +90,21 @@
 
 ---
 
-### PHASE 3 — UX & SEO
+### PHASE 3 — UX & SEO ✅ DONE
 
-- [ ] **T13** — Active nav link trong `Header.tsx`
+- [x] **T13** — Active nav link trong `Header.tsx`
   - `usePathname()` → class `text-[#00A3C1] font-bold` cho link active
 
-- [ ] **T14** — `src/app/[locale]/courses/loading.tsx`
+- [x] **T14** — `src/app/[locale]/courses/loading.tsx`
   - Skeleton: search bar + 6 course card (pulse animation)
 
-- [ ] **T15** — `src/app/[locale]/error.tsx`
+- [x] **T15** — `src/app/[locale]/error.tsx`
   - `"use client"`, props `{ error, reset }`, nút "Thử lại"
 
-- [ ] **T16** — `src/app/robots.ts`
+- [x] **T16** — `src/app/robots.ts`
   - Allow all, disallow `/api/`, link sitemap
 
-- [ ] **T17** — `generateMetadata` cho `courses/[slug]/page.tsx`
+- [x] **T17** — `generateMetadata` cho `courses/[slug]/page.tsx`
   - Title: `{courseTitle} | Intech Global Academy`
   - openGraph: title, description, locale
 
