@@ -25,8 +25,8 @@
 | Hạng mục | Trạng thái | Ghi chú |
 |----------|-----------|---------|
 | `npm run build` | ✅ PASS | 94+ trang, 2 API routes, /robots.txt, 0 lỗi |
-| `npm test` | ✅ PASS | 25/25 tests |
-| Deploy-ready | 🚧 Phase 4 chưa xong | Tests + cleanup còn lại |
+| `npm test` | ✅ PASS | 43/43 tests |
+| Deploy-ready | ✅ READY | Tất cả phases hoàn thành |
 
 ---
 
@@ -110,12 +110,12 @@
 
 ---
 
-### PHASE 4 — Tests bổ sung + Dọn dẹp
+### PHASE 4 — Tests bổ sung + Dọn dẹp ✅ DONE
 
-- [ ] **T18** — `src/components/CourseCard.test.tsx`
-- [ ] **T19** — `src/components/BackToTop.test.tsx`
-- [ ] **T20** — `src/app/[locale]/thank-you/page.test.tsx`
-- [ ] **T21** — Xoá 12 root-level JSON files thừa (content đã có trong `messages/`)
+- [x] **T18** — `src/components/CourseCard.test.tsx`
+- [x] **T19** — `src/components/BackToTop.test.tsx`
+- [x] **T20** — `src/app/[locale]/thank-you/page.test.tsx`
+- [x] **T21** — Xoá 12 root-level JSON files thừa (content đã có trong `messages/`)
 
 ---
 
