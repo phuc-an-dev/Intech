@@ -1,9 +1,10 @@
 {
   "meta": {
-    "title": "Intech - Chạm tri thức, Kiến tạo tương lai",
+    "title": "Intech - Kiến tạo nhân lực công nghiệp tương lai",
     "description": "Nền tảng giới thiệu khóa học, student mobility và Industry consultant hàng đầu."
   },
   "nav": {
+    "home": "Trang Chủ",
     "about": "Về chúng tôi",
     "courses": "Khóa học",
     "student_mobility": "Student Mobility",
@@ -12,7 +13,7 @@
     "contact_us": "Liên hệ"
   },
   "footer": {
-    "tagline": "Chạm tri thức, Kiến tạo tương lai. Nền tảng kết nối học thuật và định hướng nghề nghiệp vững chắc dành cho thế hệ trẻ.",
+    "tagline": "Kiến tạo nhân lực công nghiệp tương lai. Khởi đầu nhỏ. Tăng trưởng nhanh. Vươn tầm quốc tế. Hệ sinh thái đào tạo và tư vấn giải pháp công nghiệp hàng đầu, giúp cá nhân và doanh nghiệp làm chủ công nghệ 4.0, sẵn sàng hội nhập chuỗi cung ứng toàn cầu.",
     "explore": "Khám phá",
     "legal_contact": "Pháp lý & Liên hệ",
     "rights": "Intech. All rights reserved."
@@ -35,7 +36,7 @@
       "all_levels": "Tất cả cấp độ",
       "clear": "Xóa tất cả bộ lọc"
     },
-    "results_count": "Tìm thấy <span /> khóa học phù hợp",
+    "results_count": "Tìm thấy <span>{count}</span> khóa học phù hợp",
     "no_results": {
       "title": "Không tìm thấy khóa học",
       "description": "Thử thay đổi từ khóa tìm kiếm hoặc bỏ bớt các bộ lọc chuyên đề/cấp độ."
@@ -717,7 +718,7 @@
     "section3_desc1": "Chúng tôi sử dụng giao thức HTTPS/SSL để mã hóa dữ liệu truyền tải giữa trình duyệt của bạn và máy chủ website nhằm ngăn chặn sự can thiệp trái phép.",
     "section3_desc2": "Dữ liệu cá nhân thu thập qua website được lưu trữ trong môi trường kiểm soát nghiêm ngặt và tuyệt đối không được chia sẻ cho bất kỳ bên thứ ba nào vì mục đích tiếp thị.",
     "footer_update": "Cập nhật lần cuối: 01/05/2026",
-    "footer_contact": "Mọi thắc mắc về chính sách bảo mật, vui lòng liên hệ email: hello@intech.edu.vn"
+    "footer_contact": "Mọi thắc mắc về chính sách bảo mật, vui lòng liên hệ email: support@intechisc.com"
   },
   "terms": {
     "title": "ĐIỀU KHOẢN SỬ DỤNG WEBSITE",
@@ -735,7 +736,7 @@
     "section4_title": "4. Giới hạn trách nhiệm về thông tin trực tuyến",
     "section4_desc": "Thông tin về các khóa học và giải pháp trên website (như sơ đồ lộ trình \"Start Small. Scale Fast. Go Global\") mang tính chất giới thiệu và tham khảo. Intech có quyền cập nhật hoặc thay đổi nội dung này bất kỳ lúc nào mà không cần thông báo trước.",
     "footer_update": "Cập nhật lần cuối: 01/05/2026",
-    "footer_contact": "Mọi thắc mắc về điều khoản sử dụng, vui lòng liên hệ email: hello@intech.edu.vn"
+    "footer_contact": "Mọi thắc mắc về điều khoản sử dụng, vui lòng liên hệ email: support@intechisc.com"
   },
   "coming_soon": {
     "title": "Tính năng đang được phát triển",

@@ -118,7 +118,7 @@ function userHtml(data: RegistrationData): string {
   <div style="max-width:600px;margin:32px auto;background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.08);">
     <div style="background:linear-gradient(135deg,#002D62,#00A3C1);padding:36px 32px;text-align:center;">
       <h1 style="margin:0;color:#fff;font-size:24px;font-weight:bold;">Intech Global Academy</h1>
-      <p style="margin:8px 0 0;color:rgba(255,255,255,.85);font-size:14px;">Chạm tri thức, Kiến tạo tương lai</p>
+      <p style="margin:8px 0 0;color:rgba(255,255,255,.85);font-size:14px;">Kiến tạo nhân lực công nghiệp tương lai</p>
     </div>
     <div style="padding:36px 32px;">
       <h2 style="margin:0 0 16px;color:#002D62;font-size:20px;">Xin chào ${data.name}! 🎉</h2>

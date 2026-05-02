@@ -20,13 +20,13 @@ export default function LanguageSwitcher() {
   }
 
   return (
-    <div className="flex items-center gap-2 bg-gray-100 p-1 rounded-full border border-gray-200 shadow-sm">
+    <div className="flex items-center gap-2 bg-gray-100 p-1 rounded-full border border-gray-200">
       <button
         onClick={() => onSelectChange('vi')}
         disabled={isPending || locale === 'vi'}
         className={`px-3 py-1 rounded-full text-xs font-bold transition-all ${
           locale === 'vi' 
-            ? 'bg-white text-[#00A3C1] shadow-sm' 
+            ? 'bg-white text-[#00A3C1]' 
             : 'text-gray-500 hover:text-gray-700'
         }`}
       >
@@ -37,7 +37,7 @@ export default function LanguageSwitcher() {
         disabled={isPending || locale === 'en'}
         className={`px-3 py-1 rounded-full text-xs font-bold transition-all ${
           locale === 'en' 
-            ? 'bg-white text-[#00A3C1] shadow-sm' 
+            ? 'bg-white text-[#00A3C1]' 
             : 'text-gray-500 hover:text-gray-700'
         }`}
       >

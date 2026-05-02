@@ -73,7 +73,7 @@ export default function ContactPage() {
               <h2 className="font-heading text-3xl font-bold mb-8">{t('info_title')}</h2>
               <div className="space-y-8">
                 {[
-                  { icon: <Mail className="w-6 h-6 text-white" />, label: t('email_label'), value: 'hello@intech.edu.vn' },
+                  { icon: <Mail className="w-6 h-6 text-white" />, label: t('email_label'), value: 'support@intechisc.com' },
                   { icon: <Phone className="w-6 h-6 text-white" />, label: t('phone_label'), value: '1900 xxxx' },
                   { icon: <MapPin className="w-6 h-6 text-white" />, label: t('office_label'), value: t('office_address') },
                 ].map((item) => (

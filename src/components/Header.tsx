@@ -35,9 +35,9 @@ export default function Header() {
   }, [isOpen])
 
   const navLinks = [
+    { name: t('home'), href: '/' as const },
     { name: t('about'), href: '/about' as const },
     { name: t('courses'), href: '/courses' as const },
-    { name: t('student_mobility'), href: '/coming-soon' as const },
     { name: t('contact_us'), href: '/contact' as const },
   ]
 
@@ -114,7 +114,7 @@ export default function Header() {
               transition={{ type: 'spring', damping: 25, stiffness: 200 }}
               className="fixed top-0 right-0 h-full w-full bg-white z-[1001] shadow-2xl md:hidden flex flex-col p-6 pt-24"
             >
-              <div className="mb-8">
+              <div className="mb-8 w-fit">
                 <LanguageSwitcher />
               </div>
 
@@ -144,7 +144,7 @@ export default function Header() {
                   {tCommon('register')}
                 </Link>
                 <p className="text-center text-[#4A4A4A] mt-8 text-sm">
-                  Intech: Chạm tri thức, Kiến tạo tương lai.
+                  Intech: Hệ sinh thái đào tạo và tư vấn giải pháp công nghiệp hàng đầu.
                 </p>
               </div>
             </motion.div>

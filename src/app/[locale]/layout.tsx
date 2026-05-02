@@ -7,6 +7,7 @@ import { Link } from '@/i18n/routing';
 import NextTopLoader from "nextjs-toploader";
 import Header from "@/components/Header";
 import BackToTop from "@/components/BackToTop";
+import ScrollToTop from "@/components/ScrollToTop";
 import "../globals.css";
 
 const montserrat = Montserrat({
@@ -66,10 +67,11 @@ export default async function RootLayout({
   const tFooter = await getTranslations({ locale, namespace: 'footer' });
 
   return (
-    <html lang={locale} className="scroll-smooth">
-      <body className={`${montserrat.variable} ${inter.variable} antialiased flex flex-col min-h-screen`}>
+    <html lang={locale}>
+      <body className={`${montserrat.variable} ${inter.variable} antialiased flex flex-col min-h-screen`} suppressHydrationWarning>
         <NextIntlClientProvider messages={messages}>
           <NextTopLoader color="#00A3C1" showSpinner={false} height={3} />
+          <ScrollToTop />
           <Header />
           <BackToTop />
 
@@ -92,7 +94,6 @@ export default async function RootLayout({
                 <ul className="space-y-3 text-[#F4F7F9]/80">
                   <li><Link href="/about" className="hover:text-white transition-colors">{tNav('about')}</Link></li>
                   <li><Link href="/courses" className="hover:text-white transition-colors">{tNav('courses')}</Link></li>
-                  <li><Link href="/coming-soon" className="hover:text-white transition-colors">{tNav('student_mobility')}</Link></li>
                 </ul>
               </div>
               <div>
@@ -100,7 +101,7 @@ export default async function RootLayout({
                 <ul className="space-y-3 text-[#F4F7F9]/80">
                   <li><Link href="/privacy-policy" className="hover:text-white transition-colors">{tNav('privacy_policy')}</Link></li>
                   <li><Link href="/terms-of-use" className="hover:text-white transition-colors">{tNav('terms_of_use')}</Link></li>
-                  <li className="pt-2">Email: hello@intech.edu.vn</li>
+                  <li className="pt-2">Email: support@intechisc.com</li>
                 </ul>
               </div>
             </div>
