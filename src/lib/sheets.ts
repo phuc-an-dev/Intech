@@ -58,7 +58,7 @@ function parseCSV(text: string): Record<string, string>[] {
 async function fetchSheet(gid: string): Promise<Record<string, string>[]> {
   if (!SHEET_ID) return []
   const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv&gid=${gid}`
-  const res = await fetch(url, { next: { revalidate: 60 } })
+  const res = await fetch(url, { cache: 'no-store' })
   if (!res.ok) throw new Error(`Sheet fetch failed (${res.status})`)
   return parseCSV(await res.text())
 }
