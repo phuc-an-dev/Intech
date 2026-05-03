@@ -5,6 +5,7 @@ import { notFound } from 'next/navigation';
 import { routing } from '@/i18n/routing';
 import { Link } from '@/i18n/routing';
 import NextTopLoader from "nextjs-toploader";
+import { Analytics } from "@vercel/analytics/next";
 import Header from "@/components/Header";
 import BackToTop from "@/components/BackToTop";
 import ScrollToTop from "@/components/ScrollToTop";
@@ -72,6 +73,7 @@ export default async function RootLayout({
     <html lang={locale}>
       <body className={`${montserrat.variable} ${inter.variable} antialiased flex flex-col min-h-screen`} suppressHydrationWarning>
         <NextIntlClientProvider messages={messages}>
+          <Analytics />
           <NextTopLoader color="#00A3C1" showSpinner={false} height={3} />
           <ScrollToTop />
           <Header />
