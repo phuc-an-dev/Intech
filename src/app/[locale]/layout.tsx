@@ -26,14 +26,16 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: 'meta' });
   
+  const base = 'https://www.intechisc.com'
   return {
+    metadataBase: new URL(base),
     title: t('title'),
     description: t('description'),
     alternates: {
-      canonical: `/${locale === 'vi' ? '' : locale}`,
+      canonical: locale === 'vi' ? base : `${base}/en`,
       languages: {
-        'vi': '/',
-        'en': '/en'
+        'vi': base,
+        'en': `${base}/en`,
       }
     }
   };
