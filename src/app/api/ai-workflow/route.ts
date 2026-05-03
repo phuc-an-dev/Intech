@@ -18,7 +18,7 @@ function adminHtml(data: WorkflowData, timestamp: string): string {
 <body style="margin:0;padding:0;background:#f4f7f9;font-family:Arial,sans-serif;">
   <div style="max-width:600px;margin:32px auto;background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.08);">
     <div style="background:#002D62;padding:28px 32px;">
-      <h2 style="margin:0;color:#fff;font-size:20px;">🤖 Đăng ký Workshop AI mới</h2>
+      <h2 style="margin:0;color:#fff;font-size:20px;">Đăng ký Workshop AI mới</h2>
       <p style="margin:6px 0 0;color:rgba(255,255,255,.7);font-size:13px;">${timestamp}</p>
     </div>
     <div style="padding:28px 32px;">
@@ -63,19 +63,19 @@ function userHtml(data: WorkflowData): string {
       <p style="margin:8px 0 0;color:rgba(255,255,255,.85);font-size:14px;">AI-Powered Workflow Workshop</p>
     </div>
     <div style="padding:36px 32px;">
-      <h2 style="margin:0 0 16px;color:#002D62;font-size:20px;">Xin chào ${data.name}! 🎉</h2>
+      <h2 style="margin:0 0 16px;color:#002D62;font-size:20px;">Xin chào ${data.name}!</h2>
       <p style="margin:0 0 20px;color:#444;line-height:1.7;font-size:15px;">
         Bạn đã đăng ký thành công <strong>Workshop Miễn Phí — AI-Powered Workflow</strong>. Chúng tôi sẽ gửi thông tin chi tiết và link tham gia trước ngày khai giảng.
       </p>
 
       <div style="background:#f0f9ff;border:1px solid #bae6fd;border-radius:10px;padding:20px 24px;margin-bottom:24px;">
-        <p style="margin:0 0 12px;font-weight:bold;color:#002D62;">🤖 Thông tin Workshop:</p>
+        <p style="margin:0 0 12px;font-weight:bold;color:#002D62;">Thông tin Workshop:</p>
         <p style="margin:0 0 8px;font-size:15px;font-weight:bold;color:#1a1a1a;">Workshop Miễn Phí — AI-Powered Workflow</p>
         <p style="margin:0 0 6px;font-size:14px;color:#555;">Tối ưu hóa hiệu suất công việc với kỹ thuật Prompting đỉnh cao và quy trình tự động hóa bằng AI chỉ trong 03 buổi.</p>
         <ul style="margin:12px 0 0;padding-left:20px;color:#444;line-height:1.8;font-size:14px;">
           <li>Làm chủ ChatGPT, Gemini &amp; Claude cho công việc</li>
           <li>Tự động hóa báo cáo và xử lý dữ liệu</li>
-          <li>📅 Khai giảng: 15/06/2026 · Hình thức: Online</li>
+          <li>Khai giảng: 15/06/2026 · Hình thức: Online</li>
         </ul>
       </div>
 
@@ -106,7 +106,7 @@ export async function POST(req: Request) {
       }),
       sendMail({
         to: data.email,
-        subject: 'Đăng ký Workshop AI-Powered Workflow thành công! 🎉',
+        subject: 'Đăng ký Workshop AI-Powered Workflow thành công!',
         html: userHtml(data),
       }),
       appendRow('ai_workflow', [timestamp, data.name, data.phone, data.email, 'Waitlist']),

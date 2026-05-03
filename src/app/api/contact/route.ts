@@ -28,7 +28,7 @@ function adminHtml(data: ContactData, timestamp: string): string {
 <body style="margin:0;padding:0;background:#f4f7f9;font-family:Arial,sans-serif;">
   <div style="max-width:600px;margin:32px auto;background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.08);">
     <div style="background:#002D62;padding:28px 32px;">
-      <h2 style="margin:0;color:#fff;font-size:20px;">📬 Liên hệ mới từ website</h2>
+      <h2 style="margin:0;color:#fff;font-size:20px;">Liên hệ mới từ website</h2>
       <p style="margin:6px 0 0;color:rgba(255,255,255,.7);font-size:13px;">${timestamp}</p>
     </div>
     <div style="padding:28px 32px;">
@@ -77,12 +77,12 @@ function userHtml(data: ContactData): string {
       <p style="margin:8px 0 0;color:rgba(255,255,255,.85);font-size:14px;">Kiến tạo nhân lực công nghiệp tương lai</p>
     </div>
     <div style="padding:36px 32px;">
-      <h2 style="margin:0 0 16px;color:#002D62;font-size:20px;">Xin chào ${data.name}! 👋</h2>
+      <h2 style="margin:0 0 16px;color:#002D62;font-size:20px;">Xin chào ${data.name}!</h2>
       <p style="margin:0 0 16px;color:#444;line-height:1.7;font-size:15px;">
         Cảm ơn bạn đã liên hệ với <strong>Intech Global Academy</strong>. Chúng tôi đã nhận được thông điệp của bạn và sẽ phản hồi trong vòng <strong>24 giờ làm việc</strong>.
       </p>
       <div style="background:#f0f9ff;border:1px solid #bae6fd;border-radius:10px;padding:20px 24px;margin:24px 0;">
-        <p style="margin:0 0 8px;font-weight:bold;color:#002D62;font-size:13px;">📋 Nội dung bạn đã gửi:</p>
+        <p style="margin:0 0 8px;font-weight:bold;color:#002D62;font-size:13px;">Nội dung bạn đã gửi:</p>
         <p style="margin:0;color:#555;font-style:italic;line-height:1.6;">"${data.message.replace(/\n/g, '<br>')}"</p>
       </div>
       <p style="margin:0;color:#444;line-height:1.7;font-size:15px;">
@@ -114,7 +114,7 @@ export async function POST(req: Request) {
       }),
       sendMail({
         to: data.email,
-        subject: 'Intech đã nhận yêu cầu của bạn ✅',
+        subject: 'Intech đã nhận yêu cầu của bạn',
         html: userHtml(data),
       }),
       appendRow('contacts', [

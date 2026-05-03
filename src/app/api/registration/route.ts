@@ -43,12 +43,12 @@ function adminHtml(data: RegistrationData, timestamp: string): string {
 <body style="margin:0;padding:0;background:#f4f7f9;font-family:Arial,sans-serif;">
   <div style="max-width:640px;margin:32px auto;background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.08);">
     <div style="background:#002D62;padding:28px 32px;">
-      <h2 style="margin:0;color:#fff;font-size:20px;">📝 Đăng ký khóa học mới</h2>
+      <h2 style="margin:0;color:#fff;font-size:20px;">Đăng ký khóa học mới</h2>
       <p style="margin:6px 0 0;color:rgba(255,255,255,.7);font-size:13px;">${timestamp}</p>
     </div>
 
     <div style="padding:28px 32px;">
-      <h3 style="margin:0 0 12px;color:#00A3C1;font-size:14px;text-transform:uppercase;letter-spacing:.5px;">📚 Thông tin khóa học</h3>
+      <h3 style="margin:0 0 12px;color:#00A3C1;font-size:14px;text-transform:uppercase;letter-spacing:.5px;">Thông tin khóa học</h3>
       <div style="background:#f0f9ff;border:1px solid #bae6fd;border-radius:10px;padding:16px 20px;margin-bottom:24px;">
         <p style="margin:0 0 8px;font-size:18px;font-weight:bold;color:#002D62;">${data.courseTitle}</p>
         <table style="width:100%;font-size:14px;color:#555;">
@@ -63,7 +63,7 @@ function adminHtml(data: RegistrationData, timestamp: string): string {
         </table>
       </div>
 
-      <h3 style="margin:0 0 12px;color:#00A3C1;font-size:14px;text-transform:uppercase;letter-spacing:.5px;">👤 Thông tin học viên</h3>
+      <h3 style="margin:0 0 12px;color:#00A3C1;font-size:14px;text-transform:uppercase;letter-spacing:.5px;">Thông tin học viên</h3>
       <table style="width:100%;border-collapse:collapse;font-size:15px;">
         <tr style="border-bottom:1px solid #eee;">
           <td style="padding:9px 0;color:#666;font-weight:bold;width:130px;">Họ tên</td>
@@ -122,20 +122,20 @@ function userHtml(data: RegistrationData): string {
       <p style="margin:8px 0 0;color:rgba(255,255,255,.85);font-size:14px;">Kiến tạo nhân lực công nghiệp tương lai</p>
     </div>
     <div style="padding:36px 32px;">
-      <h2 style="margin:0 0 16px;color:#002D62;font-size:20px;">Xin chào ${data.name}! 🎉</h2>
+      <h2 style="margin:0 0 16px;color:#002D62;font-size:20px;">Xin chào ${data.name}!</h2>
       <p style="margin:0 0 20px;color:#444;line-height:1.7;font-size:15px;">
         Bạn đã đăng ký thành công! Bộ phận tuyển sinh Intech sẽ liên hệ với bạn qua số điện thoại <strong>${data.phone}</strong> trong thời gian sớm nhất để tư vấn chi tiết.
       </p>
 
       <div style="background:#f0f9ff;border:1px solid #bae6fd;border-radius:10px;padding:20px 24px;margin-bottom:24px;">
-        <p style="margin:0 0 12px;font-weight:bold;color:#002D62;">📚 Khóa học đã đăng ký:</p>
+        <p style="margin:0 0 12px;font-weight:bold;color:#002D62;">Khóa học đã đăng ký:</p>
         <p style="margin:0 0 6px;font-size:18px;font-weight:bold;color:#1a1a1a;">${data.courseTitle}</p>
         <p style="margin:0;font-size:14px;color:#666;">${data.topicName} · ${data.levelLabel} · ${data.durationHours} giờ (${data.durationSessions} buổi)</p>
         <p style="margin:8px 0 0;font-size:16px;font-weight:bold;color:#002D62;">${data.price.toLocaleString('vi-VN')} VNĐ</p>
       </div>
 
       <div style="background:#fff7ed;border:1px solid #fed7aa;border-radius:10px;padding:20px 24px;margin-bottom:16px;">
-        <p style="margin:0 0 12px;font-weight:bold;color:#c2410c;font-size:13px;">💳 Hướng dẫn thanh toán học phí:</p>
+        <p style="margin:0 0 12px;font-weight:bold;color:#c2410c;font-size:13px;">Hướng dẫn thanh toán học phí:</p>
         <table style="width:100%;font-size:14px;color:#444;border-collapse:collapse;">
           <tr><td style="padding:4px 0;width:140px;color:#666;">Ngân hàng:</td><td style="font-weight:bold;">[TÊN NGÂN HÀNG]</td></tr>
           <tr><td style="padding:4px 0;color:#666;">Số tài khoản:</td><td style="font-weight:bold;">[SỐ TÀI KHOẢN]</td></tr>
@@ -143,15 +143,15 @@ function userHtml(data: RegistrationData): string {
           <tr><td style="padding:4px 0;color:#666;">Số tiền:</td><td style="font-weight:bold;color:#002D62;">${data.price.toLocaleString('vi-VN')} VNĐ</td></tr>
         </table>
         <div style="margin-top:12px;background:#fef3c7;border-radius:8px;padding:12px 16px;">
-          <p style="margin:0 0 4px;font-weight:bold;color:#92400e;font-size:13px;">📝 Nội dung chuyển khoản:</p>
+          <p style="margin:0 0 4px;font-weight:bold;color:#92400e;font-size:13px;">Nội dung chuyển khoản:</p>
           <p style="margin:0;font-size:16px;font-weight:bold;color:#1a1a1a;letter-spacing:.5px;">INTECH ${data.name.toUpperCase().replace(/\s+/g, '')} ${data.phone.slice(-4)}</p>
           <p style="margin:4px 0 0;font-size:12px;color:#666;">Ví dụ: INTECH NGUYENVANA 7890</p>
         </div>
-        <p style="margin:12px 0 0;font-size:13px;color:#c2410c;">⏰ Vui lòng chuyển khoản trong vòng <strong>3 ngày làm việc</strong>.</p>
+        <p style="margin:12px 0 0;font-size:13px;color:#c2410c;">Vui lòng chuyển khoản trong vòng <strong>3 ngày làm việc</strong>.</p>
       </div>
 
       <div style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:10px;padding:16px 20px;">
-        <p style="margin:0 0 8px;font-weight:bold;color:#166534;font-size:13px;">✅ Bước tiếp theo:</p>
+        <p style="margin:0 0 8px;font-weight:bold;color:#166534;font-size:13px;">Bước tiếp theo:</p>
         <ol style="margin:0;padding-left:20px;color:#555;line-height:1.8;font-size:14px;">
           <li>Chuyển khoản học phí theo thông tin trên</li>
           <li>Tư vấn viên xác nhận và gửi tài liệu chuẩn bị</li>
@@ -186,7 +186,7 @@ export async function POST(req: Request) {
       }),
       sendMail({
         to: data.email,
-        subject: `Xác nhận đăng ký: ${data.courseTitle} ✅`,
+        subject: `Xác nhận đăng ký: ${data.courseTitle}`,
         html: userHtml(data),
       }),
       appendRow('registrations', [
