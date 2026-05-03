@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { z } from 'zod';
 import { sendMail } from '@/lib/mailer';
+import { appendRow } from '@/lib/gsheets';
 
 const schema = z.object({
   name: z.string().min(2, 'Họ tên phải có ít nhất 2 ký tự'),
@@ -133,11 +134,27 @@ function userHtml(data: RegistrationData): string {
         <p style="margin:8px 0 0;font-size:16px;font-weight:bold;color:#002D62;">${data.price.toLocaleString('vi-VN')} VNĐ</p>
       </div>
 
+      <div style="background:#fff7ed;border:1px solid #fed7aa;border-radius:10px;padding:20px 24px;margin-bottom:16px;">
+        <p style="margin:0 0 12px;font-weight:bold;color:#c2410c;font-size:13px;">💳 Hướng dẫn thanh toán học phí:</p>
+        <table style="width:100%;font-size:14px;color:#444;border-collapse:collapse;">
+          <tr><td style="padding:4px 0;width:140px;color:#666;">Ngân hàng:</td><td style="font-weight:bold;">[TÊN NGÂN HÀNG]</td></tr>
+          <tr><td style="padding:4px 0;color:#666;">Số tài khoản:</td><td style="font-weight:bold;">[SỐ TÀI KHOẢN]</td></tr>
+          <tr><td style="padding:4px 0;color:#666;">Chủ tài khoản:</td><td style="font-weight:bold;">[CHỦ TÀI KHOẢN]</td></tr>
+          <tr><td style="padding:4px 0;color:#666;">Số tiền:</td><td style="font-weight:bold;color:#002D62;">${data.price.toLocaleString('vi-VN')} VNĐ</td></tr>
+        </table>
+        <div style="margin-top:12px;background:#fef3c7;border-radius:8px;padding:12px 16px;">
+          <p style="margin:0 0 4px;font-weight:bold;color:#92400e;font-size:13px;">📝 Nội dung chuyển khoản:</p>
+          <p style="margin:0;font-size:16px;font-weight:bold;color:#1a1a1a;letter-spacing:.5px;">INTECH ${data.name.toUpperCase().replace(/\s+/g, '')} ${data.phone.slice(-4)}</p>
+          <p style="margin:4px 0 0;font-size:12px;color:#666;">Ví dụ: INTECH NGUYENVANA 7890</p>
+        </div>
+        <p style="margin:12px 0 0;font-size:13px;color:#c2410c;">⏰ Vui lòng chuyển khoản trong vòng <strong>3 ngày làm việc</strong>.</p>
+      </div>
+
       <div style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:10px;padding:16px 20px;">
         <p style="margin:0 0 8px;font-weight:bold;color:#166534;font-size:13px;">✅ Bước tiếp theo:</p>
         <ol style="margin:0;padding-left:20px;color:#555;line-height:1.8;font-size:14px;">
-          <li>Tư vấn viên liên hệ xác nhận thông tin</li>
-          <li>Nhận hướng dẫn đóng học phí và chuẩn bị tài liệu</li>
+          <li>Chuyển khoản học phí theo thông tin trên</li>
+          <li>Tư vấn viên xác nhận và gửi tài liệu chuẩn bị</li>
           <li>Tham gia lớp học đúng lịch khai giảng</li>
         </ol>
       </div>
@@ -157,7 +174,10 @@ export async function POST(req: Request) {
     const data = schema.parse(body);
     const timestamp = new Date().toLocaleString('vi-VN', { timeZone: 'Asia/Ho_Chi_Minh' });
 
-    await Promise.all([
+    const sourceLabel = SOURCE_LABELS[data.source ?? ''] ?? data.source ?? ''
+    const yearLabel = YEAR_LABELS[data.academicYear ?? ''] ?? data.academicYear ?? ''
+
+    const [adminResult, userResult, sheetResult] = await Promise.allSettled([
       sendMail({
         to: process.env.MAIL_TO!,
         subject: `[Đăng ký] ${data.courseTitle} — ${data.name}`,
@@ -169,14 +189,29 @@ export async function POST(req: Request) {
         subject: `Xác nhận đăng ký: ${data.courseTitle} ✅`,
         html: userHtml(data),
       }),
+      appendRow('registrations', [
+        timestamp, data.name, data.phone, data.email,
+        data.school, yearLabel, data.major ?? '', sourceLabel, data.goal ?? '',
+        data.courseTitle, data.topicName, data.levelLabel,
+        data.durationHours, data.durationSessions, data.price,
+        'Chờ thanh toán',
+      ]),
     ]);
+
+    if (adminResult.status === 'rejected' || userResult.status === 'rejected') {
+      console.error('[api/registration] mail failed:', adminResult, userResult);
+      return NextResponse.json({ error: 'Gửi email thất bại. Vui lòng thử lại.' }, { status: 500 });
+    }
+    if (sheetResult.status === 'rejected') {
+      console.error('[api/registration] sheet write failed:', sheetResult.reason);
+    }
 
     return NextResponse.json({ success: true });
   } catch (error) {
     if (error instanceof z.ZodError) {
       return NextResponse.json({ error: 'Dữ liệu không hợp lệ', details: error.issues }, { status: 400 });
     }
-    console.error('[api/registration] send failed:', error);
+    console.error('[api/registration] failed:', error);
     return NextResponse.json({ error: 'Gửi email thất bại. Vui lòng thử lại.' }, { status: 500 });
   }
 }

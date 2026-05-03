@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { z } from 'zod';
 import { sendMail } from '@/lib/mailer';
+import { appendRow } from '@/lib/gsheets';
 
 const schema = z.object({
   name: z.string().min(2, 'Họ tên phải có ít nhất 2 ký tự'),
@@ -102,10 +103,12 @@ export async function POST(req: Request) {
     const data = schema.parse(body);
     const timestamp = new Date().toLocaleString('vi-VN', { timeZone: 'Asia/Ho_Chi_Minh' });
 
-    await Promise.all([
+    const interestLabel = INTEREST_LABELS[data.interest ?? ''] ?? data.interest ?? 'Chưa chọn'
+
+    const [adminResult, userResult, sheetResult] = await Promise.allSettled([
       sendMail({
         to: process.env.MAIL_TO!,
-        subject: `[Liên hệ] ${data.name} — ${INTEREST_LABELS[data.interest ?? ''] ?? 'Chưa chọn'}`,
+        subject: `[Liên hệ] ${data.name} — ${interestLabel}`,
         html: adminHtml(data, timestamp),
         replyTo: data.email,
       }),
@@ -114,14 +117,26 @@ export async function POST(req: Request) {
         subject: 'Intech đã nhận yêu cầu của bạn ✅',
         html: userHtml(data),
       }),
+      appendRow('contacts', [
+        timestamp, data.name, data.phone, data.email,
+        interestLabel, data.message, 'Mới',
+      ]),
     ]);
+
+    if (adminResult.status === 'rejected' || userResult.status === 'rejected') {
+      console.error('[api/contact] mail failed:', adminResult, userResult);
+      return NextResponse.json({ error: 'Gửi email thất bại. Vui lòng thử lại.' }, { status: 500 });
+    }
+    if (sheetResult.status === 'rejected') {
+      console.error('[api/contact] sheet write failed:', sheetResult.reason);
+    }
 
     return NextResponse.json({ success: true });
   } catch (error) {
     if (error instanceof z.ZodError) {
       return NextResponse.json({ error: 'Dữ liệu không hợp lệ', details: error.issues }, { status: 400 });
     }
-    console.error('[api/contact] send failed:', error);
+    console.error('[api/contact] failed:', error);
     return NextResponse.json({ error: 'Gửi email thất bại. Vui lòng thử lại.' }, { status: 500 });
   }
 }

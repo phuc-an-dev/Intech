@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { Link } from "@/i18n/routing";
 import { ArrowRight, BookOpen, Briefcase, Globe, CheckCircle, Calendar, Users, MonitorPlay } from "lucide-react";
@@ -13,6 +14,29 @@ interface Props {
 
 export default function HomeClient({ featuredCourses }: Props) {
   const t = useTranslations("home");
+
+  const [workshopForm, setWorkshopForm] = useState({ name: '', phone: '', email: '' })
+  const [workshopState, setWorkshopState] = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
+  const [workshopError, setWorkshopError] = useState('')
+
+  async function handleWorkshopSubmit(e: React.FormEvent) {
+    e.preventDefault()
+    setWorkshopState('loading')
+    setWorkshopError('')
+    try {
+      const res = await fetch('/api/ai-workflow', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(workshopForm),
+      })
+      const json = await res.json() as { error?: string }
+      if (!res.ok) throw new Error(json.error ?? 'Đã có lỗi xảy ra')
+      setWorkshopState('success')
+    } catch (err) {
+      setWorkshopError(err instanceof Error ? err.message : 'Đã có lỗi xảy ra')
+      setWorkshopState('error')
+    }
+  }
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -276,29 +300,66 @@ export default function HomeClient({ featuredCourses }: Props) {
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
               >
-                <h3 className="font-heading font-bold text-2xl text-[#002D62] mb-6 text-center">
-                  {t("workshop.form.title")}
-                </h3>
-                <form className="space-y-4">
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">{t("workshop.form.name_label")}</label>
-                    <input type="text" className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#00A3C1] focus:border-transparent outline-none transition-all" placeholder={t("workshop.form.name_placeholder")} />
+                {workshopState === 'success' ? (
+                  <div className="text-center py-8">
+                    <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                      <CheckCircle className="w-8 h-8 text-green-500" />
+                    </div>
+                    <h3 className="font-heading font-bold text-xl text-[#002D62] mb-2">Đăng ký thành công!</h3>
+                    <p className="text-gray-600 text-sm">Chúng tôi sẽ gửi thông tin chi tiết qua email trước ngày khai giảng.</p>
                   </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">{t("workshop.form.email_label")}</label>
-                    <input type="email" className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#00A3C1] focus:border-transparent outline-none transition-all" placeholder={t("workshop.form.email_placeholder")} />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">{t("workshop.form.phone_label")}</label>
-                    <input type="tel" className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#00A3C1] focus:border-transparent outline-none transition-all" placeholder={t("workshop.form.phone_placeholder")} />
-                  </div>
-                  <button type="button" className="w-full py-4 mt-2 bg-[#00A3C1] text-white rounded-full font-bold text-lg hover:bg-[#008ba5] transition-colors shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">
-                    {t("workshop.form.submit")}
-                  </button>
-                  <p className="text-center text-xs text-gray-500 mt-4">
-                    {t("workshop.form.privacy")}
-                  </p>
-                </form>
+                ) : (
+                  <>
+                    <h3 className="font-heading font-bold text-2xl text-[#002D62] mb-6 text-center">
+                      {t("workshop.form.title")}
+                    </h3>
+                    <form className="space-y-4" onSubmit={handleWorkshopSubmit}>
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-1">{t("workshop.form.name_label")}</label>
+                        <input
+                          type="text" required
+                          value={workshopForm.name}
+                          onChange={e => setWorkshopForm(f => ({ ...f, name: e.target.value }))}
+                          className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#00A3C1] focus:border-transparent outline-none transition-all"
+                          placeholder={t("workshop.form.name_placeholder")}
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-1">{t("workshop.form.email_label")}</label>
+                        <input
+                          type="email" required
+                          value={workshopForm.email}
+                          onChange={e => setWorkshopForm(f => ({ ...f, email: e.target.value }))}
+                          className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#00A3C1] focus:border-transparent outline-none transition-all"
+                          placeholder={t("workshop.form.email_placeholder")}
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-1">{t("workshop.form.phone_label")}</label>
+                        <input
+                          type="tel" required
+                          value={workshopForm.phone}
+                          onChange={e => setWorkshopForm(f => ({ ...f, phone: e.target.value }))}
+                          className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#00A3C1] focus:border-transparent outline-none transition-all"
+                          placeholder={t("workshop.form.phone_placeholder")}
+                        />
+                      </div>
+                      {workshopState === 'error' && (
+                        <p className="text-red-500 text-sm text-center">{workshopError}</p>
+                      )}
+                      <button
+                        type="submit"
+                        disabled={workshopState === 'loading'}
+                        className="w-full py-4 mt-2 bg-[#00A3C1] text-white rounded-full font-bold text-lg hover:bg-[#008ba5] transition-colors shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 disabled:opacity-60 disabled:cursor-not-allowed disabled:transform-none"
+                      >
+                        {workshopState === 'loading' ? 'Đang gửi...' : t("workshop.form.submit")}
+                      </button>
+                      <p className="text-center text-xs text-gray-500 mt-4">
+                        {t("workshop.form.privacy")}
+                      </p>
+                    </form>
+                  </>
+                )}
               </motion.div>
             </div>
           </div>
