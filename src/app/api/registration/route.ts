@@ -198,8 +198,11 @@ export async function POST(req: Request) {
       ]),
     ]);
 
-    if (adminResult.status === 'rejected' || userResult.status === 'rejected') {
-      console.error('[api/registration] mail failed:', adminResult, userResult);
+    if (adminResult.status === 'rejected') {
+      console.error('[api/registration] admin mail failed:', adminResult.reason);
+    }
+    if (userResult.status === 'rejected') {
+      console.error('[api/registration] user mail failed:', userResult.reason);
       return NextResponse.json({ error: 'Gửi email thất bại. Vui lòng thử lại.' }, { status: 500 });
     }
     if (sheetResult.status === 'rejected') {

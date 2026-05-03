@@ -112,8 +112,11 @@ export async function POST(req: Request) {
       appendRow('ai_workflow', [timestamp, data.name, data.phone, data.email, 'Waitlist']),
     ])
 
-    if (adminResult.status === 'rejected' || userResult.status === 'rejected') {
-      console.error('[api/ai-workflow] mail failed:', adminResult, userResult)
+    if (adminResult.status === 'rejected') {
+      console.error('[api/ai-workflow] admin mail failed:', adminResult.reason)
+    }
+    if (userResult.status === 'rejected') {
+      console.error('[api/ai-workflow] user mail failed:', userResult.reason)
       return NextResponse.json({ error: 'Gửi email thất bại. Vui lòng thử lại.' }, { status: 500 })
     }
     if (sheetResult.status === 'rejected') {
