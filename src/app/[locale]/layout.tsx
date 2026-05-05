@@ -109,6 +109,7 @@ export default async function RootLayout({
                   <li><Link href="/courses" className="hover:text-white transition-colors">{tNav('courses')}</Link></li>
                   <li><Link href="/consultant" className="hover:text-white transition-colors">{tNav('consulting')}</Link></li>
                   <li><Link href="/global-mobility" className="hover:text-white transition-colors">{tNav('global_mobility')}</Link></li>
+                  <li><Link href="/global-partnerships" className="hover:text-white transition-colors">{tNav('partnerships')}</Link></li>
                 </ul>
               </div>
               <div>

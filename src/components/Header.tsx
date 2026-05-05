@@ -40,6 +40,7 @@ export default function Header() {
     { name: t('courses'), href: '/courses' as const },
     { name: t('consulting'), href: '/consultant' as const },
     { name: t('global_mobility'), href: '/global-mobility' as const },
+    { name: t('partnerships'), href: '/global-partnerships' as const },
   ]
 
   return (
