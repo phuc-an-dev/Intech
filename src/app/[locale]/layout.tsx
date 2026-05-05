@@ -107,6 +107,7 @@ export default async function RootLayout({
                 <ul className="space-y-3 text-[#F4F7F9]/80">
                   <li><Link href="/about" className="hover:text-white transition-colors">{tNav('about')}</Link></li>
                   <li><Link href="/courses" className="hover:text-white transition-colors">{tNav('courses')}</Link></li>
+                  <li><Link href="/consultant" className="hover:text-white transition-colors">{tNav('consulting')}</Link></li>
                 </ul>
               </div>
               <div>

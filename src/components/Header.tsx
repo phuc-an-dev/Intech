@@ -39,6 +39,7 @@ export default function Header() {
     { name: t('home'), href: '/' as const },
     { name: t('about'), href: '/about' as const },
     { name: t('courses'), href: '/courses' as const },
+    { name: t('consulting'), href: '/consultant' as const },
     { name: t('contact_us'), href: '/contact' as const },
   ]
 
