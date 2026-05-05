@@ -4,6 +4,7 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { Link } from "@/i18n/routing";
 import { ArrowRight, BookOpen, Briefcase, Globe, CheckCircle, Calendar, Users, MonitorPlay } from "lucide-react";
+import Image from "next/image";
 import CourseCard from "@/components/CourseCard";
 import { type LocalizedCourse } from "@/lib/courses";
 import { useTranslations } from "next-intl";
@@ -54,14 +55,28 @@ export default function HomeClient({ featuredCourses }: Props) {
   return (
     <div className="w-full">
       {/* 1. Hero Section */}
-      <section className="relative pt-24 pb-32 md:pt-32 md:pb-40 overflow-hidden bg-[#F4F7F9]">
-        <div className="absolute inset-0 z-0">
-          <div className="absolute top-0 right-0 w-1/2 h-full bg-[#00A3C1]/5 skew-x-12 translate-x-20"></div>
-          <div className="absolute bottom-0 left-0 w-1/3 h-1/2 bg-[#002D62]/5 -skew-x-12 -translate-x-20"></div>
-        </div>
+      <section className="relative pt-24 pb-32 md:pt-32 md:pb-40 overflow-hidden">
+        {/* Background images */}
+        <Image
+          src="/hero-image-pc.jpg"
+          alt="INTECH ISC Group - Industrial Training & Consulting"
+          fill
+          className="object-cover hidden md:block"
+          priority
+        />
+        <Image
+          src="/hero-image-mobile.png"
+          alt="INTECH ISC Group - Industrial Training & Consulting"
+          fill
+          className="object-cover md:hidden"
+          priority
+        />
+        {/* Overlay: full on mobile, left-half only on desktop */}
+        <div className="absolute inset-0 bg-white/70 backdrop-blur-[2px] md:hidden" />
+        <div className="absolute inset-y-0 left-0 w-2/3 bg-gradient-to-r from-white/80 via-white/60 to-transparent hidden md:block" />
 
         <div className="max-w-7xl mx-auto px-4 relative z-10">
-          <div className="flex flex-col md:flex-row items-center gap-12">
+          <div className="flex flex-col md:flex-row items-center">
             <motion.div
               className="flex-1 text-center md:text-left"
               initial={{ opacity: 0, x: -30 }}
@@ -96,18 +111,8 @@ export default function HomeClient({ featuredCourses }: Props) {
                 </Link>
               </div>
             </motion.div>
-
-            <motion.div
-              className="flex-1 w-full max-w-lg"
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-            >
-              <div className="aspect-[4/3] rounded-3xl bg-slate-200 w-full flex items-center justify-center relative overflow-hidden shadow-2xl border-4 border-white">
-                <span className="text-slate-400 font-medium">1024x768 Hero Image Placeholder</span>
-                <div className="absolute inset-0 bg-gradient-to-tr from-[#002D62]/10 to-transparent"></div>
-              </div>
-            </motion.div>
+            {/* Right side intentionally empty — background image shows through */}
+            <div className="flex-1 hidden md:block" />
           </div>
         </div>
       </section>
