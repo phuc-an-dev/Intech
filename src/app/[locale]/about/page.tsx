@@ -39,8 +39,11 @@ export default function AboutPage() {
             <h1 className="font-heading text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
               {t("title")}
             </h1>
-            <p className="text-lg md:text-xl text-white/80 leading-relaxed">
+            <p className="text-lg md:text-xl text-white/80 leading-relaxed mb-3">
               {t("subtitle")}
+            </p>
+            <p className="text-lg md:text-xl text-white/70 leading-relaxed">
+              {t("subtitle2")}
             </p>
           </motion.div>
         </div>
