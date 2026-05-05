@@ -4,6 +4,7 @@ import { getMessages, getTranslations, setRequestLocale } from 'next-intl/server
 import { notFound } from 'next/navigation';
 import { routing } from '@/i18n/routing';
 import { Link } from '@/i18n/routing';
+import Image from 'next/image';
 import NextTopLoader from "nextjs-toploader";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
@@ -90,7 +91,13 @@ export default async function RootLayout({
           <footer className="bg-[#002D62] text-white py-12 md:py-16">
             <div className="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-8 md:gap-12">
               <div className="md:col-span-2">
-                <h2 className="font-heading text-2xl font-bold mb-4 text-white">Intech</h2>
+                <Image
+                  src="/logo-white.svg"
+                  alt="Intech - Hệ sinh thái đào tạo công nghiệp"
+                  width={160}
+                  height={48}
+                  className="h-10 w-auto mb-4"
+                />
                 <p className="text-[#F4F7F9]/80 max-w-sm mb-6">
                   {tFooter('tagline')}
                 </p>

@@ -5,6 +5,7 @@ import { Link, usePathname } from '@/i18n/routing'
 import { Menu, X, ArrowRight } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useTranslations } from 'next-intl'
+import Image from 'next/image'
 import LanguageSwitcher from './LanguageSwitcher'
 
 export default function Header() {
@@ -45,12 +46,19 @@ export default function Header() {
     <>
       <header className={`w-full sticky top-0 transition-all duration-300 ${isOpen ? 'z-[1010]' : 'z-50'} ${isScrolled ? 'bg-white/80 backdrop-blur-md border-b border-gray-200/50 shadow-sm py-1' : 'bg-white border-b border-gray-100 py-0'}`}>
         <div className="max-w-7xl mx-auto px-4 h-16 md:h-20 flex items-center justify-between">
-          <Link 
-            href="/" 
+          <Link
+            href="/"
             onClick={() => setIsOpen(false)}
-            className="font-heading text-2xl font-bold text-[#002D62] relative z-[1011]"
+            className="relative z-[1011] flex items-center"
           >
-            Intech
+            <Image
+              src="/logo.svg"
+              alt="Intech - Hệ sinh thái đào tạo công nghiệp"
+              width={120}
+              height={36}
+              className="h-8 w-auto md:h-10"
+              priority
+            />
           </Link>
 
           {/* Desktop Navigation */}
