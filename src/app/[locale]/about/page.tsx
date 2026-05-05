@@ -61,6 +61,12 @@ export default function AboutPage() {
             <p className="text-gray-600 leading-relaxed text-lg">
               {t("intro_desc")}
             </p>
+            <p className="text-gray-600 leading-relaxed text-lg">
+              {t("intro_desc2")}
+            </p>
+            <p className="text-gray-600 leading-relaxed text-lg">
+              {t("intro_desc3")}
+            </p>
           </div>
           <div className="flex-1 w-full">
             <div className="aspect-[4/3] rounded-2xl bg-slate-200 w-full flex items-center justify-center relative overflow-hidden border-4 border-gray-50">
