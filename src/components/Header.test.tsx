@@ -9,7 +9,7 @@ describe('Header Component', () => {
     expect(screen.getAllByText('about').length).toBeGreaterThan(0)
     expect(screen.getAllByText('courses').length).toBeGreaterThan(0)
     expect(screen.getAllByText('consulting').length).toBeGreaterThan(0)
-    expect(screen.getAllByText('contact_us').length).toBeGreaterThan(0)
+    expect(screen.getAllByText('global_mobility').length).toBeGreaterThan(0)
   })
 
   it('renders the mobile menu toggle', () => {
@@ -24,7 +24,7 @@ describe('Header Component', () => {
     
     // Open
     fireEvent.click(toggle)
-    // The drawer contains 'register' button
-    expect(screen.getAllByText('register').length).toBeGreaterThan(0)
+    // The drawer contains the consultation button
+    expect(screen.getAllByText('free_consultation').length).toBeGreaterThan(0)
   })
 })

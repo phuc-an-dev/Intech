@@ -36,11 +36,10 @@ export default function Header() {
   }, [isOpen])
 
   const navLinks = [
-    { name: t('home'), href: '/' as const },
     { name: t('about'), href: '/about' as const },
     { name: t('courses'), href: '/courses' as const },
     { name: t('consulting'), href: '/consultant' as const },
-    { name: t('contact_us'), href: '/contact' as const },
+    { name: t('global_mobility'), href: '/global-mobility' as const },
   ]
 
   return (
@@ -87,7 +86,7 @@ export default function Header() {
               href="/contact" 
               className="hidden md:inline-flex bg-[#002D62] text-white px-6 py-2.5 rounded-full font-semibold hover:bg-[#001f44] transition-colors"
             >
-              {tCommon('register')}
+              {tCommon('free_consultation')}
             </Link>
 
             {/* Mobile Menu Toggle */}
@@ -150,7 +149,7 @@ export default function Header() {
                   onClick={() => setIsOpen(false)}
                   className="flex items-center justify-center gap-2 bg-[#002D62] text-white w-full py-5 rounded-2xl font-bold text-lg hover:bg-[#001f44] transition-colors"
                 >
-                  {tCommon('register')}
+                  {tCommon('free_consultation')}
                 </Link>
                 <p className="text-center text-[#4A4A4A] mt-8 text-sm">
                   Intech: Hệ sinh thái đào tạo và tư vấn giải pháp công nghiệp hàng đầu.
