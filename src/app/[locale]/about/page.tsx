@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { Building2, GraduationCap, Globe2, ArrowRight, ShieldCheck, FileText } from "lucide-react";
+import Image from "next/image";
 import { Link } from "@/i18n/routing";
 import { useTranslations } from "next-intl";
 
@@ -72,8 +73,16 @@ export default function AboutPage() {
             </p>
           </div>
           <div className="flex-1 w-full">
-            <div className="aspect-[4/3] rounded-2xl bg-slate-200 w-full flex items-center justify-center relative overflow-hidden border-4 border-gray-50">
-              <span className="text-slate-400 font-medium">800x600 Placeholder Image</span>
+            <div className="aspect-[4/3] rounded-2xl w-full relative overflow-hidden border-4 border-gray-50 shadow-lg">
+              <Image
+                src="/about us.png"
+                alt="About Intech Global Academy"
+                fill
+                sizes="(max-width: 768px) 100vw, 50vw"
+                className="object-cover"
+                priority
+                loading="eager"
+              />
               <div className="absolute inset-0 bg-[#00A3C1]/5"></div>
             </div>
           </div>

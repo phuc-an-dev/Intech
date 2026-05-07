@@ -61,6 +61,7 @@ export default function HomeClient({ featuredCourses }: Props) {
           src="/hero-image-pc.jpg"
           alt="INTECH ISC Group - Industrial Training & Consulting"
           fill
+          sizes="100vw"
           className="object-cover hidden md:block"
           priority
         />
@@ -68,6 +69,7 @@ export default function HomeClient({ featuredCourses }: Props) {
           src="/hero-image-mobile.png"
           alt="INTECH ISC Group - Industrial Training & Consulting"
           fill
+          sizes="(max-width: 768px) 100vw, 0vw"
           className="object-cover md:hidden"
           priority
         />
@@ -222,9 +224,15 @@ export default function HomeClient({ featuredCourses }: Props) {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
             >
-              <div className="aspect-square md:aspect-[4/3] lg:aspect-square rounded-[2rem] bg-slate-200 w-full flex items-center justify-center relative overflow-hidden">
-                <span className="text-slate-400 font-medium">800x800 Placeholder (LMS/Learning)</span>
-                <div className="absolute inset-0 border-8 border-white/50 rounded-[2rem]"></div>
+            <div className="aspect-square md:aspect-[4/3] lg:aspect-square rounded-[2rem] w-full relative overflow-hidden shadow-2xl">
+                <Image
+                  src="/why choose 800x800.png"
+                  alt="Why Choose Intech Global Academy"
+                  fill
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                  className="object-cover"
+                />
+                <div className="absolute inset-0 border-8 border-white/20 rounded-[2rem]"></div>
               </div>
             </motion.div>
 

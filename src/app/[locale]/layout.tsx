@@ -72,7 +72,7 @@ export default async function RootLayout({
   const tFooter = await getTranslations({ locale, namespace: 'footer' });
 
   return (
-    <html lang={locale}>
+    <html lang={locale} data-scroll-behavior="smooth">
       <body className={`${montserrat.variable} ${inter.variable} antialiased flex flex-col min-h-screen`} suppressHydrationWarning>
         <NextIntlClientProvider messages={messages}>
           <Analytics />
