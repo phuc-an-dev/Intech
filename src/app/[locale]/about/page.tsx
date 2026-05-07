@@ -91,7 +91,6 @@ export default function AboutPage() {
                 sizes="(max-width: 768px) 100vw, 50vw"
                 className="object-cover"
                 priority
-                loading="eager"
               />
               <div className="absolute inset-0 bg-[#00A3C1]/5"></div>
             </div>
@@ -103,7 +102,7 @@ export default function AboutPage() {
       <section className="py-16 bg-[#F4F7F9]">
         <div className="max-w-7xl mx-auto px-4">
           <h2 className="text-2xl md:text-3xl font-heading font-bold text-[#002D62] mb-10 text-center">
-            Đối tác chiến lược
+            {t('partners_title')}
           </h2>
           <LogoMarquee logos={partnerLogos} speed={30} />
         </div>

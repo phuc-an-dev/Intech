@@ -101,13 +101,15 @@ export default function ConsultingPage() {
       <section className="bg-[#002D62] text-white py-20 md:py-28 px-4 relative overflow-hidden">
         <div className="absolute inset-0 z-0">
           <div className="absolute top-[-50%] right-[-10%] w-3/4 h-[200%] bg-[#00A3C1] opacity-10 blur-3xl transform rotate-45" />
-          <ImagePlaceholder
-            name="hero-consultant.webp"
-            width={1920}
-            height={600}
-            fill
-            className="opacity-10 mix-blend-overlay"
-          />
+          <div className="absolute inset-0">
+            <ImagePlaceholder
+              name="hero-consultant.webp"
+              width={1920}
+              height={600}
+              fill
+              className="opacity-10 mix-blend-overlay"
+            />
+          </div>
         </div>
         <div className="max-w-7xl mx-auto relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-0 lg:gap-12 items-center">
           <motion.div
@@ -345,11 +347,6 @@ export default function ConsultingPage() {
                         : 'text-[#00A3C1] group-hover:scale-110 transition-transform duration-300'
                     }`}
                   />
-                  {!isExpanding && (
-                    <span className="absolute bottom-2 right-3 text-[10px] text-white/20 uppercase tracking-widest">
-                      800×600
-                    </span>
-                  )}
                 </div>
                 <div className={`p-6 h-full ${isExpanding ? 'bg-white/5' : 'bg-white/10'}`}>
                   <h3 className="font-heading font-bold text-white text-lg mb-2">{title}</h3>
@@ -365,7 +362,7 @@ export default function ConsultingPage() {
       <section className="py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4">
           <h2 className="text-2xl md:text-3xl font-heading font-bold text-[#002D62] mb-10 text-center">
-            Đối tác của chúng tôi
+            {t('partners_title')}
           </h2>
           <LogoMarquee logos={partnerLogos} speed={25} />
         </div>

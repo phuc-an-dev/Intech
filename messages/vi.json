@@ -170,7 +170,8 @@
     "privacy_title": "Chính sách bảo mật",
     "privacy_desc": "Đọc hiểu cách chúng tôi thu thập, sử dụng và bảo vệ dữ liệu, thông tin cá nhân của bạn trên hệ thống.",
     "terms_title": "Điều khoản sử dụng",
-    "terms_desc": "Tìm hiểu các quy định, quyền lợi và trách nhiệm pháp lý khi bạn sử dụng dịch vụ của Intech."
+    "terms_desc": "Tìm hiểu các quy định, quyền lợi và trách nhiệm pháp lý khi bạn sử dụng dịch vụ của Intech.",
+    "partners_title": "Đối tác chiến lược"
   },
   "contact": {
     "title": "Liên Hệ Trực Tiếp",
@@ -445,7 +446,8 @@
     "glossary_spc": "SPC: Statistical Process Control — kiểm soát quy trình bằng thống kê để phát hiện biến động sớm.",
     "cta_title": "Sẵn sàng bắt đầu hành trình tư vấn?",
     "cta_desc": "Đặt lịch tư vấn miễn phí với chuyên gia của Intech ISC. Chúng tôi sẽ liên hệ trong vòng 24 giờ.",
-    "cta_button": "Liên hệ tư vấn ngay"
+    "cta_button": "Liên hệ tư vấn ngay",
+    "partners_title": "Đối tác của chúng tôi"
   },
   "globalMobility": {
     "hero_tagline": "Cầu nối tri thức và chuyển dịch toàn cầu",
