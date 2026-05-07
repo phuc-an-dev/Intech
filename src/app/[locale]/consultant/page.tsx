@@ -13,6 +13,9 @@ import {
 } from 'lucide-react'
 import { Link } from '@/i18n/routing'
 import { useTranslations } from 'next-intl'
+import ImagePlaceholder from '@/components/ImagePlaceholder'
+import LogoMarquee from '@/components/LogoMarquee'
+import { partnerLogos } from '@/data/partners'
 
 export default function ConsultingPage() {
   const t = useTranslations('consulting')
@@ -54,10 +57,10 @@ export default function ConsultingPage() {
   ]
 
   const industries = [
-    { icon: Factory, title: t('industry1_title'), desc: t('industry1_desc'), isExpanding: false },
-    { icon: Truck, title: t('industry2_title'), desc: t('industry2_desc'), isExpanding: false },
-    { icon: Package, title: t('industry3_title'), desc: t('industry3_desc'), isExpanding: false },
-    { icon: Sparkles, title: t('industry4_title'), desc: t('industry4_desc'), isExpanding: true },
+    { icon: Factory, title: t('industry1_title'), desc: t('industry1_desc'), isExpanding: false, image: 'industry-manufacturing.webp' },
+    { icon: Truck,   title: t('industry2_title'), desc: t('industry2_desc'), isExpanding: false, image: 'industry-logistics.webp' },
+    { icon: Package, title: t('industry3_title'), desc: t('industry3_desc'), isExpanding: false, image: 'industry-commerce.webp' },
+    { icon: Sparkles, title: t('industry4_title'), desc: t('industry4_desc'), isExpanding: true,  image: 'industry-expanding.webp' },
   ]
 
   const cases = [
@@ -98,6 +101,13 @@ export default function ConsultingPage() {
       <section className="bg-[#002D62] text-white py-20 md:py-28 px-4 relative overflow-hidden">
         <div className="absolute inset-0 z-0">
           <div className="absolute top-[-50%] right-[-10%] w-3/4 h-[200%] bg-[#00A3C1] opacity-10 blur-3xl transform rotate-45" />
+          <ImagePlaceholder
+            name="hero-consultant.webp"
+            width={1920}
+            height={600}
+            fill
+            className="opacity-10 mix-blend-overlay"
+          />
         </div>
         <div className="max-w-7xl mx-auto relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-0 lg:gap-12 items-center">
           <motion.div
@@ -302,7 +312,7 @@ export default function ConsultingPage() {
             whileInView="visible"
             viewport={{ once: true, margin: '-50px' }}
           >
-            {industries.map(({ icon: Icon, title, desc, isExpanding }) => (
+            {industries.map(({ icon: Icon, title, desc, isExpanding, image }) => (
               <motion.div
                 key={title}
                 variants={itemVariants}
@@ -310,6 +320,17 @@ export default function ConsultingPage() {
                   isExpanding ? 'border-2 border-dashed border-white/20' : 'border border-white/10'
                 }`}
               >
+                {/* Industry image thumbnail */}
+                <div className="h-40 w-full relative overflow-hidden rounded-xl mb-4">
+                  <ImagePlaceholder
+                    name={image}
+                    width={400}
+                    height={300}
+                    fill
+                    className="opacity-90"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#002D62]/40 to-transparent" />
+                </div>
                 <div
                   className={`aspect-[4/3] relative flex items-center justify-center ${
                     isExpanding
@@ -340,6 +361,16 @@ export default function ConsultingPage() {
         </div>
       </section>
 
+      {/* ── Partner Logos ── */}
+      <section className="py-16 bg-white">
+        <div className="max-w-7xl mx-auto px-4">
+          <h2 className="text-2xl md:text-3xl font-heading font-bold text-[#002D62] mb-10 text-center">
+            Đối tác của chúng tôi
+          </h2>
+          <LogoMarquee logos={partnerLogos} speed={25} />
+        </div>
+      </section>
+
       {/* ── Case Studies (blurred placeholder) ── */}
       <section className="max-w-7xl mx-auto px-4 py-24">
         <motion.div
@@ -353,27 +384,41 @@ export default function ConsultingPage() {
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {cases.map(({ industry, title, desc }, i) => (
+          {cases.map((c, idx) => (
             <motion.div
-              key={title}
+              key={c.title}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: i * 0.1 }}
-              className="relative bg-white rounded-3xl overflow-hidden border border-gray-100 shadow-sm"
+              transition={{ delay: idx * 0.1 }}
+              className="relative overflow-hidden bg-white rounded-3xl border border-gray-100 shadow-sm"
             >
-              <div className="filter blur-sm select-none pointer-events-none p-8">
-                <div className="text-xs font-bold text-[#00A3C1] uppercase tracking-wider mb-3">{industry}</div>
-                <h3 className="font-heading font-bold text-xl text-[#002D62] mb-3">{title}</h3>
-                <p className="text-gray-600 text-sm leading-relaxed">{desc}</p>
-                <div className="mt-6 h-2 bg-gray-100 rounded-full" />
-                <div className="mt-3 h-2 bg-gray-100 rounded-full w-3/4" />
+              {/* Background image */}
+              <div className="absolute inset-0">
+                <ImagePlaceholder
+                  name={`case-bg-${idx + 1}.webp`}
+                  width={800}
+                  height={500}
+                  fill
+                  className="opacity-30"
+                />
+                <div className="absolute inset-0 bg-[#002D62]/70" />
               </div>
-              <div className="absolute inset-0 flex flex-col items-center justify-center bg-white/80 backdrop-blur-[2px]">
-                <CalendarFold className="w-7 h-7 text-[#002D62] mb-3 opacity-60" />
-                <span className="bg-[#002D62] text-white text-xs font-bold px-5 py-2 rounded-full uppercase tracking-widest">
-                  {t('case_coming_soon')}
-                </span>
+              {/* Existing content */}
+              <div className="relative z-10">
+                <div className="filter blur-sm select-none pointer-events-none p-8">
+                  <div className="text-xs font-bold text-[#00A3C1] uppercase tracking-wider mb-3">{c.industry}</div>
+                  <h3 className="font-heading font-bold text-xl text-[#002D62] mb-3">{c.title}</h3>
+                  <p className="text-gray-600 text-sm leading-relaxed">{c.desc}</p>
+                  <div className="mt-6 h-2 bg-gray-100 rounded-full" />
+                  <div className="mt-3 h-2 bg-gray-100 rounded-full w-3/4" />
+                </div>
+                <div className="absolute inset-0 flex flex-col items-center justify-center bg-white/80 backdrop-blur-[2px]">
+                  <CalendarFold className="w-7 h-7 text-[#002D62] mb-3 opacity-60" />
+                  <span className="bg-[#002D62] text-white text-xs font-bold px-5 py-2 rounded-full uppercase tracking-widest">
+                    {t('case_coming_soon')}
+                  </span>
+                </div>
               </div>
             </motion.div>
           ))}
