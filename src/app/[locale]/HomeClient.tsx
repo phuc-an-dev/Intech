@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { Link } from "@/i18n/routing";
 import { ArrowRight, BookOpen, Briefcase, Globe, CheckCircle, Calendar, Users, MonitorPlay } from "lucide-react";
 import Image from "next/image";
+import ImagePlaceholder from "@/components/ImagePlaceholder";
 import CourseCard from "@/components/CourseCard";
 import { type LocalizedCourse } from "@/lib/courses";
 import { useTranslations } from "next-intl";
@@ -274,6 +275,13 @@ export default function HomeClient({ featuredCourses }: Props) {
       <section className="py-24 bg-[#002D62] relative overflow-hidden">
         <div className="absolute top-0 right-0 w-96 h-96 bg-[#00A3C1] rounded-full mix-blend-multiply filter blur-3xl opacity-30"></div>
         <div className="absolute bottom-0 left-0 w-96 h-96 bg-white rounded-full mix-blend-overlay filter blur-3xl opacity-10"></div>
+        <ImagePlaceholder
+          name="workshop-bg.webp"
+          width={1920}
+          height={700}
+          fill
+          className="opacity-10 mix-blend-overlay"
+        />
 
         <div className="max-w-7xl mx-auto px-4 relative z-10">
           <div className="md:bg-white/5 md:border border-white/10 rounded-3xl md:p-16 md:backdrop-blur-sm">
