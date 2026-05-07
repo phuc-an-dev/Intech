@@ -5,6 +5,9 @@ import { Building2, GraduationCap, Globe2, ArrowRight, ShieldCheck, FileText } f
 import Image from "next/image";
 import { Link } from "@/i18n/routing";
 import { useTranslations } from "next-intl";
+import ImagePlaceholder from "@/components/ImagePlaceholder";
+import LogoMarquee from "@/components/LogoMarquee";
+import { partnerLogos } from "@/data/partners";
 
 export default function AboutPage() {
   const t = useTranslations("about");
@@ -30,6 +33,13 @@ export default function AboutPage() {
       <section className="bg-[#002D62] text-white py-20 md:py-28 px-4 relative overflow-hidden">
         <div className="absolute inset-0 z-0">
           <div className="absolute top-[-50%] right-[-10%] w-3/4 h-[200%] bg-[#00A3C1] opacity-10 blur-3xl transform rotate-45"></div>
+          <ImagePlaceholder
+            name="hero-about.webp"
+            width={1920}
+            height={600}
+            fill
+            className="opacity-10 mix-blend-overlay"
+          />
         </div>
         <div className="max-w-4xl mx-auto text-center relative z-10">
           <motion.div
@@ -87,6 +97,16 @@ export default function AboutPage() {
             </div>
           </div>
         </motion.div>
+      </section>
+
+      {/* Partner Logo Marquee Section */}
+      <section className="py-16 bg-[#F4F7F9]">
+        <div className="max-w-7xl mx-auto px-4">
+          <h2 className="text-2xl md:text-3xl font-heading font-bold text-[#002D62] mb-10 text-center">
+            Đối tác chiến lược
+          </h2>
+          <LogoMarquee logos={partnerLogos} speed={30} />
+        </div>
       </section>
 
       {/* Mission Section */}
