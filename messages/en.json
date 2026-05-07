@@ -521,7 +521,8 @@
     "tour_detail_custom_title": "Customization Available",
     "tour_detail_cta": "Register Interest",
     "tour_detail_back": "Back to Global Mobility",
-    "tour_detail_group_label": "Group size:"
+    "tour_detail_group_label": "Group size:",
+    "tour_gallery_title": "Program Gallery"
   },
   "globalPartnerships": {
     "hero_tagline": "Global Connection Ecosystem",
