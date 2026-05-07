@@ -42,3 +42,6 @@ intech-*.json
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# git worktrees
+.worktrees/
