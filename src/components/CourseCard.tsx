@@ -3,6 +3,8 @@
 import { motion } from "framer-motion";
 import { Link } from "@/i18n/routing";
 import { ArrowRight, Clock, BookOpen, Tag } from "lucide-react";
+import Image from "next/image";
+import ImagePlaceholder from "./ImagePlaceholder";
 import { type LocalizedCourse } from "@/lib/courses";
 import { useTranslations } from "next-intl";
 
@@ -19,9 +21,18 @@ const getGradientByTopic = (slug: string) => {
   return gradients[slug] || "from-[#002D62] to-[#00A3C1]";
 };
 
+const getCoverImage = (slug: string): string | null => {
+  const images: Record<string, string> = {
+    // Populate when real images arrive, e.g.:
+    // "basic-prompt-engineering": "/images/course-basic-prompt.webp",
+  };
+  return images[slug] ?? null;
+};
+
 export default function CourseCard({ course }: { course: LocalizedCourse }) {
   const tLevels = useTranslations('courses.levels');
   const gradientClass = getGradientByTopic(course.topicSlug);
+  const coverImage = getCoverImage(course.slug);
 
   return (
     <motion.div
@@ -49,13 +60,25 @@ export default function CourseCard({ course }: { course: LocalizedCourse }) {
             </span>
           </div>
 
-          {/* Gradient Thumbnail */}
-          <div className={`h-48 w-full bg-gradient-to-br ${gradientClass} flex items-center justify-center relative overflow-hidden group`}>
-            <div className="absolute inset-0 bg-black/10"></div>
-            <div className="absolute inset-0 bg-white/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-            <span className="text-white/40 font-heading text-6xl font-black tracking-tighter opacity-50 group-hover:scale-110 transition-transform duration-500">
-              {course.title.substring(0, 2).toUpperCase()}
-            </span>
+          {/* Thumbnail */}
+          <div className="h-48 w-full relative overflow-hidden group">
+            {coverImage ? (
+              <Image
+                src={coverImage}
+                alt={course.title}
+                fill
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                className="object-cover group-hover:scale-105 transition-transform duration-500"
+              />
+            ) : (
+              <div className={`absolute inset-0 bg-gradient-to-br ${gradientClass} flex items-center justify-center`}>
+                <div className="absolute inset-0 bg-black/10" />
+                <div className="absolute inset-0 bg-white/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                <span className="text-white/40 font-heading text-6xl font-black tracking-tighter opacity-50 group-hover:scale-110 transition-transform duration-500">
+                  {course.title.substring(0, 2).toUpperCase()}
+                </span>
+              </div>
+            )}
           </div>
 
           <div className="p-6 flex flex-col flex-1">
