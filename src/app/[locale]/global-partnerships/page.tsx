@@ -1,7 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { Globe, BookOpen, Users, Lightbulb, ArrowRight, GraduationCap, Building2, Network } from 'lucide-react'
+import { Globe, BookOpen, Users, Lightbulb, ArrowRight } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { Link } from '@/i18n/routing'
 
@@ -16,13 +16,6 @@ const itemVariants = {
 
 export default function GlobalPartnershipsPage() {
   const t = useTranslations('globalPartnerships')
-
-  const partnerCategories = [
-    { icon: GraduationCap, label: t('partner_cat1') },
-    { icon: Building2, label: t('partner_cat2') },
-    { icon: Globe, label: t('partner_cat3') },
-    { icon: Network, label: t('partner_cat4') },
-  ]
 
   const models = [
     { icon: Globe, title: t('model1_title'), desc: t('model1_desc') },
@@ -112,46 +105,7 @@ export default function GlobalPartnershipsPage() {
         </motion.div>
       </section>
 
-      {/* Strategic Partners */}
-      <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center mb-12"
-          >
-            <h2 className="text-3xl md:text-4xl font-heading font-bold text-[#002D62] mb-4">
-              {t('partners_title')}
-            </h2>
-            <p className="text-[#4A4A4A] max-w-2xl mx-auto">{t('partners_subtitle')}</p>
-          </motion.div>
-
-          <motion.div
-            variants={containerVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"
-          >
-            {partnerCategories.map(({ icon: Icon, label }) => (
-              <motion.div
-                key={label}
-                variants={itemVariants}
-                className="bg-[#F4F7F9] rounded-2xl p-6 flex flex-col items-center text-center border border-gray-100"
-              >
-                <div className="w-12 h-12 bg-[#002D62]/10 rounded-xl flex items-center justify-center mb-4">
-                  <Icon className="w-6 h-6 text-[#002D62]" />
-                </div>
-                <h3 className="font-heading font-bold text-[#002D62] text-sm mb-4">{label}</h3>
-                <div className="w-full h-16 bg-white rounded-xl border border-dashed border-[#002D62]/20 flex items-center justify-center">
-                  <span className="text-xs text-[#4A4A4A]/50">{t('partner_coming_soon')}</span>
-                </div>
-              </motion.div>
-            ))}
-          </motion.div>
-        </div>
-      </section>
+      {/* Strategic Partners — temporarily hidden */}
 
       {/* Collaboration Models */}
       <section className="py-20 bg-[#002D62]">
@@ -173,13 +127,13 @@ export default function GlobalPartnershipsPage() {
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+            className="flex flex-wrap justify-center gap-6"
           >
             {models.map(({ icon: Icon, title, desc }) => (
               <motion.div
                 key={title}
                 variants={itemVariants}
-                className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 border border-white/10 flex flex-col"
+                className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 border border-white/10 flex flex-col w-full md:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)]"
               >
                 <div className="w-10 h-10 bg-[#00A3C1]/20 rounded-xl flex items-center justify-center mb-5">
                   <Icon className="w-5 h-5 text-[#00A3C1]" />

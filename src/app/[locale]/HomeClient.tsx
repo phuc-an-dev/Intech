@@ -371,20 +371,6 @@ export default function HomeClient({ featuredCourses }: Props) {
         </div>
       </section>
 
-      {/* 6. Vision 2030 */}
-      <section className="pt-24 pb-32 md:pb-40 bg-white text-center px-4">
-        <motion.div
-          className="max-w-4xl mx-auto"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-        >
-          <div className="text-[#00A3C1] font-bold tracking-widest uppercase mb-4">{t("vision.tag")}</div>
-          <h2 className="font-heading text-3xl md:text-5xl font-bold text-[#002D62] leading-tight">
-            {t("vision.text")}
-          </h2>
-        </motion.div>
-      </section>
     </div>
   );
 }
