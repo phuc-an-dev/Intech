@@ -1,8 +1,7 @@
 'use client'
 
-import { useState } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
-import { MapPin, GraduationCap, Globe, Users, ArrowRight, CheckCircle2, Building2, BookOpen, Briefcase } from 'lucide-react'
+import { motion } from 'framer-motion'
+import { MapPin, GraduationCap, ArrowRight, CheckCircle2, BookOpen, Briefcase, Users, Award } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { Link } from '@/i18n/routing'
 
@@ -17,50 +16,39 @@ const itemVariants = {
 
 export default function GlobalMobilityPage() {
   const t = useTranslations('globalMobility')
-  const [activeTab, setActiveTab] = useState(0)
 
-  const tabs = [
-    {
-      name: t('tab_inbound'),
-      title: t('inbound_title'),
-      desc: t('inbound_desc'),
-      icon: Building2,
-      items: [t('inbound_item1'), t('inbound_item2'), t('inbound_item3')],
-    },
-    {
-      name: t('tab_outbound'),
-      title: t('outbound_title'),
-      desc: t('outbound_desc'),
-      icon: Globe,
-      items: [t('outbound_item1'), t('outbound_item2'), t('outbound_item3')],
-    },
-    {
-      name: t('tab_exchange'),
-      title: t('exchange_title'),
-      desc: t('exchange_desc'),
-      icon: Users,
-      items: [t('exchange_item1'), t('exchange_item2'), t('exchange_item3')],
-    },
+  const toursBullets = [
+    t('tours_bullet1'),
+    t('tours_bullet2'),
+    t('tours_bullet3'),
+    t('tours_bullet4'),
+    t('tours_bullet5'),
   ]
 
   const tours = [
     {
+      slug: 'vietnam-industry-culture-experience',
       duration: t('tour1_duration'),
       name: t('tour1_name'),
       destination: t('tour1_destination'),
       highlights: [t('tour1_highlight1'), t('tour1_highlight2'), t('tour1_highlight3')],
+      price: 'USD 500–900',
     },
     {
+      slug: 'vietnam-tech-immersion',
       duration: t('tour2_duration'),
       name: t('tour2_name'),
       destination: t('tour2_destination'),
       highlights: [t('tour2_highlight1'), t('tour2_highlight2'), t('tour2_highlight3')],
+      price: 'USD 1,000–1,800',
     },
     {
+      slug: 'global-industry-leadership',
       duration: t('tour3_duration'),
       name: t('tour3_name'),
       destination: t('tour3_destination'),
       highlights: [t('tour3_highlight1'), t('tour3_highlight2'), t('tour3_highlight3')],
+      price: 'USD 2,000–4,000',
     },
   ]
 
@@ -180,49 +168,22 @@ export default function GlobalMobilityPage() {
             <p className="text-[#4A4A4A] max-w-2xl mx-auto">{t('tours_subtitle')}</p>
           </motion.div>
 
-          {/* Tab buttons */}
-          <div className="flex flex-wrap justify-center gap-3 mb-8">
-            {tabs.map((tab, i) => {
-              const Icon = tab.icon
-              return (
-                <button
-                  key={tab.name}
-                  onClick={() => setActiveTab(i)}
-                  className={`flex items-center gap-2 px-6 py-3 rounded-full font-semibold transition-all ${
-                    activeTab === i
-                      ? 'bg-[#002D62] text-white shadow-md'
-                      : 'bg-[#F4F7F9] text-[#4A4A4A] hover:bg-[#002D62]/10'
-                  }`}
-                >
-                  <Icon className="w-4 h-4" />
-                  {tab.name}
-                </button>
-              )
-            })}
-          </div>
-
-          {/* Tab content */}
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={activeTab}
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -16 }}
-              transition={{ duration: 0.3 }}
-              className="bg-[#F4F7F9] rounded-3xl p-8 md:p-10 mb-16"
-            >
-              <h3 className="text-xl font-heading font-bold text-[#002D62] mb-3">{tabs[activeTab].title}</h3>
-              <p className="text-[#4A4A4A] mb-6 leading-relaxed">{tabs[activeTab].desc}</p>
-              <ul className="space-y-3">
-                {tabs[activeTab].items.map((item) => (
-                  <li key={item} className="flex items-start gap-3">
-                    <CheckCircle2 className="w-5 h-5 text-[#00A3C1] mt-0.5 flex-shrink-0" />
-                    <span className="text-[#4A4A4A]">{item}</span>
-                  </li>
-                ))}
-              </ul>
-            </motion.div>
-          </AnimatePresence>
+          {/* General description bullets */}
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="bg-[#F4F7F9] rounded-3xl p-8 md:p-10 mb-16"
+          >
+            <ul className="space-y-4">
+              {toursBullets.map((bullet) => (
+                <li key={bullet} className="flex items-start gap-3">
+                  <CheckCircle2 className="w-5 h-5 text-[#00A3C1] mt-0.5 flex-shrink-0" />
+                  <span className="text-[#4A4A4A]">{bullet}</span>
+                </li>
+              ))}
+            </ul>
+          </motion.div>
 
           {/* Tour cards */}
           <motion.div
@@ -238,14 +199,20 @@ export default function GlobalMobilityPage() {
                 variants={itemVariants}
                 className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 flex flex-col"
               >
-                <div className="flex items-center justify-between mb-4">
+                <div className="flex items-center justify-between mb-3">
                   <span className="bg-[#002D62] text-white text-xs font-bold px-3 py-1 rounded-full">
                     {tour.duration}
                   </span>
-                  <MapPin className="w-5 h-5 text-[#00A3C1]" />
+                  <div className="flex items-center gap-1.5">
+                    <Award className="w-4 h-4 text-[#00A3C1]" />
+                    <span className="text-xs text-[#00A3C1] font-medium">{t('tour_certificate_label')}</span>
+                  </div>
                 </div>
                 <h4 className="font-heading font-bold text-[#002D62] text-lg mb-1">{tour.name}</h4>
-                <p className="text-[#00A3C1] text-sm font-medium mb-4">{tour.destination}</p>
+                <div className="flex items-center gap-1.5 mb-3">
+                  <MapPin className="w-3.5 h-3.5 text-[#00A3C1] flex-shrink-0" />
+                  <p className="text-[#00A3C1] text-sm font-medium">{tour.destination}</p>
+                </div>
                 <ul className="space-y-2 flex-1">
                   {tour.highlights.map((h) => (
                     <li key={h} className="flex items-start gap-2 text-sm text-[#4A4A4A]">
@@ -254,9 +221,19 @@ export default function GlobalMobilityPage() {
                     </li>
                   ))}
                 </ul>
+                <div className="mt-4 pt-4 border-t border-gray-100 flex items-center justify-between">
+                  <div>
+                    <p className="text-xs text-[#4A4A4A]/60 mb-0.5">{t('tour_for_label')} {t('tour_participants_label')}</p>
+                    <p className="text-sm font-bold text-[#002D62]">{tour.price}</p>
+                  </div>
+                  <div className="flex items-center gap-1 text-[#4A4A4A]/50 text-xs">
+                    <Users className="w-3.5 h-3.5" />
+                    15–40
+                  </div>
+                </div>
                 <Link
-                  href="/contact"
-                  className="mt-6 flex items-center gap-2 text-[#002D62] font-semibold text-sm hover:text-[#00A3C1] transition-colors group"
+                  href={`/global-mobility/tours/${tour.slug}`}
+                  className="mt-4 flex items-center gap-2 text-[#002D62] font-semibold text-sm hover:text-[#00A3C1] transition-colors group"
                 >
                   {t('tour_cta')}
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
