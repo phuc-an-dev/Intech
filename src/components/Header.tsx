@@ -38,6 +38,7 @@ export default function Header() {
   const navLinks = [
     { name: t('about'), href: '/about' as const },
     { name: t('courses'), href: '/courses' as const },
+    { name: t('insights'), href: '/insights' as const },
     { name: t('consulting'), href: '/consultant' as const },
     { name: t('global_mobility'), href: '/global-mobility' as const },
     { name: t('partnerships'), href: '/global-partnerships' as const },
