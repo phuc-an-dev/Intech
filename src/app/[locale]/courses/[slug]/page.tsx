@@ -3,6 +3,7 @@ import { Link } from "@/i18n/routing";
 import { notFound } from "next/navigation";
 import { ArrowLeft, Clock, BookOpen, Tag, CheckCircle2, AlertCircle, Calendar, Users, GraduationCap, Rocket } from "lucide-react";
 import CourseRegistrationButton from "@/components/CourseRegistrationButton";
+import CourseImage from "@/components/CourseImage";
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { getCourseBySlug, getCourses, getAllCourseSlugs, type LocalizedCourse } from "@/lib/courses";
 
@@ -142,19 +143,11 @@ export default async function CourseDetailPage(
       {/* Course Image */}
       <div className="max-w-5xl mx-auto px-4 mt-8 relative z-20">
         <div className="w-full aspect-video rounded-2xl overflow-hidden bg-gradient-to-br from-gray-100 to-gray-200 border border-gray-200 shadow-sm flex items-center justify-center">
-          {course.imageUrl ? (
-            <img
-              src={course.imageUrl}
-              alt={t('detail.image_placeholder_alt')}
-              className="w-full h-full object-cover"
-              onError={(e) => { (e.target as HTMLImageElement).style.display = 'none' }}
-            />
-          ) : (
-            <div className="flex flex-col items-center gap-3 text-gray-400">
-              <BookOpen className="w-16 h-16 opacity-30" />
-              <span className="text-sm font-medium">{course.title}</span>
-            </div>
-          )}
+          <CourseImage
+            src={course.imageUrl}
+            alt={t('detail.image_placeholder_alt')}
+            title={course.title}
+          />
         </div>
       </div>
 
