@@ -13,7 +13,8 @@
     "consulting": "Consulting",
     "global_mobility": "Global Mobility",
     "partnerships": "Partnerships",
-    "contact_us": "Contact Us"
+    "contact_us": "Contact Us",
+    "insights": "Insights"
   },
   "footer": {
     "tagline": "Leading industrial training and consultancy ecosystem, helping individuals and businesses master Industry 4.0 and integrate into global supply chains.",
@@ -564,5 +565,21 @@
     "cta_desc": "We always welcome new collaboration opportunities to co-create breakthrough value. If your organization is looking for a trusted partner in Vietnam, connect with us.",
     "cta_button": "Register as a Partner",
     "cta_contact": "Contact the Global Mobility team"
+  },
+  "insights": {
+    "page_title": "Insights",
+    "page_description": "In-depth analyses on AI, supply chain, industrial skills, and digital transformation from Intech ISC experts.",
+    "featured_label": "Featured",
+    "read_more": "Read article",
+    "back_to_list": "Back to Insights",
+    "min_read": "min read",
+    "published": "Published",
+    "share_title": "Share this article",
+    "related_title": "More Insights",
+    "cta_title": "Ready to apply these insights?",
+    "cta_desc": "Explore our training programs designed around the trends shaping Vietnam's industrial future.",
+    "cta_button": "Explore Courses",
+    "lang_badge_en": "EN",
+    "lang_badge_vi": "VI"
   }
 }

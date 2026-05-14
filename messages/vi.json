@@ -13,7 +13,8 @@
     "consulting": "Tư vấn doanh nghiệp",
     "global_mobility": "Global Mobility",
     "partnerships": "Đối tác",
-    "contact_us": "Liên hệ"
+    "contact_us": "Liên hệ",
+    "insights": "Insights"
   },
   "footer": {
     "tagline": "Hệ sinh thái đào tạo và tư vấn công nghiệp hàng đầu, giúp cá nhân và doanh nghiệp làm chủ công nghệ 4.0 và hội nhập chuỗi cung ứng toàn cầu.",
@@ -564,5 +565,21 @@
     "cta_desc": "Chúng tôi luôn chào đón các cơ hội hợp tác mới để cùng kiến tạo những giá trị đột phá. Nếu tổ chức của bạn đang tìm kiếm một đối tác tin cậy tại Việt Nam, hãy kết nối với chúng tôi.",
     "cta_button": "Đăng ký hợp tác",
     "cta_contact": "Liên hệ bộ phận Global Mobility"
+  },
+  "insights": {
+    "page_title": "Insights",
+    "page_description": "Phân tích chuyên sâu về AI, chuỗi cung ứng, kỹ năng công nghiệp và chuyển đổi số từ các chuyên gia Intech ISC.",
+    "featured_label": "Nổi bật",
+    "read_more": "Đọc bài viết",
+    "back_to_list": "Quay lại Insights",
+    "min_read": "phút đọc",
+    "published": "Đăng ngày",
+    "share_title": "Chia sẻ bài viết",
+    "related_title": "Bài viết khác",
+    "cta_title": "Sẵn sàng áp dụng những insights này?",
+    "cta_desc": "Khám phá các chương trình đào tạo được thiết kế xoay quanh các xu hướng định hình tương lai công nghiệp Việt Nam.",
+    "cta_button": "Khám phá khóa học",
+    "lang_badge_en": "EN",
+    "lang_badge_vi": "VI"
   }
 }
