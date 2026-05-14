@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import { Link } from "@/i18n/routing";
 import { notFound } from "next/navigation";
-import { ArrowLeft, Clock, BookOpen, Tag, CheckCircle2, AlertCircle, Calendar } from "lucide-react";
+import { ArrowLeft, Clock, BookOpen, Tag, CheckCircle2, AlertCircle, Calendar, Users, GraduationCap, Rocket } from "lucide-react";
 import CourseRegistrationButton from "@/components/CourseRegistrationButton";
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { getCourseBySlug, getCourses, getAllCourseSlugs, type LocalizedCourse } from "@/lib/courses";
@@ -129,12 +129,37 @@ export default async function CourseDetailPage(
               <BookOpen className="w-5 h-5 text-white/80" />
               <span>{t('detail.sessions')}: {course.duration.sessions} {t('detail.sessions_label')}</span>
             </div>
+            {course.deliveryFormat && (
+              <div className="flex items-center gap-2 bg-black/20 px-4 py-2 rounded-lg backdrop-blur-sm">
+                <Calendar className="w-5 h-5 text-white/80" />
+                <span>{t('detail.delivery_format_label')}: {course.deliveryFormat}</span>
+              </div>
+            )}
           </div>
         </div>
       </section>
 
+      {/* Course Image */}
+      <div className="max-w-5xl mx-auto px-4 mt-8 relative z-20">
+        <div className="w-full aspect-video rounded-2xl overflow-hidden bg-gradient-to-br from-gray-100 to-gray-200 border border-gray-200 shadow-sm flex items-center justify-center">
+          {course.imageUrl ? (
+            <img
+              src={course.imageUrl}
+              alt={t('detail.image_placeholder_alt')}
+              className="w-full h-full object-cover"
+              onError={(e) => { (e.target as HTMLImageElement).style.display = 'none' }}
+            />
+          ) : (
+            <div className="flex flex-col items-center gap-3 text-gray-400">
+              <BookOpen className="w-16 h-16 opacity-30" />
+              <span className="text-sm font-medium">{course.title}</span>
+            </div>
+          )}
+        </div>
+      </div>
+
       {/* Main Content Layout */}
-      <section className="max-w-5xl mx-auto px-4 mt-[-60px] relative z-20">
+      <section className="max-w-5xl mx-auto px-4 mt-8 relative z-20">
         <div className="flex flex-col lg:flex-row gap-8">
 
           {/* Left Column */}
@@ -151,6 +176,55 @@ export default async function CourseDetailPage(
                 </p>
               </div>
             </div>
+
+            {/* Target Audience */}
+            {course.targetAudience.length > 0 && (
+              <div className="bg-white rounded-3xl p-8 md:p-10 shadow-lg border border-gray-100">
+                <h2 className="font-heading text-2xl font-bold text-[#002D62] mb-6 flex items-center gap-3">
+                  <Users className="w-7 h-7 text-[#00A3C1]" />
+                  {t('detail.target_audience_title')}
+                </h2>
+                <ul className="space-y-3">
+                  {course.targetAudience.map((item, idx) => (
+                    <li key={idx} className="flex items-start gap-3 text-gray-700">
+                      <CheckCircle2 className="w-5 h-5 text-[#00A3C1] shrink-0 mt-0.5" />
+                      <span className="leading-relaxed">{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+
+            {/* Course Modules */}
+            {course.modules.length > 0 && (
+              <div className="bg-white rounded-3xl p-8 md:p-10 shadow-lg border border-gray-100">
+                <h2 className="font-heading text-2xl font-bold text-[#002D62] mb-6 flex items-center gap-3">
+                  <GraduationCap className="w-7 h-7 text-[#00A3C1]" />
+                  {t('detail.modules_title')}
+                </h2>
+                <ol className="space-y-4">
+                  {course.modules.map((module, idx) => (
+                    <li key={idx} className="flex gap-4 items-start">
+                      <div className="shrink-0 w-9 h-9 rounded-xl bg-[#002D62] text-white flex items-center justify-center text-sm font-bold">
+                        {idx + 1}
+                      </div>
+                      <p className="text-gray-800 font-medium leading-relaxed pt-1.5">{module}</p>
+                    </li>
+                  ))}
+                </ol>
+              </div>
+            )}
+
+            {/* Final Project */}
+            {course.finalProject && (
+              <div className="bg-gradient-to-br from-[#002D62] to-[#00A3C1] rounded-3xl p-8 md:p-10 shadow-lg text-white">
+                <h2 className="font-heading text-2xl font-bold mb-4 flex items-center gap-3">
+                  <Rocket className="w-7 h-7 text-white/80" />
+                  {t('detail.final_project_title')}
+                </h2>
+                <p className="text-white/90 leading-relaxed text-lg">{course.finalProject}</p>
+              </div>
+            )}
 
             {/* Prerequisites */}
             {preReqCourse && (
