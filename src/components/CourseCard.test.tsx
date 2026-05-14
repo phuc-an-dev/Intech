@@ -1,20 +1,26 @@
 import { render, screen } from '@testing-library/react'
 import { describe, it, expect } from 'vitest'
 import CourseCard from './CourseCard'
-import { type Course } from '@/data/courses'
+import { type LocalizedCourse } from '@/lib/courses'
 
-const mockCourse: Course = {
-  id: 'test-course',
+const mockCourse: LocalizedCourse = {
   slug: 'test-course-slug',
-  title: 'Test Course',
-  description: 'Test description',
   topicSlug: 'ai-in-action',
+  topicName: 'AI Ứng dụng',
   level: 'foundation',
   duration: { hours: 16, sessions: 8 },
-  price: 3500000,
+  title: 'Test Course',
+  description: 'Test description',
   tags: ['AI', 'LLM', 'Prompt'],
   learningOutcome: 'Test outcome',
+  priceOriginal: 3500000,
+  priceSale: null,
   prerequisite: null,
+  targetAudience: [],
+  modules: [],
+  finalProject: '',
+  deliveryFormat: 'Online / Hybrid',
+  imageUrl: '',
 }
 
 describe('CourseCard', () => {
