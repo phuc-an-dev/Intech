@@ -17,7 +17,7 @@ export default function InsightBody({ body }: InsightBodyProps) {
           h2: ({ children }) => <h2 className="text-2xl font-bold text-[#002D62] font-heading mb-3 mt-10">{children}</h2>,
           h3: ({ children }) => <h3 className="text-xl font-semibold text-[#002D62] mb-2 mt-6">{children}</h3>,
           p: ({ children }) => <p className="text-gray-700 leading-relaxed mb-5">{children}</p>,
-          strong: ({ children }) => <strong className="font-semibold text-[#002D62]">{children}</strong>,
+          strong: ({ children }) => <strong className="font-semibold">{children}</strong>,
           ul: ({ children }) => <ul className="list-disc list-inside space-y-2 my-4 pl-4">{children}</ul>,
           ol: ({ children }) => <ol className="list-decimal list-inside space-y-2 my-4 pl-4">{children}</ol>,
           li: ({ children }) => <li className="text-gray-700 leading-relaxed">{children}</li>,
