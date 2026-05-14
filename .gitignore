@@ -45,3 +45,6 @@ next-env.d.ts
 
 # git worktrees
 .worktrees/
+
+# Temporary document sources
+tmp_docs/
