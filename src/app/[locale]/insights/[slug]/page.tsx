@@ -9,6 +9,7 @@ import {
   getInsightTitle,
   getInsightExcerpt,
   getInsightCategory,
+  getInsightBody,
   formatInsightDate,
 } from "@/data/insights";
 import InsightBody from "./InsightBody";
@@ -96,7 +97,7 @@ export default async function InsightDetailPage(
       <div className="max-w-3xl mx-auto px-4 mt-[-40px] relative z-20">
         {/* Body Card */}
         <div className="bg-white rounded-3xl shadow-xl border border-gray-100 p-8 md:p-12 mb-8">
-          <InsightBody body={insight.body} />
+          <InsightBody body={getInsightBody(insight, locale)} />
         </div>
 
         {/* Tags */}

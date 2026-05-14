@@ -1,6 +1,7 @@
 "use client";
 
 import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 
 interface InsightBodyProps {
   body: string;
@@ -10,6 +11,7 @@ export default function InsightBody({ body }: InsightBodyProps) {
   return (
     <div className="space-y-5 text-gray-700 leading-relaxed">
       <ReactMarkdown
+        remarkPlugins={[remarkGfm]}
         components={{
           h1: ({ children }) => <h1 className="text-3xl font-bold text-[#002D62] font-heading mb-4 mt-8">{children}</h1>,
           h2: ({ children }) => <h2 className="text-2xl font-bold text-[#002D62] font-heading mb-3 mt-10">{children}</h2>,

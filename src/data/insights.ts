@@ -12,7 +12,8 @@ export interface Insight {
   readTime: number
   tags: string[]
   gradient: string
-  body: string
+  body_en: string
+  body_vi: string
 }
 
 export const insights: Insight[] = [
@@ -30,7 +31,7 @@ export const insights: Insight[] = [
     readTime: 15,
     tags: ['AI', 'Vietnam 2030', 'Workforce', 'Digital Transformation'],
     gradient: 'from-[#002D62] to-blue-800',
-    body: `The socio-economic landscape of Vietnam is currently undergoing a structural metamorphosis, shifting from its historical reliance on low-cost, labor-intensive manufacturing toward a model defined by high-tech integration and digital intelligence. This transition is encapsulated in the emergence of the "AI-augmented" technician-a professional who serves as the nexus between traditional industrial expertise and the transformative capabilities of artificial intelligence, big data, and high-speed connectivity. As Vietnam approaches its 2030 vision, this new class of worker is not merely a byproduct of technological progress but a central pillar of the National Digital Transformation Program, designed to propel the nation into the ranks of the world's leading digital economies.
+    body_en: `The socio-economic landscape of Vietnam is currently undergoing a structural metamorphosis, shifting from its historical reliance on low-cost, labor-intensive manufacturing toward a model defined by high-tech integration and digital intelligence. This transition is encapsulated in the emergence of the "AI-augmented" technician-a professional who serves as the nexus between traditional industrial expertise and the transformative capabilities of artificial intelligence, big data, and high-speed connectivity. As Vietnam approaches its 2030 vision, this new class of worker is not merely a byproduct of technological progress but a central pillar of the National Digital Transformation Program, designed to propel the nation into the ranks of the world's leading digital economies.
 
 The strategic imperatives driving this shift are rooted in the necessity to overcome the middle-income trap and enhance national competitiveness within the ASEAN region and the global market. By 2030, Vietnam envisions its digital economy contributing 30% of the national GDP, a goal that requires a fundamental reimagining of the labor force. The rise of the AI-augmented technician represents a deliberate strategy to restructure work systems, moving beyond simple automation-which replaces human labor-to an "augmented intelligence" approach that enriches essential practical roles through machine-generated insights.
 
@@ -151,6 +152,89 @@ The transition of Vietnam's workforce into an AI-augmented era is a strategic ne
 Through massive investments in infrastructure, a bold reform of the education system, and a comprehensive legal framework, Vietnam is positioning itself to leapfrog its regional peers. The decisions made today regarding AI regulation, talent development, and digital sovereignty will define Vietnam's trajectory in the global digital economy for decades to come.
 
 For the AI-augmented technician, the future is one of "supercharged progress," where AI is not a threat to be feared but an augmentation partner that enhances human capability and creativity. As they orchestrate autonomous factories, design smarter products, and navigate the complexities of a data-driven world, these technicians will be the true architects of Vietnam's 2030 vision.`,
+    body_vi: `Bối cảnh kinh tế-xã hội của Việt Nam đang trải qua một cuộc biến đổi cấu trúc sâu sắc, chuyển dịch từ sự phụ thuộc lịch sử vào sản xuất thâm dụng lao động chi phí thấp sang mô hình được định hình bởi tích hợp công nghệ cao và trí tuệ số. Sự chuyển đổi này được thể hiện qua sự xuất hiện của kỹ thuật viên "tăng cường AI" — một chuyên gia đóng vai trò cầu nối giữa chuyên môn công nghiệp truyền thống và các năng lực biến đổi của trí tuệ nhân tạo, dữ liệu lớn và kết nối tốc độ cao. Khi Việt Nam tiến đến tầm nhìn 2030, tầng lớp lao động mới này không chỉ là sản phẩm phụ của tiến bộ công nghệ mà còn là trụ cột trung tâm của Chương trình Chuyển đổi số Quốc gia, được thiết kế để đưa đất nước vào hàng ngũ các nền kinh tế số hàng đầu thế giới.
+
+Các yêu cầu chiến lược thúc đẩy sự thay đổi này bắt nguồn từ sự cần thiết phải vượt qua bẫy thu nhập trung bình và nâng cao năng lực cạnh tranh quốc gia trong khu vực ASEAN và thị trường toàn cầu. Đến năm 2030, Việt Nam đặt mục tiêu nền kinh tế số đóng góp 30% GDP quốc gia — một mục tiêu đòi hỏi phải tái định hình căn bản lực lượng lao động. Sự trỗi dậy của kỹ thuật viên tăng cường AI đại diện cho chiến lược có chủ đích để tái cơ cấu hệ thống công việc, vượt ra ngoài tự động hóa đơn thuần hướng đến cách tiếp cận "trí tuệ tăng cường" làm phong phú thêm các vai trò thực tế thiết yếu thông qua những hiểu biết do máy móc tạo ra.
+
+## Khung chiến lược của Tầm nhìn 2030
+
+Con đường của Việt Nam đến năm 2030 được trải dài bởi một loạt các chỉ thị cấp cao của chính phủ ưu tiên nền kinh tế số là động lực tăng trưởng chính. Chương trình Chuyển đổi số Quốc gia, được phê duyệt vào tháng 6/2020, xác định bốn trụ cột quan trọng: ngành công nghiệp IT, số hóa công nghiệp, hành chính số và dữ liệu số. Những trụ cột này đảm bảo dữ liệu được coi là tài nguyên cơ bản và các nền tảng số hiện diện khắp nơi trong các khu công nghiệp.
+
+Chính phủ Việt Nam đặt mục tiêu đưa đất nước vào top 4 quốc gia ASEAN và top 50 toàn cầu về nghiên cứu, phát triển và ứng dụng AI vào năm 2030. Tầm nhìn này được hiện thực hóa qua Quyết định 127/QĐ-TTg về Chiến lược Quốc gia về Nghiên cứu, Phát triển và Ứng dụng Trí tuệ nhân tạo.
+
+| **Chỉ số chiến lược** | **Mục tiêu 2025** | **Tầm nhìn 2030** |
+| --- | --- | --- |
+| Kinh tế số % GDP | 20% | 30% |
+| Xếp hạng AI ASEAN | Top 5 | Top 4 |
+| Xếp hạng AI toàn cầu | Top 60 | Top 50 |
+| Trung tâm Đổi mới AI Quốc gia | 2 Trung tâm | 3 Trung tâm |
+| Trung tâm Điện toán hiệu năng cao | 1 Trung tâm | 3 Trung tâm |
+| Tính chủ động Dịch vụ số | Truy cập tiêu chuẩn hóa | 50% chủ động/cá nhân hóa qua AI |
+
+Cam kết với tầm nhìn này được củng cố thêm bởi chiến dịch "Make in Vietnam", thúc đẩy phát triển các sản phẩm và nền tảng công nghệ nội địa. Sự tích hợp AI vào hành chính công qua Chương trình Phát triển Chính phủ số đảm bảo bộ máy nhà nước tự mình trở thành hình mẫu về hiệu quả dẫn dắt bởi dữ liệu.
+
+## Định nghĩa Trí tuệ Tăng cường trong Thị trường Lao động Việt Nam
+
+Để hiểu sự trỗi dậy của kỹ thuật viên tăng cường, cần phân biệt giữa tự động hóa truyền thống và trí tuệ tăng cường. Tự động hóa thường nhắm đến việc thay thế người lao động trong các nhiệm vụ thường xuyên hoặc nguy hiểm. Ngược lại, trí tuệ tăng cường là chiến lược áp dụng AI để tái cơ cấu hệ thống công việc cho phép con người thực hiện các nhiệm vụ nhận thức bậc cao hơn — như diễn giải dữ liệu, phán đoán tình huống và ra quyết định thích ứng.
+
+Tại Việt Nam, cách tiếp cận này đặc biệt quan trọng để tái xây dựng tầng lớp trung lưu của thị trường lao động. Cách tiếp cận trí tuệ tăng cường mở ra con đường nâng cao giá trị của các vai trò thực tế thiết yếu trong logistics, bảo trì và dịch vụ khách hàng. Sự hợp tác người-máy này dự kiến thúc đẩy năng suất toàn nền kinh tế, với các ước tính cho rằng AI có thể bổ sung tới 79,3 tỷ USD vào nền kinh tế Việt Nam vào năm 2030, chiếm khoảng 12% GDP.
+
+## Biến đổi Công nghiệp: Nhà máy Thông minh và Chất xúc tác 5G
+
+Lĩnh vực sản xuất, động cơ tăng trưởng lâu dài của Việt Nam, là sân khấu chính cho sự trỗi dậy của kỹ thuật viên tăng cường AI. Việc triển khai mạng di động riêng 5G đầu tiên tại nhà máy Pegatron ở Hải Phòng là một mốc quan trọng cho ngành. Liên kết 5G độ trễ thấp, độ tin cậy cao cho phép triển khai robot di động, hệ thống thị giác dày đặc và hỗ trợ thực tế tăng cường (AR). Trong môi trường này, vai trò của kỹ thuật viên thay đổi đáng kể:
+
+- **Kiểm tra Thị giác Tự động (AVI):** Kỹ thuật viên giám sát các mô hình thị giác máy tính phát hiện lỗi trên các dây chuyền tốc độ cao với độ chính xác cao hơn mắt người.
+- **Bảo trì Dự báo:** Cảm biến thu thập "dấu hiệu hỏng hóc" trong rung động hoặc nhiệt độ, cho phép kỹ thuật viên lên lịch sửa chữa "đúng lúc".
+- **Điều phối Sản xuất:** Các Hệ thống Thực thi Sản xuất (MES) hỗ trợ AI giúp kỹ thuật viên quản lý phối hợp toàn xưởng.
+
+| **Giải pháp Công nghệ** | **Vai trò Truyền thống** | **Vai trò Tăng cường AI** |
+| --- | --- | --- |
+| Thị giác Máy tính (AVI) | Kiểm tra thị giác thủ công các linh kiện | Giám sát mô hình và đào tạo lại "không cần code" |
+| Phân tích Dự báo | Sửa chữa phản ứng sau sự cố | Bảo trì dựa trên dự báo từ cảm biến |
+| Bản sao số | Thử nghiệm vật lý thử-và-sai | Điều phối mô phỏng để tối ưu chiến lược |
+| Mạng Riêng 5G | Giám sát thiết bị có dây, tĩnh | Quản lý robot di động và hướng dẫn AR |
+
+Samsung có kế hoạch chuyển đổi tất cả hoạt động sản xuất thành "Nhà máy Dẫn dắt bởi AI" vào năm 2030, triển khai các tác nhân AI chuyên biệt cho kiểm soát chất lượng, sản xuất và logistics.
+
+## Biên giới Bán dẫn: Đào tạo Lực lượng Lao động "Đột phá"
+
+Theo Quyết định 1017/QĐ-TTg, Việt Nam đặt mục tiêu đào tạo ít nhất 50.000 nhân sự có trình độ đại học trở lên phục vụ ngành bán dẫn vào năm 2030, bao gồm ít nhất 42.000 kỹ sư/cử nhân, 7.500 thạc sĩ, 500 tiến sĩ và 5.000 chuyên gia AI chuyên sâu phục vụ ngành bán dẫn. Chiến lược nhấn mạnh công thức "C = SET + 1" định vị Việt Nam từ vai trò tham gia ngoại vi sang quốc gia có khả năng thiết kế và đổi mới chip độc lập.
+
+## Hiện đại hóa Giáo dục và Đào tạo Nghề (VET)
+
+Hiện tại, chưa đến 10% các cơ sở VET sử dụng AI thường xuyên. Các sáng kiến chiến lược đã được triển khai bao gồm kế hoạch TP.HCM ứng dụng AI trong 481 cơ sở VET với mục tiêu 100% có internet tốc độ cao vào năm 2030, tích hợp kiến thức AI trong 60% chương trình đào tạo nghề, và Samsung Innovation Campus đào tạo 2.200 sinh viên về bán dẫn, AI, IoT và dữ liệu lớn.
+
+## Nghiên cứu Điển hình theo Ngành: Dệt may và Nông nghiệp
+
+### Ngành Dệt may: Từ Thực thi đến Đổi mới
+
+Ngành dệt may Việt Nam đang chuyển hướng sang trung tâm "thông minh, bền vững, dẫn dắt bởi đổi mới". Kỹ thuật viên thiết kế dùng AI Tạo sinh và mô hình hóa 3D để tạo mẫu kỹ thuật số, rút ngắn chu kỳ phát triển sản phẩm lên đến 4 lần. Hệ thống thị giác máy tính phát hiện lỗi vải, cho phép kỹ thuật viên tập trung vào các giải pháp phức tạp thay vì kiểm tra thủ công.
+
+### Nông nghiệp và Nuôi trồng thủy sản: Người nông dân Công nghệ cao
+
+Kỹ thuật viên nông nghiệp chính xác sử dụng cảm biến và máy bay không người lái hỗ trợ AI để theo dõi sức khỏe đất và tăng trưởng cây trồng theo thời gian thực. Trong nuôi trồng thủy sản, kỹ thuật viên quản lý các hệ thống AI theo dõi nhiệt độ và độ mặn nước, sử dụng mẫu dữ liệu để dự đoán tốc độ tăng trưởng và bùng phát dịch bệnh.
+
+## Hạ tầng: Nền tảng Vật lý của Kỷ nguyên AI
+
+Chiến lược hạ tầng số quốc gia đặt mục tiêu phủ sóng 5G đạt 99% dân số vào năm 2030, triển khai ít nhất 10 tuyến cáp quang biển quốc tế, thành lập các trung tâm dữ liệu siêu lớn đáp ứng tiêu chuẩn xanh quốc tế, và mỗi người dân có trung bình bốn kết nối IoT.
+
+## Quản trị, Đạo đức và Khung Pháp lý
+
+Luật Trí tuệ nhân tạo (thông qua ngày 10/12/2025, hiệu lực từ 1/3/2026) áp dụng cách tiếp cận quản lý dựa trên rủi ro với ba cấp độ: AI Rủi ro cao (kiểm toán định kỳ, bắt buộc có đại diện tại Việt Nam), AI Rủi ro trung bình (giám sát qua báo cáo độc lập), và AI Rủi ro thấp (giám sát theo khiếu nại). Luật bắt buộc "con người vẫn là trọng tài cuối cùng" và tất cả nội dung AI tạo ra phải có hình mờ kỹ thuật số.
+
+## Hàm ý Kinh tế-Xã hội: GDP, Năng suất và Thịnh vượng
+
+| **Chỉ số Kinh tế** | **Đóng góp hiện tại** | **Dự báo 2030** |
+| --- | --- | --- |
+| Tỷ trọng Kinh tế số/GDP | 12–18% | 30% |
+| Lợi ích Kinh tế AI | Giai đoạn áp dụng ban đầu | 79,3 tỷ USD |
+| Tăng năng suất Sản xuất | Tự động hóa mới nổi | 16 tỷ USD (400 nghìn tỷ VNĐ) |
+| Tăng trưởng Xuất khẩu qua AI | Logistics thương mại tiêu chuẩn | 120 tỷ USD (3.100 nghìn tỷ VNĐ) |
+| Tiết kiệm An ninh mạng | Phòng thủ phản ứng | Ngăn ngừa 52% chi phí gian lận mạng |
+
+## Kết luận: Kỹ thuật viên như Kiến trúc sư của Tương lai
+
+Sự chuyển đổi lực lượng lao động Việt Nam sang kỷ nguyên tăng cường AI là một tất yếu chiến lược phù hợp với tầm nhìn 2030 của quốc gia. Kỹ thuật viên tăng cường AI là hiện thân sống động của sự chuyển đổi này — cầu nối giữa chuyên môn công nghiệp truyền thống và biên giới của công nghệ số. Khi họ điều phối các nhà máy tự động, thiết kế các sản phẩm thông minh hơn và điều hướng sự phức tạp của thế giới dữ liệu, những kỹ thuật viên này sẽ là những kiến trúc sư thực sự của tầm nhìn 2030 của Việt Nam.`,
   },
   {
     slug: 'da-dang-hoa-chuoi-cung-ung-dong-nam-a',
@@ -166,7 +250,7 @@ For the AI-augmented technician, the future is one of "supercharged progress," w
     readTime: 8,
     tags: ['Supply Chain', 'Southeast Asia', 'China Plus One', 'Manufacturing'],
     gradient: 'from-[#002D62] to-[#00A3C1]',
-    body: `Cấu trúc sản xuất toàn cầu đang trải qua một cuộc biến đổi sâu sắc về quy mô mà thế giới chưa từng chứng kiến kể từ khi mô hình sản xuất đơn cực trỗi dậy vào cuối thập niên 1990. Sự chuyển dịch từ mô hình lấy Trung Quốc làm trung tâm sang một hệ thống phân mảnh, linh hoạt và khu vực hóa hơn đã đưa Đông Nam Á trở thành tâm điểm của tương lai công nghiệp thế giới. Đây không đơn thuần là một phản ứng mang tính chiến thuật trước các đứt gãy ngắn hạn, mà là một sự tái định hướng chiến lược dài hạn được thúc đẩy bởi sự hội tụ của chi phí nội địa gia tăng tại các trung tâm truyền thống, ma sát địa chính trị leo thang và sự đánh giá lại căn bản về tính dễ bị tổn thương của chuỗi cung ứng.
+    body_vi: `Cấu trúc sản xuất toàn cầu đang trải qua một cuộc biến đổi sâu sắc về quy mô mà thế giới chưa từng chứng kiến kể từ khi mô hình sản xuất đơn cực trỗi dậy vào cuối thập niên 1990. Sự chuyển dịch từ mô hình lấy Trung Quốc làm trung tâm sang một hệ thống phân mảnh, linh hoạt và khu vực hóa hơn đã đưa Đông Nam Á trở thành tâm điểm của tương lai công nghiệp thế giới. Đây không đơn thuần là một phản ứng mang tính chiến thuật trước các đứt gãy ngắn hạn, mà là một sự tái định hướng chiến lược dài hạn được thúc đẩy bởi sự hội tụ của chi phí nội địa gia tăng tại các trung tâm truyền thống, ma sát địa chính trị leo thang và sự đánh giá lại căn bản về tính dễ bị tổn thương của chuỗi cung ứng.
 
 ## Sự trưởng thành của mô hình Trung Quốc và sự ra đời của chiến lược "China Plus One"
 
@@ -202,6 +286,38 @@ Dữ liệu cho thấy cấu hình sản xuất toàn cầu đang tiến tới m
 ---
 
 *Intech ISC Group khẳng định vị thế là đơn vị tư vấn hàng đầu chuyên biệt trong lĩnh vực tối ưu hóa vận hành và chiến lược chuỗi cung ứng. Liên hệ với đội ngũ chuyên gia của chúng tôi để bắt đầu hành trình tối ưu hóa vận hành của bạn ngay hôm nay.*`,
+    body_en: `Global manufacturing is undergoing a profound structural transformation of a scale unseen since the unipolar model emerged in the late 1990s. The shift from a China-centric model toward a more fragmented, flexible, and regionalized system has positioned Southeast Asia as the focal point of the world's industrial future. This is not merely a tactical response to short-term disruptions but a long-term strategic reorientation driven by rising domestic costs at traditional hubs, escalating geopolitical friction, and a fundamental reassessment of supply chain vulnerability.
+
+## The Maturation of the Chinese Model and the Emergence of "China Plus One"
+
+China's historical dominance as the "world's factory" was built on a unique combination of massive scale, low labor costs, and efficient infrastructure. However, the internal logic of this model began to shift as China's economy matured, prioritizing high-value services and innovation over traditional low-cost manufacturing. Average manufacturing wages soared from approximately $0.30/hour in the early 1990s to an expected $7.00–$8.00/hour by 2025. This cost escalation, combined with a shrinking labor supply, eroded the cost differential that once anchored global supply chains in China's coastal provinces.
+
+In this context, the "China Plus One" strategy evolved from a theoretical framework into a non-negotiable operational imperative for mitigating single-source dependency risk. This strategy does not aim at complete withdrawal from China — which still accounts for nearly 30% of global manufacturing output — but focuses on maintaining core production there while establishing backup capacity elsewhere. Surveys indicate that up to 38% of businesses plan to reduce their supply chain presence in China in favor of other regions.
+
+## Evaluating the Cost Equation: From Labor Advantage to Real Landed Costs
+
+For many businesses, the decision to relocate to Southeast Asia is a complex economic calculation that goes far beyond simple wage comparisons. Analyzing the "Landed Cost" model is essential: total costs include factory-gate prices, international freight, tariffs, brokerage fees, domestic transportation, compliance, and warehousing. While Southeast Asia generally wins on factory-level economics, businesses must contend with longer sea transit times to Western markets and higher inventory carrying costs — typically 20–30% of annual inventory value.
+
+## Southeast Asia: Specialized Growth Poles
+
+Southeast Asia's rise as a premier industrial hub is supported by over 300 million people under 35, superior infrastructure investment, and proactive trade policies. Each country is defining a distinct strategic position:
+
+- **Vietnam** has emerged as a primary beneficiary due to its resemblance to China's early high-performance, low-cost export model. With an industrial zone network expanding to over 320,000 hectares, Vietnam is the preferred destination for electronics, textiles, and automotive components.
+- **Thailand** has leveraged its "Detroit of Asia" heritage to become a regional springboard for the EV revolution. Strong incentive policies targeting 30% of annual vehicle output to be zero-emission by 2030 have attracted massive investment from BYD and GWM.
+- **Malaysia** holds an irreplaceable position controlling 13% of the global semiconductor assembly, testing, and packaging (ATP) market. Through its $107 billion National Semiconductor Strategy, Malaysia is shifting toward IC design and advanced AI packaging.
+- **Indonesia** is pursuing aggressive downstreaming, leveraging over 42% of world nickel reserves to compel foreign companies to invest in domestic processing. Billion-dollar joint ventures with Hyundai, LG, and CATL are positioning Indonesia as a strategic link in the global EV battery value chain.
+
+## Regional Connectivity and Systemic Challenges
+
+The RCEP framework, with a GDP exceeding $25 trillion, provides the legal architecture binding this transformation. Its most important innovation — Cumulative Rules of Origin — allows manufacturers to source materials from any member country while benefiting from preferential tariff rates, saving 8–12% in costs.
+
+However, this rapid shift also reveals systemic risks: the gap in specialized human resources for semiconductors and EVs is a serious bottleneck, while declining international infrastructure capital and energy price volatility demand urgent policy interventions.
+
+## Conclusion
+
+The data suggests global manufacturing is moving toward a more multipolar, regionalized, and flexible equilibrium rather than the emergence of a single new "world's factory." Southeast Asia has demonstrated remarkable resilience by positioning itself as a "global connector" open to both East and West. Businesses that successfully navigate the nuances of "China Plus One" — balancing Chinese efficiency with Southeast Asian growth potential — will dominate in a volatile global economy.
+
+*Intech ISC Group affirms its position as a leading consultancy specializing in operations optimization and supply chain strategy. Contact our team of experts to begin your operations optimization journey today.*`,
   },
   {
     slug: 'chuyen-minh-ky-nang-ky-thuat-cong-nghiep-so',
@@ -217,7 +333,7 @@ Dữ liệu cho thấy cấu hình sản xuất toàn cầu đang tiến tới m
     readTime: 8,
     tags: ['Education', 'Industry 4.0', 'Digital Skills', 'Vocational Training'],
     gradient: 'from-blue-900 to-[#00A3C1]',
-    body: `Tổ hợp công nghiệp toàn cầu đang trải qua một cuộc tái định hướng cấu trúc vượt xa việc áp dụng công nghệ đơn thuần, đại diện cho một sự chuyển dịch bản thể về bản chất của lao động, chuyên môn và sự chuẩn bị của các định chế giáo dục. Trong lịch sử, giáo dục và đào tạo nghề (VET) đóng vai trò như một cơ chế truyền tải các kỹ năng thủ công tĩnh, thường được định nghĩa bằng sự thành thạo dựa trên thời gian và vận hành các công cụ cơ khí riêng biệt. Tuy nhiên, sự xuất hiện của Cách mạng Công nghiệp lần thứ tư đã buộc mô hình này phải được thay thế bằng một mô hình mới về "năng lực công nghiệp số" - một khung năng lực đa chiều tích hợp sự thông thạo dữ liệu, tư duy thuật toán và quản trị hệ thống vật lý không gian mạng (cyber-physical systems) vào cốt lõi của danh tính công nghiệp.
+    body_vi: `Tổ hợp công nghiệp toàn cầu đang trải qua một cuộc tái định hướng cấu trúc vượt xa việc áp dụng công nghệ đơn thuần, đại diện cho một sự chuyển dịch bản thể về bản chất của lao động, chuyên môn và sự chuẩn bị của các định chế giáo dục. Trong lịch sử, giáo dục và đào tạo nghề (VET) đóng vai trò như một cơ chế truyền tải các kỹ năng thủ công tĩnh, thường được định nghĩa bằng sự thành thạo dựa trên thời gian và vận hành các công cụ cơ khí riêng biệt. Tuy nhiên, sự xuất hiện của Cách mạng Công nghiệp lần thứ tư đã buộc mô hình này phải được thay thế bằng một mô hình mới về "năng lực công nghiệp số" - một khung năng lực đa chiều tích hợp sự thông thạo dữ liệu, tư duy thuật toán và quản trị hệ thống vật lý không gian mạng (cyber-physical systems) vào cốt lõi của danh tính công nghiệp.
 
 ## Tái cấu trúc kiến trúc thể chế và mô hình đào tạo dựa trên năng lực
 
@@ -254,6 +370,33 @@ Tuy nhiên, quá trình này cũng đối mặt với các rào cản lớn, đ�
 Sự tiến hóa từ Công nghiệp 4.0 sang Công nghiệp 5.0 đại diện cho một bước chuyển từ hiệu quả công nghệ thuần túy sang trọng tâm là phúc lợi của con người và tính bền vững. Công nghiệp 5.0 ưu tiên "kết quả ba mục tiêu" (triple bottom line) bao gồm kinh tế, xã hội và môi trường. Điều này bao gồm thiết kế lấy con người làm trung tâm, sự phát triển của robot cộng tác (cobots) và các tiêu chuẩn đạo đức số toàn diện.
 
 Tóm lại, sự thay đổi từ đào tạo nghề truyền thống sang năng lực công nghiệp số là một tất yếu của sự hội tụ giữa thế giới vật lý và kỹ thuật số. Việc áp dụng CBE, tích hợp công nghệ nhập vai và mở rộng an ninh mạng công nghiệp là những trụ cột thiết yếu của danh tính công nghiệp mới này.`,
+    body_en: `The global industrial complex is undergoing a structural reorientation that goes far beyond mere technology adoption, representing an ontological shift in the nature of labor, expertise, and the preparedness of educational institutions. Historically, Vocational Education and Training (VET) served as a mechanism for transmitting static manual skills, often defined by time-based mastery and the operation of discrete mechanical tools. However, the emergence of the Fourth Industrial Revolution has forced this model to be replaced by a new paradigm of "digital industrial competence" — a multidimensional framework integrating data literacy, algorithmic thinking, and cyber-physical systems management at the core of industrial identity.
+
+## Restructuring Institutional Architecture and Competency-Based Training
+
+The shift toward digital industrial competence is grounded in the "whole-institution approach," a comprehensive governance strategy promoted by UNESCO-UNEVOC that simultaneously empowers leaders, educators, and learners. The key element is the shift from time-based education to Competency-Based Education (CBE), which prioritizes the demonstrated mastery of concrete, real-world competencies over the completion of instructional hours. This shift is essential because the modern economy no longer rewards routine manual or cognitive tasks increasingly susceptible to automation; value now concentrates in higher-order cognitive, social, and technological skills.
+
+## Digital Competency Frameworks and the Impact of Artificial Intelligence
+
+The systematization of digital industrial competence is realized through Digital Competency Frameworks (DCF) such as the European Commission's DigComp 2.2, encompassing five critical dimensions: information and data literacy, communication and collaboration, digital content creation, safety, and problem-solving. The integration of AI into manufacturing does not lead to mass worker displacement but to capability augmentation — enabling manufacturers to address skilled labor shortages (estimated at 3.8 million vacancies by 2033) by allowing the current workforce to focus on higher-value contributions.
+
+## Pedagogical Breakthroughs through Immersive Technology
+
+As industrial system complexity increases, VR, AR, and MR technologies have become essential pedagogical tools. Comparative studies show VR simulation-based training provides clear advantages: every additional 15 minutes of VR instruction yields a 3% higher score in technical learning assessments compared to traditional methods. Since VR cannot yet fully simulate tactile sensations, the "Hybrid VR-Traditional" model has been developed — learners master technique in VR before transitioning to real equipment — reducing material waste and accelerating time to mastery.
+
+## Industrial Cybersecurity and Data Governance: New Pillars
+
+As IT and OT boundaries blur, VET programs must integrate specialized modules protecting cyber-physical factories. Industrial OT Security prioritizes the safety and availability of physical systems and now includes OT protocol knowledge (Modbus, Profinet), hardware vulnerability research, and incident response. Data is treated as the "new fuel" of the smart factory; curricula are being redesigned to encompass Predictive Analytics and Digital Twin thinking, enabling workers to analyze the interdependencies of entire production processes rather than individual assets.
+
+## Social Challenges and the Rise of the "New Collar" Workforce
+
+The shift toward digital industrial competence is creating labor market polarization. A new job category called "New Collar" is emerging — roles requiring technical proficiency but not necessarily a four-year degree, focused on cybersecurity, data analysis, and robot maintenance. Employers are shifting toward skill-based talent models where certifications and practical capabilities are prioritized over academic credentials. However, SMEs face financial constraints and institutional rigidity, while digital skills gaps between generations persist, requiring social equity objectives in education.
+
+## Toward Industry 5.0: A Human-Centered Future
+
+The evolution from Industry 4.0 to Industry 5.0 represents a shift from purely technological efficiency toward human well-being and sustainability, prioritizing the "triple bottom line" of economic, social, and environmental outcomes, including human-centered design, collaborative robots (cobots), and comprehensive digital ethical standards.
+
+In summary, the transformation from traditional vocational training to digital industrial competence is an inevitable consequence of the convergence between the physical and digital worlds. The adoption of CBE, integration of immersive technologies, and expansion of industrial cybersecurity are the essential pillars of this new industrial identity.`,
   },
   {
     slug: 'chien-luoc-mo-dun-hoa-bat-dau-nho-tang-truong-nhanh',
@@ -269,7 +412,7 @@ Tóm lại, sự thay đổi từ đào tạo nghề truyền thống sang năng
     readTime: 8,
     tags: ['Strategy', 'Industry 4.0', 'Modularization', 'Digital Transformation'],
     gradient: 'from-[#002D62] to-cyan-700',
-    body: `Cuộc Cách mạng Công nghiệp lần thứ tư không chỉ là sự cải tiến dần dần về mặt kỹ thuật mà còn đại diện cho một sự thay đổi mang tính thời đại, chuyển dịch từ mô hình tập trung, nguyên khối sang một hệ sinh thái phi tập trung, tự chủ và được dẫn dắt bởi dữ liệu. Khi các công nghệ số như Internet vạn vật (IoT), trí tuệ nhân tạo (AI) và điện toán đám mây thâm nhập vào mọi khía cạnh của sản xuất, những phương thức chuyển đổi doanh nghiệp truyền thống đang bộc lộ những hạn chế rõ rệt. Đặc biệt, sự phụ thuộc vào các triển khai theo kiểu "Big Bang" - những dự án quy mô lớn, chi phí vốn cao nhằm hiện đại hóa toàn diện trong một giai đoạn duy nhất - đang ghi nhận tỷ lệ thất bại đáng kinh ngạc.
+    body_vi: `Cuộc Cách mạng Công nghiệp lần thứ tư không chỉ là sự cải tiến dần dần về mặt kỹ thuật mà còn đại diện cho một sự thay đổi mang tính thời đại, chuyển dịch từ mô hình tập trung, nguyên khối sang một hệ sinh thái phi tập trung, tự chủ và được dẫn dắt bởi dữ liệu. Khi các công nghệ số như Internet vạn vật (IoT), trí tuệ nhân tạo (AI) và điện toán đám mây thâm nhập vào mọi khía cạnh của sản xuất, những phương thức chuyển đổi doanh nghiệp truyền thống đang bộc lộ những hạn chế rõ rệt. Đặc biệt, sự phụ thuộc vào các triển khai theo kiểu "Big Bang" - những dự án quy mô lớn, chi phí vốn cao nhằm hiện đại hóa toàn diện trong một giai đoạn duy nhất - đang ghi nhận tỷ lệ thất bại đáng kinh ngạc.
 
 ## Thực trạng về sự thất bại của các dự án hiện đại hóa quy mô lớn
 
@@ -298,6 +441,33 @@ Cuối cùng, Công nghiệp 4.0 không chỉ là sự thay đổi công nghệ 
 ## Kết luận và khuyến nghị
 
 Tổng hợp bằng chứng từ tỷ lệ thất bại của các dự án công nghiệp và sự thành công của các nhà máy "Hải đăng" (Lighthouse) cho thấy chiến lược "Bắt đầu nhỏ, Tăng trưởng nhanh" là con đường duy nhất để tiến về phía trước trong Công nghiệp 4.0. Sự phức tạp của môi trường công nghiệp hiện đại khiến các cuộc chuyển đổi đơn khối, kéo dài nhiều năm mang rủi ro cực cao. Thay vào đó, sự tồn tại đòi hỏi một cách tiếp cận nhịp nhàng, ưu tiên ROI tức thì, kiến trúc kỹ thuật mô-đun và đào tạo lại kỹ năng liên tục cho lực lượng lao động.`,
+    body_en: `The Fourth Industrial Revolution is not merely a gradual technical improvement but an epochal transformation, shifting from a centralized, monolithic model toward a decentralized, autonomous, data-driven ecosystem. As IoT, AI, and cloud computing permeate every aspect of manufacturing, traditional corporate transformation methods are revealing clear limitations. "Big Bang" deployments — large-scale, high-CAPEX projects aimed at comprehensive modernization in a single phase — record alarming failure rates. A new consensus is forming: the "Start Small, Grow Fast" strategy is the only viable mechanism for survival in this era of constant volatility.
+
+## The Reality of Large-Scale Modernization Project Failures
+
+Research indicates that up to 70% of software process improvement (SPI) initiatives fail to achieve their intended objectives, while the failure rate for SMEs within their first five years reaches 80%. Even for established businesses attempting to scale agile methods, only 15% report achieving all stated goals. These failures often stem from excessive focus on technical procurement while overlooking organizational adaptation, causing companies to fall into the "complexity trap."
+
+The GE Predix case stands as a profound cautionary tale: General Electric invested billions to reinvent itself as a digital industrial company through a universal IoT platform, but the initiative collapsed due to attempting to unify the disparate requirements of jet engines, power grids, and healthcare into a single software environment. Even massive capital cannot guarantee success without a phased, quantifiable, and digestible implementation plan.
+
+## The "Start Small" Strategic Framework: Risk Management and Return Optimization
+
+The "Start Small" approach advocates initiating digital transformation with targeted, high-impact projects requiring minimal upfront investment and delivering measurable returns quickly. This fundamentally shifts the financial cadence from heavy CAPEX to flexible OPEX, allowing capital flows to be released in measurable increments tied to real progress. These "Quick Wins" not only generate revenue but build executive confidence and accumulate support needed for more complex subsequent phases.
+
+Proactive risk management is a critical foundation of this philosophy. Rather than facing a single massive transformation risk, organizations can incrementally identify and mitigate technical threats through phased deployment of security controls. Governance frameworks such as COBIT or COSO ERM help integrate risk management into strategic planning.
+
+## The "Grow Fast" Mechanism: Scaling Digital Architecture and Organizational Culture
+
+Once the initial phase validates value, the focus shifts to rapidly scaling the solution across the entire enterprise or global manufacturing network. According to BCG's 10-20-70 principle, digital transformation success is distributed as 10% algorithms, 20% data infrastructure and technology, and 70% people, processes, and cultural transformation.
+
+Organizations that over-focus on the 10% technical aspect while neglecting the 70% cultural dimension often fall into "Pilot Purgatory" — projects suspended indefinitely between proof-of-concept and enterprise-scale operation. To escape, businesses must clearly define "Production Readiness Criteria" and use modular or microservices architectures to break complex systems into independent, easily updatable, horizontally scalable components.
+
+## IT/OT Convergence and the Human Factor
+
+An essential component of the scaling phase is the convergence between Information Technology (IT) and Operational Technology (OT), which previously operated in isolation. Edge Computing serves as the pillar bridging this divide, enabling data processing at the source for real-time control and effective predictive maintenance. The World Economic Forum estimates that 50% of employees will need reskilling by 2025. AI and AR-supported "Connected Worker" tools bridge skills gaps by providing interactive, on-floor guidance and personalized learning pathways.
+
+## Conclusion and Recommendations
+
+Synthesizing evidence from industrial project failure rates and the success of "Lighthouse" factories shows that "Start Small, Grow Fast" is the only path forward in Industry 4.0. The complexity of the modern industrial environment makes multi-year, monolithic transformations extremely high-risk. Instead, survival demands a rhythmic approach prioritizing immediate ROI, modular technical architecture, and continuous workforce reskilling.`,
   },
   {
     slug: 'chuyen-doi-so-lean-tri-tue-du-lieu',
@@ -313,7 +483,7 @@ Tổng hợp bằng chứng từ tỷ lệ thất bại của các dự án côn
     readTime: 7,
     tags: ['Lean', 'Digital Transformation', 'IIoT', 'Operations'],
     gradient: 'from-slate-800 to-[#002D62]',
-    body: `Các nguyên tắc cơ bản của Lean, được thiết lập vào cuối thế kỷ 20, vốn được thiết kế để cách mạng hóa hiệu quả sản xuất thông qua việc loại bỏ lãng phí và nâng cao giá trị mang lại cho khách hàng. Tuy nhiên, trong bối cảnh thị trường năm 2026, những phương thức thủ công từng giúp Toyota thành công trong thập niên 1950 đang bộc lộ những hạn chế về độ trễ, khiến hệ thống vô tình xây dựng "kho bãi ẩn" để dự phòng cho những biến động của thị trường. Nghiên cứu chỉ ra rằng có tới 80% các sáng kiến Lean thất bại tại các nhà máy không phải do bản thân phương pháp, mà do sự thiếu hụt dữ liệu thời gian thực và một văn hóa cải tiến không bền vững.
+    body_vi: `Các nguyên tắc cơ bản của Lean, được thiết lập vào cuối thế kỷ 20, vốn được thiết kế để cách mạng hóa hiệu quả sản xuất thông qua việc loại bỏ lãng phí và nâng cao giá trị mang lại cho khách hàng. Tuy nhiên, trong bối cảnh thị trường năm 2026, những phương thức thủ công từng giúp Toyota thành công trong thập niên 1950 đang bộc lộ những hạn chế về độ trễ, khiến hệ thống vô tình xây dựng "kho bãi ẩn" để dự phòng cho những biến động của thị trường. Nghiên cứu chỉ ra rằng có tới 80% các sáng kiến Lean thất bại tại các nhà máy không phải do bản thân phương pháp, mà do sự thiếu hụt dữ liệu thời gian thực và một văn hóa cải tiến không bền vững.
 
 ## Cuộc khủng hoảng độ trễ thông tin và sự xói mòn của Lean truyền thống
 
@@ -354,6 +524,45 @@ Trong chiến lược Lean 4.0, bảo trì không còn là "chữa cháy" sau kh
 ## Kết luận
 
 Lean không phải là một dự án mà là văn hóa làm việc. Số hóa không phải là một món đồ chơi công nghệ; mà là sự kết hợp của hạ tầng xuất sắc và năng lực vận hành hiện đại. Việc kết hợp kỷ luật Lean truyền thống với sự minh bạch kỹ thuật số sẽ tạo ra một văn hóa tự củng cố, có thể đứng vững trước những biến động của thị trường và sự phức tạp của cuộc cách mạng công nghiệp lần thứ tư.`,
+    body_en: `The core principles of Lean, established in the late 20th century, were designed to revolutionize manufacturing efficiency through the elimination of waste and the enhancement of customer value. However, in the market context of 2026, the manual practices that made Toyota successful in the 1950s are revealing latency limitations, inadvertently causing systems to build "hidden buffers" to anticipate market fluctuations. Research indicates that up to 80% of Lean initiatives fail at factories not because of the methodology itself, but due to the lack of real-time data and an unsustainable culture of continuous improvement.
+
+## The Information Latency Crisis and the Erosion of Traditional Lean
+
+The failure of traditional Lean in the modern era is fundamentally an information crisis. Manual data collection — requiring human input and verification — is a slow and error-prone process. When information moves slower than material flow, operational decisions become obsolete the moment they are made, creating the phenomenon of "stale dashboards." In contrast, automated data collection via IIoT and AI can process information in seconds, reducing Mean Time to Detect (MTTD) errors from days to minutes.
+
+## The Pathology of Failure: Why Lean Initiatives Stagnate
+
+Analysis of failed transformation efforts reveals a recurring pattern: Lean is often treated as a project with a start and end date rather than as corporate culture. The absence of daily improvement habits — such as shift-start meetings and work standard checks — allows employees to easily revert to old habits.
+
+Another serious mistake is misaligned Key Performance Indicators (KPIs). Excessive focus on machine efficiency often leads to overproduction — the most dangerous form of waste because it conceals all other problems beneath a "mountain" of inventory.
+
+| **Misaligned Metric** | **Lean-Incompatible Behavior** | **Lean 4.0 KPI Correction** |
+| --- | --- | --- |
+| Machine Efficiency | Overproduction to keep machines running | Takt Time Adherence |
+| Output Volume | Ignoring minor defects to hit quotas | First Pass Yield (FPY) |
+| Labor Efficiency | Rushing pace causing safety risks | Process Lead Time |
+| Short-term Cost Reduction | Cutting training or using cheap materials | Total Cost of Quality |
+
+## Lean 4.0: Upgrading from Static Snapshot to Living System
+
+Lean 4.0 does not replace traditional Lean but evolves it by integrating Digital Twins, AI, and Big Data. At the center is a 6-layer architecture that transforms measurement signals from machinery into strategic action, using machine learning algorithms to identify patterns invisible to the human eye, predict failures, and optimize process settings.
+
+Digital VSM (eVSM) eliminates the need for manual stopwatch time studies by collecting data directly from ERP systems and sensors, creating a "living" map that accurately reflects volatile production reality. Real-world research records a 24.4% reduction in production cycles and an 87.4% reduction in manual planning time.
+
+## The Maintenance and Quality 4.0 Revolution
+
+In Lean 4.0, maintenance transitions from reactive "firefighting" to Predictive and Prescriptive maintenance. Reactive repairs typically cost 4.8 times more than planned work and are the enemy of pull flow. Transitioning to AI-driven predictive maintenance can reduce unplanned machine downtime by 70%. Quality 4.0 uses AI computer vision to catch "quality drift" within minutes rather than waiting until defect rates become uncontrollable.
+
+| **Maintenance Strategy** | **Criticality** | **3-Year ROI** | **Impact on Lean Flow** |
+| --- | --- | --- | --- |
+| Reactive | Low | 0% | Causes disruption and defects |
+| Preventive | Medium | 420% | Unnecessary machine stoppages |
+| Predictive | High | 680% | Shifts to planned maintenance windows |
+| Prescriptive | Mission critical | 820% | Maximum resource optimization |
+
+## Conclusion
+
+Lean is not a project but a work culture. Digitalization is not a technology toy; it is the combination of operational excellence infrastructure and modern operational capability. Combining traditional Lean discipline with digital transparency creates a self-reinforcing culture that can withstand market volatility and the complexity of the fourth industrial revolution.`,
   },
 ]
 
@@ -371,6 +580,10 @@ export function getInsightExcerpt(insight: Insight, locale: string): string {
 
 export function getInsightCategory(insight: Insight, locale: string): string {
   return locale === 'vi' ? insight.category_vi : insight.category_en
+}
+
+export function getInsightBody(insight: Insight, locale: string): string {
+  return locale === 'vi' ? insight.body_vi : insight.body_en
 }
 
 export function formatInsightDate(date: string, locale: string): string {
