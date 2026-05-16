@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import { Link } from "@/i18n/routing";
 import { notFound } from "next/navigation";
 import { ArrowLeft, Clock, Calendar, Tag } from "lucide-react";
+import Image from "next/image";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import {
   insights,
@@ -27,10 +28,22 @@ export async function generateMetadata(
 
   const title = `${locale === "vi" ? insight.title_vi : insight.title_en} | Intech ISC`;
   const description = locale === "vi" ? insight.excerpt_vi : insight.excerpt_en;
+  const ogImage = insight.coverImage ?? '/og/og-default.webp';
   return {
     title,
     description,
-    openGraph: { title, description, type: "article" },
+    openGraph: {
+      title,
+      description,
+      type: 'article',
+      images: [{ url: ogImage, width: 1200, height: 630, alt: title }],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+      images: [ogImage],
+    },
   };
 }
 
@@ -49,8 +62,11 @@ export default async function InsightDetailPage(
   return (
     <div className="w-full bg-[#F4F7F9] min-h-screen pb-24">
       {/* Hero */}
-      <section className={`pt-24 pb-32 px-4 relative overflow-hidden bg-gradient-to-br ${insight.gradient}`}>
-        <div className="absolute inset-0 bg-black/20" />
+      <section className={`pt-24 pb-32 px-4 relative overflow-hidden bg-linear-to-br ${insight.gradient}`}>
+        {insight.coverImage && (
+          <Image src={insight.coverImage} alt={getInsightTitle(insight, locale)} fill className="object-cover opacity-40" sizes="100vw" priority />
+        )}
+        <div className="absolute inset-0 bg-black/40" />
         <div className="max-w-3xl mx-auto relative z-10 text-white">
           <Link
             href="/insights"

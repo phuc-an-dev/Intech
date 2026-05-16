@@ -6,6 +6,7 @@ import { Link } from "@/i18n/routing";
 import { ArrowRight, BookOpen, Briefcase, Globe, CheckCircle, Calendar, Users, MonitorPlay } from "lucide-react";
 import Image from "next/image";
 import ImagePlaceholder from "@/components/ImagePlaceholder";
+import SectionWave from "@/components/SectionWave";
 import CourseCard from "@/components/CourseCard";
 import { type LocalizedCourse } from "@/lib/courses";
 import { useTranslations } from "next-intl";
@@ -67,7 +68,7 @@ export default function HomeClient({ featuredCourses }: Props) {
           priority
         />
         <Image
-          src="/hero-image-mobile.png"
+          src="/hero-image-mobile.jpg"
           alt="INTECH ISC Group - Industrial Training & Consulting"
           fill
           sizes="(max-width: 768px) 100vw, 0vw"
@@ -77,6 +78,17 @@ export default function HomeClient({ featuredCourses }: Props) {
         {/* Overlay: full on mobile, left-half only on desktop */}
         <div className="absolute inset-0 bg-white/70 backdrop-blur-[2px] md:hidden" />
         <div className="absolute inset-y-0 left-0 w-2/3 bg-gradient-to-r from-white/80 via-white/60 to-transparent hidden md:block" />
+        {/* Animated blobs — right side only, pointer-events-none */}
+        <motion.div
+          className="absolute top-16 right-10 w-80 h-80 rounded-full bg-[#00A3C1]/20 blur-3xl pointer-events-none hidden md:block"
+          animate={{ y: [0, -28, 0], scale: [1, 1.06, 1] }}
+          transition={{ duration: 11, repeat: Infinity, ease: "easeInOut" }}
+        />
+        <motion.div
+          className="absolute bottom-12 right-32 w-64 h-64 rounded-full bg-[#002D62]/15 blur-3xl pointer-events-none hidden md:block"
+          animate={{ y: [0, 22, 0], scale: [1, 0.94, 1] }}
+          transition={{ duration: 14, repeat: Infinity, ease: "easeInOut", delay: 2 }}
+        />
 
         <div className="max-w-7xl mx-auto px-4 relative z-10">
           <div className="flex flex-col md:flex-row items-center">
@@ -227,7 +239,7 @@ export default function HomeClient({ featuredCourses }: Props) {
             >
             <div className="aspect-square md:aspect-[4/3] lg:aspect-square rounded-[2rem] w-full relative overflow-hidden shadow-2xl">
                 <Image
-                  src="/why choose 800x800.png"
+                  src="/why-choose.jpg"
                   alt="Why Choose Intech Global Academy"
                   fill
                   sizes="(max-width: 768px) 100vw, 50vw"
@@ -271,8 +283,9 @@ export default function HomeClient({ featuredCourses }: Props) {
         </div>
       </section>
 
+      <SectionWave fill="#002D62" />
       {/* 5. Lead Magnet */}
-      <section className="py-24 bg-[#002D62] relative overflow-hidden">
+      <section className="pt-0 pb-24 bg-[#002D62] relative overflow-hidden">
         <div className="absolute top-0 right-0 w-96 h-96 bg-[#00A3C1] rounded-full mix-blend-multiply filter blur-3xl opacity-30"></div>
         <div className="absolute bottom-0 left-0 w-96 h-96 bg-white rounded-full mix-blend-overlay filter blur-3xl opacity-10"></div>
         <div className="absolute inset-0">

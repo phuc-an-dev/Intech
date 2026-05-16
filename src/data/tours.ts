@@ -69,12 +69,12 @@ const toursEn: TourData[] = [
     customization:
       'The program can be customized based on participants\' academic background, institutional goals, industry interests, and preferred learning outcomes.',
     gallery: [
-      { name: 'tour-gallery-1.webp', alt: 'Program activity' },
-      { name: 'tour-gallery-2.webp', alt: 'Industry visit' },
-      { name: 'tour-gallery-3.webp', alt: 'Cultural experience' },
-      { name: 'tour-gallery-4.webp', alt: 'Group workshop' },
-      { name: 'tour-gallery-5.webp', alt: 'Campus visit' },
-      { name: 'tour-gallery-6.webp', alt: 'Networking event' },
+      { name: 'tour-vn-culture-gallery-1.webp', alt: 'Program activity' },
+      { name: 'tour-vn-culture-gallery-2.webp', alt: 'Industry visit' },
+      { name: 'tour-vn-culture-gallery-3.webp', alt: 'Cultural experience' },
+      { name: 'tour-vn-culture-gallery-4.webp', alt: 'Group workshop' },
+      { name: 'tour-vn-culture-gallery-5.webp', alt: 'Campus visit' },
+      { name: 'tour-vn-culture-gallery-6.webp', alt: 'Networking event' },
     ],
   },
   {
@@ -132,12 +132,12 @@ const toursEn: TourData[] = [
     customization:
       "The program can be customized based on participants' academic backgrounds, institutional objectives, industry interests, preferred learning outcomes, and duration requirements.",
     gallery: [
-      { name: 'tour-gallery-1.webp', alt: 'Program activity' },
-      { name: 'tour-gallery-2.webp', alt: 'Industry visit' },
-      { name: 'tour-gallery-3.webp', alt: 'Cultural experience' },
-      { name: 'tour-gallery-4.webp', alt: 'Group workshop' },
-      { name: 'tour-gallery-5.webp', alt: 'Campus visit' },
-      { name: 'tour-gallery-6.webp', alt: 'Networking event' },
+      { name: 'tour-vn-tech-gallery-1.webp', alt: 'Program activity' },
+      { name: 'tour-vn-tech-gallery-2.webp', alt: 'Industry visit' },
+      { name: 'tour-vn-tech-gallery-3.webp', alt: 'Cultural experience' },
+      { name: 'tour-vn-tech-gallery-4.webp', alt: 'Group workshop' },
+      { name: 'tour-vn-tech-gallery-5.webp', alt: 'Campus visit' },
+      { name: 'tour-vn-tech-gallery-6.webp', alt: 'Networking event' },
     ],
   },
   {
@@ -205,12 +205,12 @@ const toursEn: TourData[] = [
     customization:
       "The program can be customized based on participants' academic backgrounds, institutional objectives, industry interests, preferred learning outcomes, and duration requirements.",
     gallery: [
-      { name: 'tour-gallery-1.webp', alt: 'Program activity' },
-      { name: 'tour-gallery-2.webp', alt: 'Industry visit' },
-      { name: 'tour-gallery-3.webp', alt: 'Cultural experience' },
-      { name: 'tour-gallery-4.webp', alt: 'Group workshop' },
-      { name: 'tour-gallery-5.webp', alt: 'Campus visit' },
-      { name: 'tour-gallery-6.webp', alt: 'Networking event' },
+      { name: 'tour-global-gallery-1.webp', alt: 'Program activity' },
+      { name: 'tour-global-gallery-2.webp', alt: 'Industry visit' },
+      { name: 'tour-global-gallery-3.webp', alt: 'Cultural experience' },
+      { name: 'tour-global-gallery-4.webp', alt: 'Group workshop' },
+      { name: 'tour-global-gallery-5.webp', alt: 'Campus visit' },
+      { name: 'tour-global-gallery-6.webp', alt: 'Networking event' },
     ],
   },
 ]
@@ -264,12 +264,12 @@ const toursVi: TourData[] = [
     customization:
       'Chương trình có thể được tùy chỉnh dựa trên nền tảng học thuật, mục tiêu tổ chức, lĩnh vực quan tâm và kết quả học tập mong muốn của học viên.',
     gallery: [
-      { name: 'tour-gallery-1.webp', alt: 'Program activity' },
-      { name: 'tour-gallery-2.webp', alt: 'Industry visit' },
-      { name: 'tour-gallery-3.webp', alt: 'Cultural experience' },
-      { name: 'tour-gallery-4.webp', alt: 'Group workshop' },
-      { name: 'tour-gallery-5.webp', alt: 'Campus visit' },
-      { name: 'tour-gallery-6.webp', alt: 'Networking event' },
+      { name: 'tour-vn-culture-gallery-1.webp', alt: 'Program activity' },
+      { name: 'tour-vn-culture-gallery-2.webp', alt: 'Industry visit' },
+      { name: 'tour-vn-culture-gallery-3.webp', alt: 'Cultural experience' },
+      { name: 'tour-vn-culture-gallery-4.webp', alt: 'Group workshop' },
+      { name: 'tour-vn-culture-gallery-5.webp', alt: 'Campus visit' },
+      { name: 'tour-vn-culture-gallery-6.webp', alt: 'Networking event' },
     ],
   },
   {
@@ -327,12 +327,12 @@ const toursVi: TourData[] = [
     customization:
       'Chương trình có thể được tùy chỉnh dựa trên nền tảng học thuật, mục tiêu tổ chức, lĩnh vực quan tâm, kết quả học tập mong muốn và thời gian của học viên.',
     gallery: [
-      { name: 'tour-gallery-1.webp', alt: 'Program activity' },
-      { name: 'tour-gallery-2.webp', alt: 'Industry visit' },
-      { name: 'tour-gallery-3.webp', alt: 'Cultural experience' },
-      { name: 'tour-gallery-4.webp', alt: 'Group workshop' },
-      { name: 'tour-gallery-5.webp', alt: 'Campus visit' },
-      { name: 'tour-gallery-6.webp', alt: 'Networking event' },
+      { name: 'tour-vn-tech-gallery-1.webp', alt: 'Program activity' },
+      { name: 'tour-vn-tech-gallery-2.webp', alt: 'Industry visit' },
+      { name: 'tour-vn-tech-gallery-3.webp', alt: 'Cultural experience' },
+      { name: 'tour-vn-tech-gallery-4.webp', alt: 'Group workshop' },
+      { name: 'tour-vn-tech-gallery-5.webp', alt: 'Campus visit' },
+      { name: 'tour-vn-tech-gallery-6.webp', alt: 'Networking event' },
     ],
   },
   {
@@ -400,12 +400,12 @@ const toursVi: TourData[] = [
     customization:
       'Chương trình có thể được tùy chỉnh dựa trên nền tảng học thuật, mục tiêu tổ chức, lĩnh vực quan tâm, kết quả học tập mong muốn và thời gian của học viên.',
     gallery: [
-      { name: 'tour-gallery-1.webp', alt: 'Program activity' },
-      { name: 'tour-gallery-2.webp', alt: 'Industry visit' },
-      { name: 'tour-gallery-3.webp', alt: 'Cultural experience' },
-      { name: 'tour-gallery-4.webp', alt: 'Group workshop' },
-      { name: 'tour-gallery-5.webp', alt: 'Campus visit' },
-      { name: 'tour-gallery-6.webp', alt: 'Networking event' },
+      { name: 'tour-global-gallery-1.webp', alt: 'Program activity' },
+      { name: 'tour-global-gallery-2.webp', alt: 'Industry visit' },
+      { name: 'tour-global-gallery-3.webp', alt: 'Cultural experience' },
+      { name: 'tour-global-gallery-4.webp', alt: 'Group workshop' },
+      { name: 'tour-global-gallery-5.webp', alt: 'Campus visit' },
+      { name: 'tour-global-gallery-6.webp', alt: 'Networking event' },
     ],
   },
 ]

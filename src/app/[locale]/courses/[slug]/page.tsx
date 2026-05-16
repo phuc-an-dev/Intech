@@ -22,6 +22,7 @@ export async function generateMetadata(
   if (!course) return { title: "Không tìm thấy khóa học" }
 
   const title = `${course.title} | Intech Global Academy`
+  const ogImage = course.imageUrl || '/og/og-courses.webp'
   return {
     title,
     description: course.description,
@@ -30,6 +31,13 @@ export async function generateMetadata(
       description: course.description,
       locale: locale === 'vi' ? 'vi_VN' : 'en_US',
       type: 'website',
+      images: [{ url: ogImage, width: 1200, height: 630, alt: title }],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description: course.description,
+      images: [ogImage],
     },
   }
 }

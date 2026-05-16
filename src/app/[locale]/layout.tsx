@@ -40,7 +40,22 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
         'vi': base,
         'en': `${base}/en`,
       }
-    }
+    },
+    openGraph: {
+      title: t('title'),
+      description: t('description'),
+      url: locale === 'vi' ? base : `${base}/en`,
+      siteName: 'Intech Global Academy',
+      locale: locale === 'vi' ? 'vi_VN' : 'en_US',
+      type: 'website',
+      images: [{ url: '/og/og-default.webp', width: 1200, height: 630, alt: t('title') }],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: t('title'),
+      description: t('description'),
+      images: ['/og/og-default.webp'],
+    },
   };
 }
 

@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import { Link } from "@/i18n/routing";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { ArrowRight, Clock, Calendar } from "lucide-react";
+import Image from "next/image";
 import {
   insights,
   getInsightTitle,
@@ -15,9 +16,23 @@ export async function generateMetadata(
 ): Promise<Metadata> {
   const { locale } = await props.params;
   const t = await getTranslations({ locale, namespace: "insights" });
+  const title = `${t("page_title")} | Intech ISC`
+  const description = t("page_description")
   return {
-    title: `${t("page_title")} | Intech ISC`,
-    description: t("page_description"),
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      type: 'website',
+      images: [{ url: '/og/og-default.webp', width: 1200, height: 630, alt: title }],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+      images: ['/og/og-default.webp'],
+    },
   };
 }
 
@@ -33,7 +48,7 @@ export default async function InsightsPage(
   return (
     <div className="w-full bg-[#F4F7F9] min-h-screen pb-24">
       {/* Page Header */}
-      <section className="bg-gradient-to-br from-[#002D62] to-[#00A3C1] pt-28 pb-16 px-4">
+      <section className="bg-linear-to-br from-[#002D62] to-[#00A3C1] pt-28 pb-16 px-4">
         <div className="max-w-5xl mx-auto text-white text-center">
           <span className="inline-block bg-white/20 backdrop-blur-sm text-white text-xs font-bold px-4 py-1.5 rounded-full mb-4 uppercase tracking-wider border border-white/30">
             Intech ISC
@@ -53,8 +68,11 @@ export default async function InsightsPage(
           href={`/insights/${featured.slug}`}
           className="block group bg-white rounded-3xl shadow-xl border border-gray-100 overflow-hidden mb-10 hover:shadow-2xl transition-shadow"
         >
-          <div className={`w-full h-56 md:h-72 bg-gradient-to-br ${featured.gradient} flex items-center justify-center relative overflow-hidden`}>
-            <div className="absolute inset-0 bg-black/10" />
+          <div className={`w-full h-56 md:h-72 bg-linear-to-br ${featured.gradient} flex items-center justify-center relative overflow-hidden`}>
+            {featured.coverImage && (
+              <Image src={featured.coverImage} alt={getInsightTitle(featured, locale)} fill className="object-cover opacity-60" sizes="(max-width: 768px) 100vw, 800px" />
+            )}
+            <div className="absolute inset-0 bg-black/30" />
             <div className="relative z-10 text-center px-8">
               <span className="inline-block bg-white text-[#002D62] text-xs font-bold px-3 py-1 rounded-full mb-3 uppercase tracking-wide">
                 {t("featured_label")}
@@ -106,8 +124,11 @@ export default async function InsightsPage(
               href={`/insights/${insight.slug}`}
               className="group bg-white rounded-2xl shadow-md border border-gray-100 overflow-hidden hover:shadow-xl transition-shadow"
             >
-              <div className={`w-full h-36 bg-gradient-to-br ${insight.gradient} flex items-center justify-center`}>
-                <span className="text-white/60 text-xs font-medium uppercase tracking-wider">
+              <div className={`w-full h-36 bg-linear-to-br ${insight.gradient} flex items-center justify-center relative overflow-hidden`}>
+                {insight.coverImage && (
+                  <Image src={insight.coverImage} alt={getInsightTitle(insight, locale)} fill className="object-cover opacity-50" sizes="(max-width: 768px) 100vw, 400px" />
+                )}
+                <span className="relative z-10 text-white/90 text-xs font-bold uppercase tracking-wider drop-shadow">
                   {getInsightCategory(insight, locale)}
                 </span>
               </div>

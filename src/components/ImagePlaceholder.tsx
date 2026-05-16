@@ -1,4 +1,7 @@
+"use client";
+
 import Image from "next/image";
+import { useState } from "react";
 
 interface Props {
   name: string;
@@ -13,29 +16,7 @@ interface Props {
   priority?: boolean;
 }
 
-export default function ImagePlaceholder({
-  name, width, height, className = "", ready = false,
-  src, alt = "", fill, sizes, priority,
-}: Props) {
-  if (ready && src) {
-    if (fill) {
-      return (
-        <Image
-          src={src} alt={alt} fill sizes={sizes}
-          className={`object-cover ${className}`}
-          priority={priority}
-        />
-      );
-    }
-    return (
-      <Image
-        src={src} alt={alt} width={width} height={height}
-        className={`object-cover ${className}`}
-        priority={priority}
-      />
-    );
-  }
-
+function Fallback({ name, width, height, className = "", fill }: Pick<Props, "name" | "width" | "height" | "className" | "fill">) {
   return (
     <div
       className={`flex flex-col items-center justify-center bg-gradient-to-br from-slate-100 to-slate-200 border-2 border-dashed border-slate-300 ${className}`}
@@ -48,5 +29,43 @@ export default function ImagePlaceholder({
       <span className="text-xs text-slate-500 font-mono text-center px-2 leading-tight">{name}</span>
       <span className="text-[10px] text-slate-400 mt-0.5">{width}×{height}</span>
     </div>
+  );
+}
+
+export default function ImagePlaceholder({
+  name, width, height, className = "",
+  src, alt = "", fill, sizes, priority,
+}: Props) {
+  const [errored, setErrored] = useState(false);
+  const resolvedSrc = src ?? `/images/${name}`;
+
+  if (errored) {
+    return <Fallback name={name} width={width} height={height} className={className} fill={fill} />;
+  }
+
+  if (fill) {
+    return (
+      <Image
+        src={resolvedSrc}
+        alt={alt || name}
+        fill
+        sizes={sizes}
+        className={`object-cover ${className}`}
+        priority={priority}
+        onError={() => setErrored(true)}
+      />
+    );
+  }
+
+  return (
+    <Image
+      src={resolvedSrc}
+      alt={alt || name}
+      width={width}
+      height={height}
+      className={`object-cover ${className}`}
+      priority={priority}
+      onError={() => setErrored(true)}
+    />
   );
 }
