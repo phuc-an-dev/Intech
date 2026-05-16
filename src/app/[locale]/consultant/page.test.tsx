@@ -42,7 +42,6 @@ describe('Consulting Page', () => {
     render(<ConsultingPage />)
     expect(screen.getByText('industries_title')).toBeInTheDocument()
     expect(screen.getByText('industry1_title')).toBeInTheDocument()
-    expect(screen.getByText('industry4_title')).toBeInTheDocument()
   })
 
   it('renders case studies section', () => {

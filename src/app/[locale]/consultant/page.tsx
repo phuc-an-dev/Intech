@@ -8,7 +8,7 @@ import {
   MapPin, Package, Box,
   CheckCircle2, Layers, GraduationCap,
   TrendingDown, BarChart2, Globe,
-  ArrowRight, Lock, Sparkles, BookOpen,
+  ArrowRight, Lock, Sparkles,
   CalendarFold,
 } from 'lucide-react'
 import { Link } from '@/i18n/routing'
@@ -57,10 +57,9 @@ export default function ConsultingPage() {
   ]
 
   const industries = [
-    { icon: Factory, title: t('industry1_title'), desc: t('industry1_desc'), isExpanding: false, image: 'industry-manufacturing.webp' },
-    { icon: Truck,   title: t('industry2_title'), desc: t('industry2_desc'), isExpanding: false, image: 'industry-logistics.webp' },
-    { icon: Package, title: t('industry3_title'), desc: t('industry3_desc'), isExpanding: false, image: 'industry-commerce.webp' },
-    { icon: Sparkles, title: t('industry4_title'), desc: t('industry4_desc'), isExpanding: true,  image: 'industry-expanding.webp' },
+    { icon: Factory, title: t('industry1_title'), desc: t('industry1_desc'), isExpanding: false },
+    { icon: Truck, title: t('industry2_title'), desc: t('industry2_desc'), isExpanding: false },
+    { icon: Package, title: t('industry3_title'), desc: t('industry3_desc'), isExpanding: false },
   ]
 
   const cases = [
@@ -75,13 +74,6 @@ export default function ConsultingPage() {
     { n: 3, title: t('step3_title'), desc: t('step3_desc') },
     { n: 4, title: t('step4_title'), desc: t('step4_desc') },
     { n: 5, title: t('step5_title'), desc: t('step5_desc') },
-  ]
-
-  const glossary = [
-    t('glossary_gemba'),
-    t('glossary_mcdm'),
-    t('glossary_ahp'),
-    t('glossary_spc'),
   ]
 
   const containerVariants = {
@@ -308,7 +300,7 @@ export default function ConsultingPage() {
           </motion.div>
 
           <motion.div
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
             variants={containerVariants}
             initial="hidden"
             whileInView="visible"
@@ -369,7 +361,7 @@ export default function ConsultingPage() {
       </section>
 
       {/* ── Case Studies (blurred placeholder) ── */}
-      <section className="max-w-7xl mx-auto px-4 py-24">
+      <section className="hidden max-w-7xl mx-auto px-4 py-24">
         <motion.div
           className="text-center mb-16"
           initial={{ opacity: 0, y: 20 }}
@@ -461,23 +453,6 @@ export default function ConsultingPage() {
             ))}
           </div>
 
-          {/* Glossary */}
-          <motion.div
-            className="mt-20 bg-white/5 border border-white/10 rounded-2xl p-6"
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-          >
-            <div className="flex items-center gap-2 mb-4">
-              <BookOpen className="w-4 h-4 text-[#00A3C1]" />
-              <span className="text-[#00A3C1] font-bold text-sm uppercase tracking-widest">{t('glossary_title')}</span>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-              {glossary.map((entry, i) => (
-                <p key={i} className="text-white/60 text-sm leading-relaxed">{entry}</p>
-              ))}
-            </div>
-          </motion.div>
         </div>
       </section>
 

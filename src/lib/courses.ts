@@ -17,6 +17,11 @@ export interface LocalizedCourse {
   priceOriginal: number
   priceSale: number | null
   prerequisite: string | null
+  targetAudience: string[]
+  modules: string[]
+  finalProject: string
+  deliveryFormat: string
+  imageUrl: string
 }
 
 export interface LocalizedTopic {
@@ -29,6 +34,11 @@ function pick(row: Record<string, string>, locale: string, key: string): string 
   return locale === 'vi'
     ? (row[`${key}_vi`] ?? '')
     : (row[`${key}_en`] ?? row[`${key}_vi`] ?? '')
+}
+
+function parsePipe(value: string): string[] {
+  if (!value?.trim()) return []
+  return value.split('|').map(s => s.trim()).filter(Boolean)
 }
 
 export async function getTopics(locale: string): Promise<LocalizedTopic[]> {
@@ -64,6 +74,11 @@ export async function getCourses(locale: string): Promise<LocalizedCourse[]> {
       priceOriginal: parseInt(r.price_original) || 0,
       priceSale: r.price_sale?.trim() ? parseInt(r.price_sale) || null : null,
       prerequisite: r.prerequisite?.trim() || null,
+      targetAudience: parsePipe(pick(r, locale, 'target_audience')),
+      modules: parsePipe(pick(r, locale, 'modules')),
+      finalProject: pick(r, locale, 'final_project'),
+      deliveryFormat: pick(r, locale, 'delivery_format') || 'Online / Hybrid',
+      imageUrl: r.image_url?.trim() || '',
     }))
 }
 

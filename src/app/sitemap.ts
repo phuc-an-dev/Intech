@@ -1,5 +1,6 @@
 import { MetadataRoute } from 'next';
 import { routing } from '@/i18n/routing';
+import { insights } from '@/data/insights';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const locales = routing.locales;
@@ -10,6 +11,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '',
     '/about',
     '/courses',
+    '/insights',
     '/coming-soon',
     '/consultant',
     '/contact',
@@ -31,6 +33,19 @@ export default function sitemap(): MetadataRoute.Sitemap {
         priority: route === '' ? 1 : 0.8,
         // Optional: alternate languages
         // alternateRefs: locales.map(l => ({ href: ..., hrefLang: l }))
+      });
+    });
+  });
+
+  insights.forEach((insight) => {
+    locales.forEach((locale) => {
+      const isDefaultLocale = locale === routing.defaultLocale;
+      const url = `${baseUrl}${isDefaultLocale ? '' : `/${locale}`}/insights/${insight.slug}`;
+      sitemapEntries.push({
+        url,
+        lastModified: new Date(insight.date),
+        changeFrequency: 'yearly',
+        priority: 0.6,
       });
     });
   });

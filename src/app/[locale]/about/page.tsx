@@ -53,9 +53,6 @@ export default function AboutPage() {
             <p className="text-lg md:text-xl text-white/80 leading-relaxed mb-3">
               {t("subtitle")}
             </p>
-            <p className="text-lg md:text-xl text-white/70 leading-relaxed">
-              {t("subtitle2")}
-            </p>
           </motion.div>
         </div>
       </section>
@@ -77,9 +74,6 @@ export default function AboutPage() {
             </p>
             <p className="text-gray-600 leading-relaxed text-lg">
               {t("intro_desc2")}
-            </p>
-            <p className="text-gray-600 leading-relaxed text-lg">
-              {t("intro_desc3")}
             </p>
           </div>
           <div className="flex-1 w-full">
