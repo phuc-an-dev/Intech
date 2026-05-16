@@ -39,6 +39,7 @@ export default async function TourDetailPage(props: { params: Promise<{ slug: st
     back: t('tour_detail_back'),
     groupLabel: t('tour_detail_group_label'),
     certificateLabel: t('tour_certificate_label'),
+    galleryTitle: t('tour_gallery_title'),
   }
 
   return <TourDetailClient tour={tour} labels={labels} />

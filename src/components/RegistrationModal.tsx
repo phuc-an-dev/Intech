@@ -34,6 +34,7 @@ const registrationSchema = z.object({
   major: z.string().optional(),
   source: z.string().optional(),
   goal: z.string().optional(),
+  website: z.string().optional(),
 });
 type RegistrationFormData = z.infer<typeof registrationSchema>;
 
@@ -165,6 +166,7 @@ export default function RegistrationModal({ isOpen, onClose, courseInfo }: Regis
                   </div>
 
                   <form onSubmit={handleSubmit(onSubmit)} className="space-y-8" noValidate>
+                    <input type="text" {...register('website')} tabIndex={-1} autoComplete="off" aria-hidden="true" style={{ display: 'none' }} />
                     {/* Section 1: Personal info */}
                     <div>
                       <h3 className="text-lg font-bold text-[#002D62] mb-4 flex items-center gap-2">

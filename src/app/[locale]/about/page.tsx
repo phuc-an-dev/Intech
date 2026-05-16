@@ -5,6 +5,9 @@ import { Building2, GraduationCap, Globe2, ArrowRight, ShieldCheck, FileText } f
 import Image from "next/image";
 import { Link } from "@/i18n/routing";
 import { useTranslations } from "next-intl";
+import ImagePlaceholder from "@/components/ImagePlaceholder";
+import LogoMarquee from "@/components/LogoMarquee";
+import { partnerLogos } from "@/data/partners";
 
 export default function AboutPage() {
   const t = useTranslations("about");
@@ -30,6 +33,15 @@ export default function AboutPage() {
       <section className="bg-[#002D62] text-white py-20 md:py-28 px-4 relative overflow-hidden">
         <div className="absolute inset-0 z-0">
           <div className="absolute top-[-50%] right-[-10%] w-3/4 h-[200%] bg-[#00A3C1] opacity-10 blur-3xl transform rotate-45"></div>
+          <motion.div className="absolute bottom-0 left-12 w-80 h-80 rounded-full bg-[#00A3C1]/15 blur-3xl pointer-events-none" animate={{ y: [0, -26, 0], scale: [1, 1.06, 1] }} transition={{ duration: 13, repeat: Infinity, ease: "easeInOut" }} />
+          <motion.div className="absolute top-8 left-1/2 w-48 h-48 rounded-full bg-white/5 blur-2xl pointer-events-none" animate={{ y: [0, 20, 0], x: [0, -12, 0] }} transition={{ duration: 10, repeat: Infinity, ease: "easeInOut", delay: 2 }} />
+          <ImagePlaceholder
+            name="hero-about.webp"
+            width={1920}
+            height={600}
+            fill
+            className="opacity-10 mix-blend-overlay"
+          />
         </div>
         <div className="max-w-4xl mx-auto text-center relative z-10">
           <motion.div
@@ -69,18 +81,27 @@ export default function AboutPage() {
           <div className="flex-1 w-full">
             <div className="aspect-[4/3] rounded-2xl w-full relative overflow-hidden border-4 border-gray-50 shadow-lg">
               <Image
-                src="/about us.png"
+                src="/about-us.jpg"
                 alt="About Intech Global Academy"
                 fill
                 sizes="(max-width: 768px) 100vw, 50vw"
                 className="object-cover"
                 priority
-                loading="eager"
               />
               <div className="absolute inset-0 bg-[#00A3C1]/5"></div>
             </div>
           </div>
         </motion.div>
+      </section>
+
+      {/* Partner Logo Marquee Section */}
+      <section className="hidden py-16 bg-[#F4F7F9]">
+        <div className="max-w-7xl mx-auto px-4">
+          <h2 className="text-2xl md:text-3xl font-heading font-bold text-[#002D62] mb-10 text-center">
+            {t('partners_title')}
+          </h2>
+          <LogoMarquee logos={partnerLogos} speed={30} />
+        </div>
       </section>
 
       {/* Mission Section */}

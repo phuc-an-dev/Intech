@@ -8,11 +8,15 @@ import {
   MapPin, Package, Box,
   CheckCircle2, Layers, GraduationCap,
   TrendingDown, BarChart2, Globe,
-  ArrowRight, Lock, Sparkles,
+  ArrowRight,
   CalendarFold,
 } from 'lucide-react'
 import { Link } from '@/i18n/routing'
 import { useTranslations } from 'next-intl'
+import ImagePlaceholder from '@/components/ImagePlaceholder'
+import LogoMarquee from '@/components/LogoMarquee'
+import { partnerLogos } from '@/data/partners'
+import SectionWave from '@/components/SectionWave'
 
 export default function ConsultingPage() {
   const t = useTranslations('consulting')
@@ -54,9 +58,9 @@ export default function ConsultingPage() {
   ]
 
   const industries = [
-    { icon: Factory, title: t('industry1_title'), desc: t('industry1_desc'), isExpanding: false },
-    { icon: Truck, title: t('industry2_title'), desc: t('industry2_desc'), isExpanding: false },
-    { icon: Package, title: t('industry3_title'), desc: t('industry3_desc'), isExpanding: false },
+    { icon: Factory, title: t('industry1_title'), desc: t('industry1_desc'), isExpanding: false, image: 'industry-manufacturing.webp' },
+    { icon: Truck, title: t('industry2_title'), desc: t('industry2_desc'), isExpanding: false, image: 'industry-logistics.webp' },
+    { icon: Package, title: t('industry3_title'), desc: t('industry3_desc'), isExpanding: false, image: 'industry-commerce.webp' },
   ]
 
   const cases = [
@@ -90,6 +94,17 @@ export default function ConsultingPage() {
       <section className="bg-[#002D62] text-white py-20 md:py-28 px-4 relative overflow-hidden">
         <div className="absolute inset-0 z-0">
           <div className="absolute top-[-50%] right-[-10%] w-3/4 h-[200%] bg-[#00A3C1] opacity-10 blur-3xl transform rotate-45" />
+          <motion.div className="absolute bottom-0 left-10 w-72 h-72 rounded-full bg-[#00A3C1]/15 blur-3xl pointer-events-none" animate={{ y: [0, -24, 0], scale: [1, 1.08, 1] }} transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }} />
+          <motion.div className="absolute top-10 left-1/3 w-48 h-48 rounded-full bg-white/5 blur-2xl pointer-events-none" animate={{ y: [0, 18, 0], x: [0, 10, 0] }} transition={{ duration: 9, repeat: Infinity, ease: "easeInOut", delay: 1.5 }} />
+          <div className="absolute inset-0">
+            <ImagePlaceholder
+              name="hero-consultant.webp"
+              width={1920}
+              height={600}
+              fill
+              className="opacity-10 mix-blend-overlay"
+            />
+          </div>
         </div>
         <div className="max-w-7xl mx-auto relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-0 lg:gap-12 items-center">
           <motion.div
@@ -275,7 +290,7 @@ export default function ConsultingPage() {
       </section>
 
       {/* ── Industries ── */}
-      <section className="bg-[#002D62] py-24 px-4">
+      <section className="bg-linear-to-b from-[#F4F7F9] to-[#002D62] py-24 px-4">
         <div className="max-w-7xl mx-auto">
           <motion.div
             className="text-center mb-16"
@@ -294,41 +309,39 @@ export default function ConsultingPage() {
             whileInView="visible"
             viewport={{ once: true, margin: '-50px' }}
           >
-            {industries.map(({ icon: Icon, title, desc, isExpanding }) => (
+            {industries.map(({ title, desc, isExpanding, image }) => (
               <motion.div
                 key={title}
                 variants={itemVariants}
-                className={`rounded-3xl overflow-hidden group ${
+                className={`rounded-3xl overflow-hidden group relative aspect-[4/3] ${
                   isExpanding ? 'border-2 border-dashed border-white/20' : 'border border-white/10'
                 }`}
               >
-                <div
-                  className={`aspect-[4/3] relative flex items-center justify-center ${
-                    isExpanding
-                      ? 'bg-white/5'
-                      : 'bg-[#00A3C1]/20 group-hover:bg-[#00A3C1]/30 transition-colors duration-300'
-                  }`}
-                >
-                  <Icon
-                    className={`w-14 h-14 ${
-                      isExpanding
-                        ? 'text-white/20'
-                        : 'text-[#00A3C1] group-hover:scale-110 transition-transform duration-300'
-                    }`}
-                  />
-                  {!isExpanding && (
-                    <span className="absolute bottom-2 right-3 text-[10px] text-white/20 uppercase tracking-widest">
-                      800×600
-                    </span>
-                  )}
-                </div>
-                <div className={`p-6 h-full ${isExpanding ? 'bg-white/5' : 'bg-white/10'}`}>
+                <ImagePlaceholder
+                  name={image}
+                  width={400}
+                  height={300}
+                  fill
+                  className="group-hover:scale-105 transition-transform duration-500"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#002D62]/90 via-[#002D62]/30 to-transparent" />
+                <div className="absolute bottom-0 left-0 right-0 p-6">
                   <h3 className="font-heading font-bold text-white text-lg mb-2">{title}</h3>
-                  <p className="text-white/70 text-sm leading-relaxed">{desc}</p>
+                  <p className="text-white/80 text-sm leading-relaxed">{desc}</p>
                 </div>
               </motion.div>
             ))}
           </motion.div>
+        </div>
+      </section>
+
+      {/* ── Partner Logos ── */}
+      <section className="hidden py-16 bg-white">
+        <div className="max-w-7xl mx-auto px-4">
+          <h2 className="text-2xl md:text-3xl font-heading font-bold text-[#002D62] mb-10 text-center">
+            {t('partners_title')}
+          </h2>
+          <LogoMarquee logos={partnerLogos} speed={25} />
         </div>
       </section>
 
@@ -345,27 +358,41 @@ export default function ConsultingPage() {
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {cases.map(({ industry, title, desc }, i) => (
+          {cases.map((c, idx) => (
             <motion.div
-              key={title}
+              key={c.title}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: i * 0.1 }}
-              className="relative bg-white rounded-3xl overflow-hidden border border-gray-100 shadow-sm"
+              transition={{ delay: idx * 0.1 }}
+              className="relative overflow-hidden bg-white rounded-3xl border border-gray-100 shadow-sm"
             >
-              <div className="filter blur-sm select-none pointer-events-none p-8">
-                <div className="text-xs font-bold text-[#00A3C1] uppercase tracking-wider mb-3">{industry}</div>
-                <h3 className="font-heading font-bold text-xl text-[#002D62] mb-3">{title}</h3>
-                <p className="text-gray-600 text-sm leading-relaxed">{desc}</p>
-                <div className="mt-6 h-2 bg-gray-100 rounded-full" />
-                <div className="mt-3 h-2 bg-gray-100 rounded-full w-3/4" />
+              {/* Background image */}
+              <div className="absolute inset-0">
+                <ImagePlaceholder
+                  name={`case-bg-${idx + 1}.webp`}
+                  width={800}
+                  height={500}
+                  fill
+                  className="opacity-30"
+                />
+                <div className="absolute inset-0 bg-[#002D62]/70" />
               </div>
-              <div className="absolute inset-0 flex flex-col items-center justify-center bg-white/80 backdrop-blur-[2px]">
-                <CalendarFold className="w-7 h-7 text-[#002D62] mb-3 opacity-60" />
-                <span className="bg-[#002D62] text-white text-xs font-bold px-5 py-2 rounded-full uppercase tracking-widest">
-                  {t('case_coming_soon')}
-                </span>
+              {/* Existing content */}
+              <div className="relative z-10">
+                <div className="filter blur-sm select-none pointer-events-none p-8">
+                  <div className="text-xs font-bold text-[#00A3C1] uppercase tracking-wider mb-3">{c.industry}</div>
+                  <h3 className="font-heading font-bold text-xl text-[#002D62] mb-3">{c.title}</h3>
+                  <p className="text-gray-600 text-sm leading-relaxed">{c.desc}</p>
+                  <div className="mt-6 h-2 bg-gray-100 rounded-full" />
+                  <div className="mt-3 h-2 bg-gray-100 rounded-full w-3/4" />
+                </div>
+                <div className="absolute inset-0 flex flex-col items-center justify-center bg-white/80 backdrop-blur-[2px]">
+                  <CalendarFold className="w-7 h-7 text-[#002D62] mb-3 opacity-60" />
+                  <span className="bg-[#002D62] text-white text-xs font-bold px-5 py-2 rounded-full uppercase tracking-widest">
+                    {t('case_coming_soon')}
+                  </span>
+                </div>
               </div>
             </motion.div>
           ))}
@@ -414,8 +441,9 @@ export default function ConsultingPage() {
         </div>
       </section>
 
+      <SectionWave fill="#F4F7F9" flip />
       {/* ── CTA ── */}
-      <section className="py-24 pt-40 px-4">
+      <section className="py-24 px-4 bg-[#F4F7F9]">
         <div className="max-w-4xl mx-auto text-center">
           <motion.div
             initial={{ opacity: 0, y: 30 }}

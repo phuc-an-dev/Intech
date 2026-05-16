@@ -12,6 +12,7 @@ export interface Insight {
   readTime: number
   tags: string[]
   gradient: string
+  coverImage?: string
   body_en: string
   body_vi: string
 }
@@ -31,6 +32,7 @@ export const insights: Insight[] = [
     readTime: 15,
     tags: ['AI', 'Vietnam 2030', 'Workforce', 'Digital Transformation'],
     gradient: 'from-[#002D62] to-blue-800',
+    coverImage: '/images/insight-ai-augmented-technician-vietnam-2030.jpg',
     body_en: `The socio-economic landscape of Vietnam is currently undergoing a structural metamorphosis, shifting from its historical reliance on low-cost, labor-intensive manufacturing toward a model defined by high-tech integration and digital intelligence. This transition is encapsulated in the emergence of the "AI-augmented" technician-a professional who serves as the nexus between traditional industrial expertise and the transformative capabilities of artificial intelligence, big data, and high-speed connectivity. As Vietnam approaches its 2030 vision, this new class of worker is not merely a byproduct of technological progress but a central pillar of the National Digital Transformation Program, designed to propel the nation into the ranks of the world's leading digital economies.
 
 The strategic imperatives driving this shift are rooted in the necessity to overcome the middle-income trap and enhance national competitiveness within the ASEAN region and the global market. By 2030, Vietnam envisions its digital economy contributing 30% of the national GDP, a goal that requires a fundamental reimagining of the labor force. The rise of the AI-augmented technician represents a deliberate strategy to restructure work systems, moving beyond simple automation-which replaces human labor-to an "augmented intelligence" approach that enriches essential practical roles through machine-generated insights.
@@ -250,6 +252,7 @@ Sự chuyển đổi lực lượng lao động Việt Nam sang kỷ nguyên tă
     readTime: 8,
     tags: ['Supply Chain', 'Southeast Asia', 'China Plus One', 'Manufacturing'],
     gradient: 'from-[#002D62] to-[#00A3C1]',
+    coverImage: '/images/insight-da-dang-hoa-chuoi-cung-ung-dong-nam-a.jpg',
     body_vi: `Cấu trúc sản xuất toàn cầu đang trải qua một cuộc biến đổi sâu sắc về quy mô mà thế giới chưa từng chứng kiến kể từ khi mô hình sản xuất đơn cực trỗi dậy vào cuối thập niên 1990. Sự chuyển dịch từ mô hình lấy Trung Quốc làm trung tâm sang một hệ thống phân mảnh, linh hoạt và khu vực hóa hơn đã đưa Đông Nam Á trở thành tâm điểm của tương lai công nghiệp thế giới. Đây không đơn thuần là một phản ứng mang tính chiến thuật trước các đứt gãy ngắn hạn, mà là một sự tái định hướng chiến lược dài hạn được thúc đẩy bởi sự hội tụ của chi phí nội địa gia tăng tại các trung tâm truyền thống, ma sát địa chính trị leo thang và sự đánh giá lại căn bản về tính dễ bị tổn thương của chuỗi cung ứng.
 
 ## Sự trưởng thành của mô hình Trung Quốc và sự ra đời của chiến lược "China Plus One"
@@ -333,6 +336,7 @@ The data suggests global manufacturing is moving toward a more multipolar, regio
     readTime: 8,
     tags: ['Education', 'Industry 4.0', 'Digital Skills', 'Vocational Training'],
     gradient: 'from-blue-900 to-[#00A3C1]',
+    coverImage: '/images/insight-chuyen-minh-ky-nang-ky-thuat-cong-nghiep-so.jpg',
     body_vi: `Tổ hợp công nghiệp toàn cầu đang trải qua một cuộc tái định hướng cấu trúc vượt xa việc áp dụng công nghệ đơn thuần, đại diện cho một sự chuyển dịch bản thể về bản chất của lao động, chuyên môn và sự chuẩn bị của các định chế giáo dục. Trong lịch sử, giáo dục và đào tạo nghề (VET) đóng vai trò như một cơ chế truyền tải các kỹ năng thủ công tĩnh, thường được định nghĩa bằng sự thành thạo dựa trên thời gian và vận hành các công cụ cơ khí riêng biệt. Tuy nhiên, sự xuất hiện của Cách mạng Công nghiệp lần thứ tư đã buộc mô hình này phải được thay thế bằng một mô hình mới về "năng lực công nghiệp số" - một khung năng lực đa chiều tích hợp sự thông thạo dữ liệu, tư duy thuật toán và quản trị hệ thống vật lý không gian mạng (cyber-physical systems) vào cốt lõi của danh tính công nghiệp.
 
 ## Tái cấu trúc kiến trúc thể chế và mô hình đào tạo dựa trên năng lực
@@ -412,6 +416,7 @@ In summary, the transformation from traditional vocational training to digital i
     readTime: 8,
     tags: ['Strategy', 'Industry 4.0', 'Modularization', 'Digital Transformation'],
     gradient: 'from-[#002D62] to-cyan-700',
+    coverImage: '/images/insight-chien-luoc-mo-dun-hoa-bat-dau-nho-tang-truong-nhanh.jpg',
     body_vi: `Cuộc Cách mạng Công nghiệp lần thứ tư không chỉ là sự cải tiến dần dần về mặt kỹ thuật mà còn đại diện cho một sự thay đổi mang tính thời đại, chuyển dịch từ mô hình tập trung, nguyên khối sang một hệ sinh thái phi tập trung, tự chủ và được dẫn dắt bởi dữ liệu. Khi các công nghệ số như Internet vạn vật (IoT), trí tuệ nhân tạo (AI) và điện toán đám mây thâm nhập vào mọi khía cạnh của sản xuất, những phương thức chuyển đổi doanh nghiệp truyền thống đang bộc lộ những hạn chế rõ rệt. Đặc biệt, sự phụ thuộc vào các triển khai theo kiểu "Big Bang" - những dự án quy mô lớn, chi phí vốn cao nhằm hiện đại hóa toàn diện trong một giai đoạn duy nhất - đang ghi nhận tỷ lệ thất bại đáng kinh ngạc.
 
 ## Thực trạng về sự thất bại của các dự án hiện đại hóa quy mô lớn
@@ -483,6 +488,7 @@ Synthesizing evidence from industrial project failure rates and the success of "
     readTime: 7,
     tags: ['Lean', 'Digital Transformation', 'IIoT', 'Operations'],
     gradient: 'from-slate-800 to-[#002D62]',
+    coverImage: '/images/insight-chuyen-doi-so-lean-tri-tue-du-lieu.jpg',
     body_vi: `Các nguyên tắc cơ bản của Lean, được thiết lập vào cuối thế kỷ 20, vốn được thiết kế để cách mạng hóa hiệu quả sản xuất thông qua việc loại bỏ lãng phí và nâng cao giá trị mang lại cho khách hàng. Tuy nhiên, trong bối cảnh thị trường năm 2026, những phương thức thủ công từng giúp Toyota thành công trong thập niên 1950 đang bộc lộ những hạn chế về độ trễ, khiến hệ thống vô tình xây dựng "kho bãi ẩn" để dự phòng cho những biến động của thị trường. Nghiên cứu chỉ ra rằng có tới 80% các sáng kiến Lean thất bại tại các nhà máy không phải do bản thân phương pháp, mà do sự thiếu hụt dữ liệu thời gian thực và một văn hóa cải tiến không bền vững.
 
 ## Cuộc khủng hoảng độ trễ thông tin và sự xói mòn của Lean truyền thống

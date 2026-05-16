@@ -3,12 +3,33 @@ import { z } from 'zod';
 import { sendMail } from '@/lib/mailer';
 import { appendRow } from '@/lib/gsheets';
 
+function escapeHtml(str: string): string {
+  return str
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#x27;');
+}
+
+const rateLimitMap = new Map<string, number[]>();
+function isRateLimited(ip: string): boolean {
+  const now = Date.now();
+  const windowMs = 60 * 60 * 1000;
+  const limit = 5;
+  const timestamps = (rateLimitMap.get(ip) ?? []).filter(t => now - t < windowMs);
+  if (timestamps.length >= limit) return true;
+  rateLimitMap.set(ip, [...timestamps, now]);
+  return false;
+}
+
 const schema = z.object({
   name: z.string().min(2, 'Họ tên phải có ít nhất 2 ký tự'),
   phone: z.string().regex(/^0[3-9]\d{8}$/, 'Số điện thoại không hợp lệ'),
   email: z.string().email('Email không hợp lệ'),
   interest: z.string().optional(),
   message: z.string().min(10, 'Nội dung phải có ít nhất 10 ký tự'),
+  website: z.string().optional(),
 });
 
 type ContactData = z.infer<typeof schema>;
@@ -21,7 +42,12 @@ const INTEREST_LABELS: Record<string, string> = {
 };
 
 function adminHtml(data: ContactData, timestamp: string): string {
-  const interest = INTEREST_LABELS[data.interest ?? ''] ?? data.interest ?? 'Chưa chọn';
+  const name = escapeHtml(data.name);
+  const phone = escapeHtml(data.phone);
+  const email = escapeHtml(data.email);
+  const interest = escapeHtml(INTEREST_LABELS[data.interest ?? ''] ?? data.interest ?? 'Chưa chọn');
+  const message = escapeHtml(data.message).replace(/\n/g, '<br>');
+
   return `
 <!DOCTYPE html>
 <html lang="vi">
@@ -35,15 +61,15 @@ function adminHtml(data: ContactData, timestamp: string): string {
       <table style="width:100%;border-collapse:collapse;font-size:15px;">
         <tr style="border-bottom:1px solid #eee;">
           <td style="padding:10px 0;color:#666;font-weight:bold;width:110px;">Họ tên</td>
-          <td style="padding:10px 0;color:#1a1a1a;">${data.name}</td>
+          <td style="padding:10px 0;color:#1a1a1a;">${name}</td>
         </tr>
         <tr style="border-bottom:1px solid #eee;">
           <td style="padding:10px 0;color:#666;font-weight:bold;">Điện thoại</td>
-          <td style="padding:10px 0;"><a href="tel:${data.phone}" style="color:#002D62;">${data.phone}</a></td>
+          <td style="padding:10px 0;"><a href="tel:${phone}" style="color:#002D62;">${phone}</a></td>
         </tr>
         <tr style="border-bottom:1px solid #eee;">
           <td style="padding:10px 0;color:#666;font-weight:bold;">Email</td>
-          <td style="padding:10px 0;"><a href="mailto:${data.email}" style="color:#002D62;">${data.email}</a></td>
+          <td style="padding:10px 0;"><a href="mailto:${email}" style="color:#002D62;">${email}</a></td>
         </tr>
         <tr style="border-bottom:1px solid #eee;">
           <td style="padding:10px 0;color:#666;font-weight:bold;">Chủ đề</td>
@@ -52,10 +78,10 @@ function adminHtml(data: ContactData, timestamp: string): string {
       </table>
       <div style="margin-top:20px;background:#f4f7f9;border-left:4px solid #00A3C1;padding:16px 20px;border-radius:0 8px 8px 0;">
         <p style="margin:0 0 6px;font-weight:bold;color:#002D62;font-size:13px;text-transform:uppercase;letter-spacing:.5px;">Nội dung</p>
-        <p style="margin:0;color:#333;line-height:1.6;">${data.message.replace(/\n/g, '<br>')}</p>
+        <p style="margin:0;color:#333;line-height:1.6;">${message}</p>
       </div>
       <div style="margin-top:24px;">
-        <a href="mailto:${data.email}" style="display:inline-block;background:#002D62;color:#fff;padding:10px 24px;border-radius:8px;text-decoration:none;font-weight:bold;font-size:14px;">Trả lời ngay</a>
+        <a href="mailto:${email}" style="display:inline-block;background:#002D62;color:#fff;padding:10px 24px;border-radius:8px;text-decoration:none;font-weight:bold;font-size:14px;">Trả lời ngay</a>
       </div>
     </div>
     <div style="padding:16px 32px;border-top:1px solid #eee;color:#999;font-size:12px;">
@@ -67,6 +93,9 @@ function adminHtml(data: ContactData, timestamp: string): string {
 }
 
 function userHtml(data: ContactData): string {
+  const name = escapeHtml(data.name);
+  const message = escapeHtml(data.message).replace(/\n/g, '<br>');
+
   return `
 <!DOCTYPE html>
 <html lang="vi">
@@ -77,13 +106,13 @@ function userHtml(data: ContactData): string {
       <p style="margin:8px 0 0;color:rgba(255,255,255,.85);font-size:14px;">Kiến tạo nhân lực công nghiệp tương lai</p>
     </div>
     <div style="padding:36px 32px;">
-      <h2 style="margin:0 0 16px;color:#002D62;font-size:20px;">Xin chào ${data.name}!</h2>
+      <h2 style="margin:0 0 16px;color:#002D62;font-size:20px;">Xin chào ${name}!</h2>
       <p style="margin:0 0 16px;color:#444;line-height:1.7;font-size:15px;">
         Cảm ơn bạn đã liên hệ với <strong>Intech Global Academy</strong>. Chúng tôi đã nhận được thông điệp của bạn và sẽ phản hồi trong vòng <strong>24 giờ làm việc</strong>.
       </p>
       <div style="background:#f0f9ff;border:1px solid #bae6fd;border-radius:10px;padding:20px 24px;margin:24px 0;">
         <p style="margin:0 0 8px;font-weight:bold;color:#002D62;font-size:13px;">Nội dung bạn đã gửi:</p>
-        <p style="margin:0;color:#555;font-style:italic;line-height:1.6;">"${data.message.replace(/\n/g, '<br>')}"</p>
+        <p style="margin:0;color:#555;font-style:italic;line-height:1.6;">"${message}"</p>
       </div>
       <p style="margin:0;color:#444;line-height:1.7;font-size:15px;">
         Nếu cần hỗ trợ khẩn cấp, vui lòng gọi trực tiếp: <strong>1900 xxxx</strong> hoặc email <a href="mailto:support@intechisc.com" style="color:#00A3C1;">support@intechisc.com</a>
@@ -99,7 +128,17 @@ function userHtml(data: ContactData): string {
 
 export async function POST(req: Request) {
   try {
+    const ip = req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ?? 'unknown';
+    if (isRateLimited(ip)) {
+      return NextResponse.json({ error: 'Quá nhiều yêu cầu. Vui lòng thử lại sau.' }, { status: 429 });
+    }
+
     const body = await req.json();
+
+    if (body.website) {
+      return NextResponse.json({ success: true });
+    }
+
     const data = schema.parse(body);
     const timestamp = new Date().toLocaleString('vi-VN', { timeZone: 'Asia/Ho_Chi_Minh' });
 
@@ -137,7 +176,7 @@ export async function POST(req: Request) {
     return NextResponse.json({ success: true });
   } catch (error) {
     if (error instanceof z.ZodError) {
-      return NextResponse.json({ error: 'Dữ liệu không hợp lệ', details: error.issues }, { status: 400 });
+      return NextResponse.json({ error: 'Dữ liệu không hợp lệ.' }, { status: 400 });
     }
     console.error('[api/contact] failed:', error);
     return NextResponse.json({ error: 'Gửi email thất bại. Vui lòng thử lại.' }, { status: 500 });

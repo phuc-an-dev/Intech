@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { Link } from "@/i18n/routing";
 import { ArrowRight, Clock, BookOpen, Tag } from "lucide-react";
+import Image from "next/image";
 import { type LocalizedCourse } from "@/lib/courses";
 import { useTranslations } from "next-intl";
 
@@ -19,9 +20,51 @@ const getGradientByTopic = (slug: string) => {
   return gradients[slug] || "from-[#002D62] to-[#00A3C1]";
 };
 
+const getCoverImage = (slug: string): string | null => {
+  const images: Record<string, string> = {
+    "advanced-demand-planning": "/images/course-advanced-demand-planning.jpg",
+    "ai-driven-data-analysis": "/images/course-ai-driven-data-analysis.jpg",
+    "ai-strategic-leadership": "/images/course-ai-strategic-leadership.jpg",
+    "aiot-strategic-roadmap": "/images/course-aiot-strategic-roadmap.jpg",
+    "applied-spc": "/images/course-applied-spc.jpg",
+    "basic-prompt-engineering": "/images/course-basic-prompt-engineering.jpg",
+    "computer-vision-in-ops": "/images/course-computer-vision-in-ops.jpg",
+    "customs-trade-practice": "/images/course-customs-trade-practice.jpg",
+    "digital-transformation-roadmap": "/images/course-digital-transformation-roadmap.jpg",
+    "digital-twin-foundation": "/images/course-digital-twin-foundation.jpg",
+    "doe-process-optimization": "/images/course-doe-process-optimization.jpg",
+    "fta-rules-of-origin-master": "/images/course-fta-rules-of-origin-master.jpg",
+    "genai-in-scm-planning": "/images/course-genai-in-scm-planning.jpg",
+    "industrial-iot-sensors": "/images/course-industrial-iot-sensors.jpg",
+    "integrity-digital-compliance": "/images/course-integrity-digital-compliance.jpg",
+    "inventory-masterclass": "/images/course-inventory-masterclass.jpg",
+    "lean-thinking-4": "/images/course-lean-thinking-4.jpg",
+    "legal-risk-in-logistics": "/images/course-legal-risk-in-logistics.jpg",
+    "logistics-dashboarding": "/images/course-logistics-dashboarding.jpg",
+    "low-code-ai-agent-design": "/images/course-low-code-ai-agent-design.jpg",
+    "operational-leadership": "/images/course-operational-leadership.jpg",
+    "operations-standards-iso": "/images/course-operations-standards-iso.jpg",
+    "predictive-maintenance-aiot": "/images/course-predictive-maintenance-aiot.jpg",
+    "project-execution-for-engineers": "/images/course-project-execution-for-engineers.jpg",
+    "quality-4-strategy": "/images/course-quality-4-strategy.jpg",
+    "realtime-monitoring-systems": "/images/course-realtime-monitoring-systems.jpg",
+    "routing-fleet-ops": "/images/course-routing-fleet-ops.jpg",
+    "simulation-decision-support": "/images/course-simulation-decision-support.jpg",
+    "six-sigma-green-belt": "/images/course-six-sigma-green-belt.jpg",
+    "sql-for-supply-chain": "/images/course-sql-for-supply-chain.jpg",
+    "structural-problem-solving": "/images/course-structural-problem-solving.jpg",
+    "supply-chain-executive-path": "/images/course-supply-chain-executive-path.jpg",
+    "supply-chain-network-design": "/images/course-supply-chain-network-design.jpg",
+    "technical-presentation-excellence": "/images/course-technical-presentation-excellence.jpg",
+    "warehouse-flow-design": "/images/course-warehouse-flow-design.jpg",
+  };
+  return images[slug] ?? null;
+};
+
 export default function CourseCard({ course }: { course: LocalizedCourse }) {
   const tLevels = useTranslations('courses.levels');
   const gradientClass = getGradientByTopic(course.topicSlug);
+  const coverImage = getCoverImage(course.slug);
 
   return (
     <motion.div
@@ -49,13 +92,25 @@ export default function CourseCard({ course }: { course: LocalizedCourse }) {
             </span>
           </div>
 
-          {/* Gradient Thumbnail */}
-          <div className={`h-48 w-full bg-gradient-to-br ${gradientClass} flex items-center justify-center relative overflow-hidden group`}>
-            <div className="absolute inset-0 bg-black/10"></div>
-            <div className="absolute inset-0 bg-white/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-            <span className="text-white/40 font-heading text-6xl font-black tracking-tighter opacity-50 group-hover:scale-110 transition-transform duration-500">
-              {course.title.substring(0, 2).toUpperCase()}
-            </span>
+          {/* Thumbnail */}
+          <div className="h-48 w-full relative overflow-hidden group">
+            {coverImage ? (
+              <Image
+                src={coverImage}
+                alt={course.title}
+                fill
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                className="object-cover group-hover:scale-105 transition-transform duration-500"
+              />
+            ) : (
+              <div className={`absolute inset-0 bg-gradient-to-br ${gradientClass} flex items-center justify-center`}>
+                <div className="absolute inset-0 bg-black/10" />
+                <div className="absolute inset-0 bg-white/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                <span className="text-white/40 font-heading text-6xl font-black tracking-tighter opacity-50 group-hover:scale-110 transition-transform duration-500">
+                  {course.title.substring(0, 2).toUpperCase()}
+                </span>
+              </div>
+            )}
           </div>
 
           <div className="p-6 flex flex-col flex-1">

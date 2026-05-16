@@ -3,6 +3,26 @@ import { z } from 'zod';
 import { sendMail } from '@/lib/mailer';
 import { appendRow } from '@/lib/gsheets';
 
+function escapeHtml(str: string): string {
+  return str
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#x27;');
+}
+
+const rateLimitMap = new Map<string, number[]>();
+function isRateLimited(ip: string): boolean {
+  const now = Date.now();
+  const windowMs = 60 * 60 * 1000; // 1 hour
+  const limit = 5;
+  const timestamps = (rateLimitMap.get(ip) ?? []).filter(t => now - t < windowMs);
+  if (timestamps.length >= limit) return true;
+  rateLimitMap.set(ip, [...timestamps, now]);
+  return false;
+}
+
 const schema = z.object({
   name: z.string().min(2, 'Họ tên phải có ít nhất 2 ký tự'),
   phone: z.string().regex(/^0[3-9]\d{8}$/, 'Số điện thoại không hợp lệ'),
@@ -18,6 +38,7 @@ const schema = z.object({
   durationHours: z.number(),
   durationSessions: z.number(),
   price: z.number(),
+  website: z.string().optional(),
 });
 
 type RegistrationData = z.infer<typeof schema>;
@@ -37,6 +58,18 @@ const YEAR_LABELS: Record<string, string> = {
 };
 
 function adminHtml(data: RegistrationData, timestamp: string): string {
+  const name = escapeHtml(data.name);
+  const phone = escapeHtml(data.phone);
+  const email = escapeHtml(data.email);
+  const school = escapeHtml(data.school);
+  const major = escapeHtml(data.major ?? '');
+  const goal = data.goal ? escapeHtml(data.goal) : '';
+  const courseTitle = escapeHtml(data.courseTitle);
+  const topicName = escapeHtml(data.topicName);
+  const levelLabel = escapeHtml(data.levelLabel);
+  const yearLabel = escapeHtml(YEAR_LABELS[data.academicYear ?? ''] ?? data.academicYear ?? '—');
+  const sourceLabel = escapeHtml(SOURCE_LABELS[data.source ?? ''] ?? data.source ?? '—');
+
   return `
 <!DOCTYPE html>
 <html lang="vi">
@@ -50,11 +83,11 @@ function adminHtml(data: RegistrationData, timestamp: string): string {
     <div style="padding:28px 32px;">
       <h3 style="margin:0 0 12px;color:#00A3C1;font-size:14px;text-transform:uppercase;letter-spacing:.5px;">Thông tin khóa học</h3>
       <div style="background:#f0f9ff;border:1px solid #bae6fd;border-radius:10px;padding:16px 20px;margin-bottom:24px;">
-        <p style="margin:0 0 8px;font-size:18px;font-weight:bold;color:#002D62;">${data.courseTitle}</p>
+        <p style="margin:0 0 8px;font-size:18px;font-weight:bold;color:#002D62;">${courseTitle}</p>
         <table style="width:100%;font-size:14px;color:#555;">
           <tr>
-            <td style="padding:3px 0;width:110px;">Chủ đề:</td><td><strong>${data.topicName}</strong></td>
-            <td style="padding:3px 0;width:90px;">Cấp độ:</td><td><strong>${data.levelLabel}</strong></td>
+            <td style="padding:3px 0;width:110px;">Chủ đề:</td><td><strong>${topicName}</strong></td>
+            <td style="padding:3px 0;width:90px;">Cấp độ:</td><td><strong>${levelLabel}</strong></td>
           </tr>
           <tr>
             <td style="padding:3px 0;">Thời lượng:</td><td><strong>${data.durationHours} giờ (${data.durationSessions} buổi)</strong></td>
@@ -67,40 +100,40 @@ function adminHtml(data: RegistrationData, timestamp: string): string {
       <table style="width:100%;border-collapse:collapse;font-size:15px;">
         <tr style="border-bottom:1px solid #eee;">
           <td style="padding:9px 0;color:#666;font-weight:bold;width:130px;">Họ tên</td>
-          <td style="padding:9px 0;color:#1a1a1a;">${data.name}</td>
+          <td style="padding:9px 0;color:#1a1a1a;">${name}</td>
         </tr>
         <tr style="border-bottom:1px solid #eee;">
           <td style="padding:9px 0;color:#666;font-weight:bold;">Điện thoại</td>
-          <td style="padding:9px 0;"><a href="tel:${data.phone}" style="color:#002D62;">${data.phone}</a></td>
+          <td style="padding:9px 0;"><a href="tel:${phone}" style="color:#002D62;">${phone}</a></td>
         </tr>
         <tr style="border-bottom:1px solid #eee;">
           <td style="padding:9px 0;color:#666;font-weight:bold;">Email</td>
-          <td style="padding:9px 0;"><a href="mailto:${data.email}" style="color:#002D62;">${data.email}</a></td>
+          <td style="padding:9px 0;"><a href="mailto:${email}" style="color:#002D62;">${email}</a></td>
         </tr>
         <tr style="border-bottom:1px solid #eee;">
           <td style="padding:9px 0;color:#666;font-weight:bold;">Trường / Công ty</td>
-          <td style="padding:9px 0;color:#1a1a1a;">${data.school}</td>
+          <td style="padding:9px 0;color:#1a1a1a;">${school}</td>
         </tr>
         <tr style="border-bottom:1px solid #eee;">
           <td style="padding:9px 0;color:#666;font-weight:bold;">Năm học</td>
-          <td style="padding:9px 0;color:#1a1a1a;">${YEAR_LABELS[data.academicYear ?? ''] ?? data.academicYear ?? '—'}</td>
+          <td style="padding:9px 0;color:#1a1a1a;">${yearLabel}</td>
         </tr>
         <tr style="border-bottom:1px solid #eee;">
           <td style="padding:9px 0;color:#666;font-weight:bold;">Ngành học</td>
-          <td style="padding:9px 0;color:#1a1a1a;">${data.major || '—'}</td>
+          <td style="padding:9px 0;color:#1a1a1a;">${major || '—'}</td>
         </tr>
         <tr style="border-bottom:1px solid #eee;">
           <td style="padding:9px 0;color:#666;font-weight:bold;">Nguồn biết đến</td>
-          <td style="padding:9px 0;color:#1a1a1a;">${SOURCE_LABELS[data.source ?? ''] ?? data.source ?? '—'}</td>
+          <td style="padding:9px 0;color:#1a1a1a;">${sourceLabel}</td>
         </tr>
       </table>
-      ${data.goal ? `
+      ${goal ? `
       <div style="margin-top:16px;background:#f4f7f9;border-left:4px solid #00A3C1;padding:14px 18px;border-radius:0 8px 8px 0;">
         <p style="margin:0 0 6px;font-weight:bold;color:#002D62;font-size:13px;">Mục tiêu học viên:</p>
-        <p style="margin:0;color:#333;line-height:1.6;">${data.goal}</p>
+        <p style="margin:0;color:#333;line-height:1.6;">${goal}</p>
       </div>` : ''}
       <div style="margin-top:24px;">
-        <a href="mailto:${data.email}" style="display:inline-block;background:#002D62;color:#fff;padding:10px 24px;border-radius:8px;text-decoration:none;font-weight:bold;font-size:14px;">Liên hệ học viên</a>
+        <a href="mailto:${email}" style="display:inline-block;background:#002D62;color:#fff;padding:10px 24px;border-radius:8px;text-decoration:none;font-weight:bold;font-size:14px;">Liên hệ học viên</a>
       </div>
     </div>
     <div style="padding:16px 32px;border-top:1px solid #eee;color:#999;font-size:12px;">
@@ -112,6 +145,13 @@ function adminHtml(data: RegistrationData, timestamp: string): string {
 }
 
 function userHtml(data: RegistrationData): string {
+  const name = escapeHtml(data.name);
+  const phone = escapeHtml(data.phone);
+  const courseTitle = escapeHtml(data.courseTitle);
+  const topicName = escapeHtml(data.topicName);
+  const levelLabel = escapeHtml(data.levelLabel);
+  const transferCode = escapeHtml(data.name.toUpperCase().replace(/\s+/g, ''));
+
   return `
 <!DOCTYPE html>
 <html lang="vi">
@@ -122,15 +162,15 @@ function userHtml(data: RegistrationData): string {
       <p style="margin:8px 0 0;color:rgba(255,255,255,.85);font-size:14px;">Kiến tạo nhân lực công nghiệp tương lai</p>
     </div>
     <div style="padding:36px 32px;">
-      <h2 style="margin:0 0 16px;color:#002D62;font-size:20px;">Xin chào ${data.name}!</h2>
+      <h2 style="margin:0 0 16px;color:#002D62;font-size:20px;">Xin chào ${name}!</h2>
       <p style="margin:0 0 20px;color:#444;line-height:1.7;font-size:15px;">
-        Bạn đã đăng ký thành công! Bộ phận tuyển sinh Intech sẽ liên hệ với bạn qua số điện thoại <strong>${data.phone}</strong> trong thời gian sớm nhất để tư vấn chi tiết.
+        Bạn đã đăng ký thành công! Bộ phận tuyển sinh Intech sẽ liên hệ với bạn qua số điện thoại <strong>${phone}</strong> trong thời gian sớm nhất để tư vấn chi tiết.
       </p>
 
       <div style="background:#f0f9ff;border:1px solid #bae6fd;border-radius:10px;padding:20px 24px;margin-bottom:24px;">
         <p style="margin:0 0 12px;font-weight:bold;color:#002D62;">Khóa học đã đăng ký:</p>
-        <p style="margin:0 0 6px;font-size:18px;font-weight:bold;color:#1a1a1a;">${data.courseTitle}</p>
-        <p style="margin:0;font-size:14px;color:#666;">${data.topicName} · ${data.levelLabel} · ${data.durationHours} giờ (${data.durationSessions} buổi)</p>
+        <p style="margin:0 0 6px;font-size:18px;font-weight:bold;color:#1a1a1a;">${courseTitle}</p>
+        <p style="margin:0;font-size:14px;color:#666;">${topicName} · ${levelLabel} · ${data.durationHours} giờ (${data.durationSessions} buổi)</p>
         <p style="margin:8px 0 0;font-size:16px;font-weight:bold;color:#002D62;">${data.price.toLocaleString('vi-VN')} VNĐ</p>
       </div>
 
@@ -144,7 +184,7 @@ function userHtml(data: RegistrationData): string {
         </table>
         <div style="margin-top:12px;background:#fef3c7;border-radius:8px;padding:12px 16px;">
           <p style="margin:0 0 4px;font-weight:bold;color:#92400e;font-size:13px;">Nội dung chuyển khoản:</p>
-          <p style="margin:0;font-size:16px;font-weight:bold;color:#1a1a1a;letter-spacing:.5px;">INTECH ${data.name.toUpperCase().replace(/\s+/g, '')} ${data.phone.slice(-4)}</p>
+          <p style="margin:0;font-size:16px;font-weight:bold;color:#1a1a1a;letter-spacing:.5px;">INTECH ${transferCode} ${phone.slice(-4)}</p>
           <p style="margin:4px 0 0;font-size:12px;color:#666;">Ví dụ: INTECH NGUYENVANA 7890</p>
         </div>
         <p style="margin:12px 0 0;font-size:13px;color:#c2410c;">Vui lòng chuyển khoản trong vòng <strong>3 ngày làm việc</strong>.</p>
@@ -170,7 +210,18 @@ function userHtml(data: RegistrationData): string {
 
 export async function POST(req: Request) {
   try {
+    const ip = req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ?? 'unknown';
+    if (isRateLimited(ip)) {
+      return NextResponse.json({ error: 'Quá nhiều yêu cầu. Vui lòng thử lại sau.' }, { status: 429 });
+    }
+
     const body = await req.json();
+
+    // Honeypot: bots fill hidden fields, humans don't
+    if (body.website) {
+      return NextResponse.json({ success: true });
+    }
+
     const data = schema.parse(body);
     const timestamp = new Date().toLocaleString('vi-VN', { timeZone: 'Asia/Ho_Chi_Minh' });
 
@@ -212,7 +263,7 @@ export async function POST(req: Request) {
     return NextResponse.json({ success: true });
   } catch (error) {
     if (error instanceof z.ZodError) {
-      return NextResponse.json({ error: 'Dữ liệu không hợp lệ', details: error.issues }, { status: 400 });
+      return NextResponse.json({ error: 'Dữ liệu không hợp lệ.' }, { status: 400 });
     }
     console.error('[api/registration] failed:', error);
     return NextResponse.json({ error: 'Gửi email thất bại. Vui lòng thử lại.' }, { status: 500 });

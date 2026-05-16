@@ -4,6 +4,8 @@ import { motion } from 'framer-motion'
 import { Globe, BookOpen, Users, Lightbulb, ArrowRight } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { Link } from '@/i18n/routing'
+import ImagePlaceholder from '@/components/ImagePlaceholder'
+import AnimatedCounter from '@/components/AnimatedCounter'
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -29,7 +31,10 @@ export default function GlobalPartnershipsPage() {
     <div className="bg-[#F4F7F9]">
       {/* Hero */}
       <section className="bg-[#002D62] text-white py-24 md:py-32 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-[#001a3a] via-[#002D62] to-[#003d7a]" />
+        <ImagePlaceholder name="hero-global-partnerships.jpg" width={1440} height={600} fill priority className="opacity-20" />
+        <div className="absolute inset-0 bg-gradient-to-br from-[#001a3a]/90 via-[#002D62]/80 to-[#003d7a]/90" />
+        <motion.div className="absolute top-16 left-16 w-72 h-72 rounded-full bg-[#00A3C1]/20 blur-3xl pointer-events-none" animate={{ y: [0, -22, 0], scale: [1, 1.07, 1] }} transition={{ duration: 13, repeat: Infinity, ease: "easeInOut" }} />
+        <motion.div className="absolute bottom-8 right-20 w-56 h-56 rounded-full bg-white/5 blur-3xl pointer-events-none" animate={{ y: [0, 18, 0] }} transition={{ duration: 10, repeat: Infinity, ease: "easeInOut", delay: 2 }} />
         <div className="relative max-w-7xl mx-auto px-4 text-center">
           <motion.p
             initial={{ opacity: 0, y: 10 }}
@@ -69,7 +74,7 @@ export default function GlobalPartnershipsPage() {
               { value: t('hero_stat3_value'), label: t('hero_stat3_label') },
             ].map((stat) => (
               <div key={stat.label} className="text-center">
-                <div className="text-4xl md:text-5xl font-heading font-bold text-[#00A3C1]">{stat.value}</div>
+                <AnimatedCounter value={stat.value} className="text-4xl md:text-5xl font-heading font-bold text-[#00A3C1]" />
                 <div className="text-white/70 text-sm mt-1">{stat.label}</div>
               </div>
             ))}

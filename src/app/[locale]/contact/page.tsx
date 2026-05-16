@@ -15,6 +15,7 @@ const schema = z.object({
   email: z.string().email('Email không hợp lệ'),
   interest: z.string().optional(),
   message: z.string().min(10, 'Vui lòng nhập nội dung (ít nhất 10 ký tự)'),
+  website: z.string().optional(),
 });
 type FormData = z.infer<typeof schema>;
 
@@ -68,7 +69,7 @@ export default function ContactPage() {
 
           {/* Left: Contact Info */}
           <div className="w-full md:w-2/5 bg-[#00A3C1] p-10 md:p-14 text-white flex flex-col justify-between relative overflow-hidden">
-            <div className="absolute top-[-20%] right-[-20%] w-[140%] h-[140%] bg-gradient-to-br from-white/20 to-transparent rounded-full opacity-50 blur-2xl pointer-events-none"></div>
+            <div className="absolute top-[-20%] right-[-20%] w-[140%] h-[140%] bg-linear-to-br from-white/20 to-transparent rounded-full opacity-50 blur-2xl pointer-events-none"></div>
             <div className="relative z-10">
               <h2 className="font-heading text-3xl font-bold mb-8">{t('info_title')}</h2>
               <div className="space-y-8">
@@ -102,6 +103,7 @@ export default function ContactPage() {
             <p className="text-gray-500 mb-8 font-medium">{t('form_subtitle')}</p>
 
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-6" noValidate>
+              <input type="text" {...register('website')} tabIndex={-1} autoComplete="off" aria-hidden="true" style={{ display: 'none' }} />
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-1.5">
                   <label htmlFor="name" className="text-sm font-bold text-gray-700">{t('name_label')} <span className="text-rose-500">*</span></label>

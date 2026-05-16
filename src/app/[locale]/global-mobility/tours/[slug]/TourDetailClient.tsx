@@ -4,6 +4,8 @@ import { motion } from 'framer-motion'
 import { ArrowLeft, MapPin, Users, Award, CheckCircle2, XCircle, ArrowRight, Wrench } from 'lucide-react'
 import { Link } from '@/i18n/routing'
 import type { TourData } from '@/data/tours'
+import ImagePlaceholder from '@/components/ImagePlaceholder'
+import TourGallery from '@/components/TourGallery'
 
 interface Labels {
   whyTitle: string
@@ -18,6 +20,7 @@ interface Labels {
   back: string
   groupLabel: string
   certificateLabel: string
+  galleryTitle: string
 }
 
 interface Props {
@@ -36,6 +39,13 @@ export default function TourDetailClient({ tour, labels }: Props) {
       {/* Hero */}
       <section className="bg-[#002D62] text-white py-24 md:py-32 relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-[#001a3a] via-[#002D62] to-[#003d7a]" />
+        <ImagePlaceholder
+          name={`hero-tour-${tour.slug ?? 'detail'}.webp`}
+          width={1920}
+          height={600}
+          fill
+          className="opacity-15 mix-blend-overlay"
+        />
         <div className="relative max-w-5xl mx-auto px-4">
           <Link
             href="/global-mobility"
@@ -199,6 +209,14 @@ export default function TourDetailClient({ tour, labels }: Props) {
           </div>
         </div>
       </section>
+
+      {/* Gallery */}
+      {tour.gallery && tour.gallery.length > 0 && (
+        <TourGallery
+          images={tour.gallery}
+          title={labels.galleryTitle}
+        />
+      )}
 
       {/* CTA */}
       <section className="py-16 bg-white">

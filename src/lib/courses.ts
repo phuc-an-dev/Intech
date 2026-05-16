@@ -78,7 +78,7 @@ export async function getCourses(locale: string): Promise<LocalizedCourse[]> {
       modules: parsePipe(pick(r, locale, 'modules')),
       finalProject: pick(r, locale, 'final_project'),
       deliveryFormat: pick(r, locale, 'delivery_format') || 'Online / Hybrid',
-      imageUrl: r.image_url?.trim() || '',
+      imageUrl: r.image_url?.trim() || `/images/course-${r.slug?.trim()}.jpg`,
     }))
 }
 
