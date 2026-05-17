@@ -20,14 +20,14 @@ const mockCourse: LocalizedCourse = {
   modules: [],
   finalProject: '',
   deliveryFormat: 'Online / Hybrid',
-  imageUrl: '',
+  imageUrl: '/images/courses/course-test-course-slug.webp',
 }
 
 describe('CourseCard', () => {
   it('renders course title and description', () => {
     render(<CourseCard course={mockCourse} />)
-    expect(screen.getAllByText('test-course.title').length).toBeGreaterThan(0)
-    expect(screen.getByText('test-course.description')).toBeInTheDocument()
+    expect(screen.getByText('Test Course')).toBeInTheDocument()
+    expect(screen.getByText('Test description')).toBeInTheDocument()
   })
 
   it('renders level badge', () => {
@@ -37,7 +37,7 @@ describe('CourseCard', () => {
 
   it('renders topic badge', () => {
     render(<CourseCard course={mockCourse} />)
-    expect(screen.getByText('ai-in-action.name')).toBeInTheDocument()
+    expect(screen.getByText('AI Ứng dụng')).toBeInTheDocument()
   })
 
   it('renders duration info', () => {
@@ -51,6 +51,12 @@ describe('CourseCard', () => {
     expect(screen.getByText(/VNĐ/)).toBeInTheDocument()
   })
 
+  it('renders contact label when price is zero', () => {
+    render(<CourseCard course={{ ...mockCourse, priceOriginal: 0, priceSale: null }} />)
+    expect(screen.getByText('Liên hệ')).toBeInTheDocument()
+    expect(screen.queryByText(/0 VNĐ/)).not.toBeInTheDocument()
+  })
+
   it('links to the correct course detail page', () => {
     render(<CourseCard course={mockCourse} />)
     const link = screen.getByRole('link')
@@ -59,8 +65,14 @@ describe('CourseCard', () => {
 
   it('renders up to 3 tags', () => {
     render(<CourseCard course={mockCourse} />)
-    expect(screen.getByText('test-course.tags.0')).toBeInTheDocument()
-    expect(screen.getByText('test-course.tags.1')).toBeInTheDocument()
-    expect(screen.getByText('test-course.tags.2')).toBeInTheDocument()
+    expect(screen.getByText('AI')).toBeInTheDocument()
+    expect(screen.getByText('LLM')).toBeInTheDocument()
+    expect(screen.getByText('Prompt')).toBeInTheDocument()
+  })
+
+  it('uses the imageUrl supplied by course data', () => {
+    render(<CourseCard course={mockCourse} />)
+    const image = screen.getByAltText('Test Course')
+    expect(image).toHaveAttribute('src', expect.stringContaining('course-test-course-slug.webp'))
   })
 })

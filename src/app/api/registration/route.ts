@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import { z } from 'zod';
 import { sendMail } from '@/lib/mailer';
 import { appendRow } from '@/lib/gsheets';
+import { formatCoursePrice } from '@/lib/course-pricing';
 
 function escapeHtml(str: string): string {
   return str
@@ -38,6 +39,7 @@ const schema = z.object({
   durationHours: z.number(),
   durationSessions: z.number(),
   price: z.number(),
+  priceLabel: z.string().optional(),
   website: z.string().optional(),
 });
 
@@ -67,6 +69,7 @@ function adminHtml(data: RegistrationData, timestamp: string): string {
   const courseTitle = escapeHtml(data.courseTitle);
   const topicName = escapeHtml(data.topicName);
   const levelLabel = escapeHtml(data.levelLabel);
+  const priceLabel = escapeHtml(data.priceLabel ?? formatCoursePrice(data.price, 'vi'));
   const yearLabel = escapeHtml(YEAR_LABELS[data.academicYear ?? ''] ?? data.academicYear ?? '—');
   const sourceLabel = escapeHtml(SOURCE_LABELS[data.source ?? ''] ?? data.source ?? '—');
 
@@ -91,7 +94,7 @@ function adminHtml(data: RegistrationData, timestamp: string): string {
           </tr>
           <tr>
             <td style="padding:3px 0;">Thời lượng:</td><td><strong>${data.durationHours} giờ (${data.durationSessions} buổi)</strong></td>
-            <td style="padding:3px 0;">Học phí:</td><td><strong style="color:#002D62;">${data.price.toLocaleString('vi-VN')} VNĐ</strong></td>
+            <td style="padding:3px 0;">Học phí:</td><td><strong style="color:#002D62;">${priceLabel}</strong></td>
           </tr>
         </table>
       </div>
@@ -150,6 +153,7 @@ function userHtml(data: RegistrationData): string {
   const courseTitle = escapeHtml(data.courseTitle);
   const topicName = escapeHtml(data.topicName);
   const levelLabel = escapeHtml(data.levelLabel);
+  const priceLabel = escapeHtml(data.priceLabel ?? formatCoursePrice(data.price, 'vi'));
   const transferCode = escapeHtml(data.name.toUpperCase().replace(/\s+/g, ''));
 
   return `
@@ -171,7 +175,7 @@ function userHtml(data: RegistrationData): string {
         <p style="margin:0 0 12px;font-weight:bold;color:#002D62;">Khóa học đã đăng ký:</p>
         <p style="margin:0 0 6px;font-size:18px;font-weight:bold;color:#1a1a1a;">${courseTitle}</p>
         <p style="margin:0;font-size:14px;color:#666;">${topicName} · ${levelLabel} · ${data.durationHours} giờ (${data.durationSessions} buổi)</p>
-        <p style="margin:8px 0 0;font-size:16px;font-weight:bold;color:#002D62;">${data.price.toLocaleString('vi-VN')} VNĐ</p>
+        <p style="margin:8px 0 0;font-size:16px;font-weight:bold;color:#002D62;">${priceLabel}</p>
       </div>
 
       <div style="background:#fff7ed;border:1px solid #fed7aa;border-radius:10px;padding:20px 24px;margin-bottom:16px;">
@@ -180,7 +184,7 @@ function userHtml(data: RegistrationData): string {
           <tr><td style="padding:4px 0;width:140px;color:#666;">Ngân hàng:</td><td style="font-weight:bold;">[TÊN NGÂN HÀNG]</td></tr>
           <tr><td style="padding:4px 0;color:#666;">Số tài khoản:</td><td style="font-weight:bold;">[SỐ TÀI KHOẢN]</td></tr>
           <tr><td style="padding:4px 0;color:#666;">Chủ tài khoản:</td><td style="font-weight:bold;">[CHỦ TÀI KHOẢN]</td></tr>
-          <tr><td style="padding:4px 0;color:#666;">Số tiền:</td><td style="font-weight:bold;color:#002D62;">${data.price.toLocaleString('vi-VN')} VNĐ</td></tr>
+          <tr><td style="padding:4px 0;color:#666;">Số tiền:</td><td style="font-weight:bold;color:#002D62;">${priceLabel}</td></tr>
         </table>
         <div style="margin-top:12px;background:#fef3c7;border-radius:8px;padding:12px 16px;">
           <p style="margin:0 0 4px;font-weight:bold;color:#92400e;font-size:13px;">Nội dung chuyển khoản:</p>

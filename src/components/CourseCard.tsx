@@ -5,7 +5,8 @@ import { Link } from "@/i18n/routing";
 import { ArrowRight, Clock, BookOpen, Tag } from "lucide-react";
 import Image from "next/image";
 import { type LocalizedCourse } from "@/lib/courses";
-import { useTranslations } from "next-intl";
+import { formatCoursePrice } from "@/lib/course-pricing";
+import { useLocale, useTranslations } from "next-intl";
 
 const getGradientByTopic = (slug: string) => {
   const gradients: Record<string, string> = {
@@ -20,51 +21,12 @@ const getGradientByTopic = (slug: string) => {
   return gradients[slug] || "from-[#002D62] to-[#00A3C1]";
 };
 
-const getCoverImage = (slug: string): string | null => {
-  const images: Record<string, string> = {
-    "advanced-demand-planning": "/images/course-advanced-demand-planning.jpg",
-    "ai-driven-data-analysis": "/images/course-ai-driven-data-analysis.jpg",
-    "ai-strategic-leadership": "/images/course-ai-strategic-leadership.jpg",
-    "aiot-strategic-roadmap": "/images/course-aiot-strategic-roadmap.jpg",
-    "applied-spc": "/images/course-applied-spc.jpg",
-    "basic-prompt-engineering": "/images/course-basic-prompt-engineering.jpg",
-    "computer-vision-in-ops": "/images/course-computer-vision-in-ops.jpg",
-    "customs-trade-practice": "/images/course-customs-trade-practice.jpg",
-    "digital-transformation-roadmap": "/images/course-digital-transformation-roadmap.jpg",
-    "digital-twin-foundation": "/images/course-digital-twin-foundation.jpg",
-    "doe-process-optimization": "/images/course-doe-process-optimization.jpg",
-    "fta-rules-of-origin-master": "/images/course-fta-rules-of-origin-master.jpg",
-    "genai-in-scm-planning": "/images/course-genai-in-scm-planning.jpg",
-    "industrial-iot-sensors": "/images/course-industrial-iot-sensors.jpg",
-    "integrity-digital-compliance": "/images/course-integrity-digital-compliance.jpg",
-    "inventory-masterclass": "/images/course-inventory-masterclass.jpg",
-    "lean-thinking-4": "/images/course-lean-thinking-4.jpg",
-    "legal-risk-in-logistics": "/images/course-legal-risk-in-logistics.jpg",
-    "logistics-dashboarding": "/images/course-logistics-dashboarding.jpg",
-    "low-code-ai-agent-design": "/images/course-low-code-ai-agent-design.jpg",
-    "operational-leadership": "/images/course-operational-leadership.jpg",
-    "operations-standards-iso": "/images/course-operations-standards-iso.jpg",
-    "predictive-maintenance-aiot": "/images/course-predictive-maintenance-aiot.jpg",
-    "project-execution-for-engineers": "/images/course-project-execution-for-engineers.jpg",
-    "quality-4-strategy": "/images/course-quality-4-strategy.jpg",
-    "realtime-monitoring-systems": "/images/course-realtime-monitoring-systems.jpg",
-    "routing-fleet-ops": "/images/course-routing-fleet-ops.jpg",
-    "simulation-decision-support": "/images/course-simulation-decision-support.jpg",
-    "six-sigma-green-belt": "/images/course-six-sigma-green-belt.jpg",
-    "sql-for-supply-chain": "/images/course-sql-for-supply-chain.jpg",
-    "structural-problem-solving": "/images/course-structural-problem-solving.jpg",
-    "supply-chain-executive-path": "/images/course-supply-chain-executive-path.jpg",
-    "supply-chain-network-design": "/images/course-supply-chain-network-design.jpg",
-    "technical-presentation-excellence": "/images/course-technical-presentation-excellence.jpg",
-    "warehouse-flow-design": "/images/course-warehouse-flow-design.jpg",
-  };
-  return images[slug] ?? null;
-};
-
 export default function CourseCard({ course }: { course: LocalizedCourse }) {
   const tLevels = useTranslations('courses.levels');
+  const locale = useLocale();
   const gradientClass = getGradientByTopic(course.topicSlug);
-  const coverImage = getCoverImage(course.slug);
+  const coverImage = course.imageUrl;
+  const displayPrice = course.priceSale ?? course.priceOriginal;
 
   return (
     <motion.div
@@ -147,19 +109,25 @@ export default function CourseCard({ course }: { course: LocalizedCourse }) {
             </div>
 
             <div className="mt-auto pt-4 border-t border-gray-100 flex items-center justify-between">
-              {course.priceSale ? (
+              {displayPrice <= 0 ? (
+                <div className="flex flex-col">
+                  <span className="font-bold text-[#002D62] text-lg">
+                    {formatCoursePrice(displayPrice, locale)}
+                  </span>
+                </div>
+              ) : course.priceSale ? (
                 <div className="flex flex-col">
                   <span className="text-gray-400 text-xs line-through">
-                    {course.priceOriginal.toLocaleString("vi-VN")} VNĐ
+                    {formatCoursePrice(course.priceOriginal, locale)}
                   </span>
                   <span className="font-bold text-[#002D62] text-lg">
-                    {course.priceSale.toLocaleString("vi-VN")} VNĐ
+                    {formatCoursePrice(course.priceSale, locale)}
                   </span>
                 </div>
               ) : (
                 <div className="flex flex-col">
                   <span className="font-bold text-[#002D62] text-lg">
-                    {course.priceOriginal.toLocaleString("vi-VN")} VNĐ
+                    {formatCoursePrice(course.priceOriginal, locale)}
                   </span>
                 </div>
               )}

@@ -323,7 +323,7 @@ async function main() {
     while (row.length < newHeaders.length) row.push('')
 
     // Set image_url always
-    row[newIdx['image_url']] = `/images/courses/${slug}.jpg`
+    row[newIdx['image_url']] = `/images/courses/course-${slug}.webp`
 
     const parsed = parsedMap.get(slug)
     if (parsed) {

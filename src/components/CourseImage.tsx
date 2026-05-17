@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { BookOpen } from "lucide-react";
 
 interface CourseImageProps {
@@ -22,10 +23,12 @@ export default function CourseImage({ src, alt, title }: CourseImageProps) {
   }
 
   return (
-    <img
+    <Image
       src={src}
       alt={alt}
-      className="w-full h-full object-cover"
+      fill
+      sizes="(max-width: 1024px) 100vw, 1024px"
+      className="object-cover"
       onError={() => setFailed(true)}
     />
   );

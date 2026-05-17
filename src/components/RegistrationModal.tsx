@@ -7,7 +7,8 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Send, BookOpen, Info } from 'lucide-react';
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
+import { formatCoursePrice } from '@/lib/course-pricing';
 import { useRouter } from '@/i18n/routing';
 
 export interface CourseInfo {
@@ -17,6 +18,7 @@ export interface CourseInfo {
   durationHours: number;
   durationSessions: number;
   price: number;
+  priceLabel?: string;
 }
 
 interface RegistrationModalProps {
@@ -40,6 +42,7 @@ type RegistrationFormData = z.infer<typeof registrationSchema>;
 
 export default function RegistrationModal({ isOpen, onClose, courseInfo }: RegistrationModalProps) {
   const t = useTranslations('registration');
+  const locale = useLocale();
   const router = useRouter();
   const [mounted, setMounted] = useState(false);
   const [apiError, setApiError] = useState('');
@@ -74,6 +77,7 @@ export default function RegistrationModal({ isOpen, onClose, courseInfo }: Regis
         durationHours: courseInfo.durationHours,
         durationSessions: courseInfo.durationSessions,
         price: courseInfo.price,
+        priceLabel: courseInfo.priceLabel ?? formatCoursePrice(courseInfo.price, locale),
       }),
     });
     if (res.ok) {
@@ -159,7 +163,7 @@ export default function RegistrationModal({ isOpen, onClose, courseInfo }: Regis
                         </div>
                         <div>
                           <span className="text-gray-500 text-xs font-semibold uppercase tracking-wide block mb-0.5">{t('fee')}</span>
-                          <span className="font-bold text-[#00A3C1] text-sm">{courseInfo.price.toLocaleString('vi-VN')} VNĐ</span>
+                          <span className="font-bold text-[#00A3C1] text-sm">{courseInfo.priceLabel ?? formatCoursePrice(courseInfo.price, locale)}</span>
                         </div>
                       </div>
                     </div>

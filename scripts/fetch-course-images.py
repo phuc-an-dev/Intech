@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Download course thumbnail images from Unsplash and save to public/images/.
+Download course thumbnail images from Unsplash and save WebP files to public/images/.
 Usage: python3 scripts/fetch-course-images.py
 """
 
@@ -12,7 +12,7 @@ import os
 import time
 
 ACCESS_KEY = "a6QIMtAKsbqarzP633tM7IfnYATSAARPUrPmRIEKvjk"
-OUT_DIR = os.path.join(os.path.dirname(__file__), "../public/images")
+OUT_DIR = os.path.join(os.path.dirname(__file__), "../public/images/courses")
 
 COURSES = {
     "basic-prompt-engineering":       "prompt engineering AI chat interface",
@@ -70,18 +70,24 @@ def search_photo(query: str):
         print(f"  search error: {e}")
     return None
 
-def download_jpg(url: str, dest_jpg: str) -> bool:
+def download_image(url: str, dest: str) -> bool:
     try:
-        urllib.request.urlretrieve(url, dest_jpg)
+        urllib.request.urlretrieve(url, dest)
         return True
     except Exception as e:
         print(f"  download error: {e}")
         return False
 
-def convert_to_webp(src_jpg: str, dest_webp: str) -> bool:
+def convert_to_webp(src: str, dest_webp: str) -> bool:
     try:
         result = subprocess.run(
-            ["sips", "-s", "format", "webp", src_jpg, "--out", dest_webp],
+            [
+                "node",
+                "-e",
+                "const sharp=require('sharp'); sharp(process.argv[1]).webp({quality:82}).toFile(process.argv[2]).catch((err)=>{console.error(err);process.exit(1)})",
+                src,
+                dest_webp,
+            ],
             capture_output=True, text=True
         )
         return result.returncode == 0
@@ -95,9 +101,9 @@ def main():
     failed = []
 
     for slug, query in COURSES.items():
-        dest_jpg = os.path.join(OUT_DIR, f"course-{slug}.jpg")
         dest_webp = os.path.join(OUT_DIR, f"course-{slug}.webp")
-        if os.path.exists(dest_jpg) or os.path.exists(dest_webp):
+        temp_download = os.path.join(OUT_DIR, f"course-{slug}.source")
+        if os.path.exists(dest_webp):
             print(f"  skip (exists): course-{slug}")
             done.append(slug)
             continue
@@ -113,11 +119,18 @@ def main():
         photographer = photo["user"]["name"]
         print(f"  photo by {photographer}")
 
-        if not download_jpg(img_url, dest_jpg):
+        if not download_image(img_url, temp_download):
             failed.append(slug)
             continue
 
-        print(f"  saved: course-{slug}.jpg")
+        if not convert_to_webp(temp_download, dest_webp):
+            failed.append(slug)
+            continue
+
+        if os.path.exists(temp_download):
+            os.remove(temp_download)
+
+        print(f"  saved: course-{slug}.webp")
         done.append(slug)
         time.sleep(0.3)
 
@@ -128,10 +141,8 @@ def main():
     # Print CourseCard image map
     print("\n--- CourseCard images map ---")
     for slug in sorted(COURSES.keys()):
-        if os.path.exists(os.path.join(OUT_DIR, f"course-{slug}.jpg")):
-            print(f'    "{slug}": "/images/course-{slug}.jpg",')
-        elif os.path.exists(os.path.join(OUT_DIR, f"course-{slug}.webp")):
-            print(f'    "{slug}": "/images/course-{slug}.webp",')
+        if os.path.exists(os.path.join(OUT_DIR, f"course-{slug}.webp")):
+            print(f'    "{slug}": "/images/courses/course-{slug}.webp",')
 
 if __name__ == "__main__":
     main()

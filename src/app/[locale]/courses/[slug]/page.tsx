@@ -6,6 +6,7 @@ import CourseRegistrationButton from "@/components/CourseRegistrationButton";
 import CourseImage from "@/components/CourseImage";
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { getCourseBySlug, getCourses, getAllCourseSlugs, type LocalizedCourse } from "@/lib/courses";
+import { formatCoursePrice, getCourseDisplayPrice } from "@/lib/course-pricing";
 
 export const revalidate = 60
 
@@ -55,15 +56,25 @@ const getGradientByTopic = (slug: string) => {
   return gradients[slug] || "from-[#002D62] to-[#00A3C1]"
 }
 
-function PriceDisplay({ course }: { course: LocalizedCourse }) {
+function PriceDisplay({ course, locale }: { course: LocalizedCourse; locale: string }) {
+  const displayPrice = getCourseDisplayPrice(course.priceSale, course.priceOriginal)
+
+  if (displayPrice <= 0) {
+    return (
+      <div className="font-heading text-4xl font-extrabold text-[#002D62]">
+        {formatCoursePrice(displayPrice, locale)}
+      </div>
+    )
+  }
+
   if (course.priceSale) {
     return (
       <div className="text-center">
         <p className="text-sm text-gray-400 line-through mb-1">
-          {course.priceOriginal.toLocaleString("vi-VN")} VNĐ
+          {formatCoursePrice(course.priceOriginal, locale)}
         </p>
         <div className="font-heading text-4xl font-extrabold text-[#002D62]">
-          {course.priceSale.toLocaleString("vi-VN")} <span className="text-xl">VNĐ</span>
+          {formatCoursePrice(course.priceSale, locale)}
         </div>
         <span className="inline-block mt-2 bg-rose-100 text-rose-600 text-xs font-bold px-2 py-1 rounded-full">
           -{Math.round((1 - course.priceSale / course.priceOriginal) * 100)}%
@@ -73,7 +84,7 @@ function PriceDisplay({ course }: { course: LocalizedCourse }) {
   }
   return (
     <div className="font-heading text-4xl font-extrabold text-[#002D62]">
-      {course.priceOriginal.toLocaleString("vi-VN")} <span className="text-xl">VNĐ</span>
+      {formatCoursePrice(course.priceOriginal, locale)}
     </div>
   )
 }
@@ -150,7 +161,7 @@ export default async function CourseDetailPage(
 
       {/* Course Image */}
       <div className="max-w-5xl mx-auto px-4 mt-8 relative z-20">
-        <div className="w-full aspect-video rounded-2xl overflow-hidden bg-gradient-to-br from-gray-100 to-gray-200 border border-gray-200 shadow-sm flex items-center justify-center">
+        <div className="relative w-full aspect-video rounded-2xl overflow-hidden bg-gradient-to-br from-gray-100 to-gray-200 border border-gray-200 shadow-sm flex items-center justify-center">
           <CourseImage
             src={course.imageUrl}
             alt={t('detail.image_placeholder_alt')}
@@ -272,7 +283,7 @@ export default async function CourseDetailPage(
             <div className="bg-white rounded-3xl shadow-xl border border-gray-100 p-8 sticky top-28">
               <div className="text-center pb-8 border-b border-gray-100 mb-8">
                 <p className="text-sm text-gray-500 font-medium mb-2 uppercase tracking-wider">{t('detail.tuition_label')}</p>
-                <PriceDisplay course={course} />
+                <PriceDisplay course={course} locale={locale} />
               </div>
 
               <ul className="space-y-4 mb-8">
@@ -297,7 +308,8 @@ export default async function CourseDetailPage(
                   levelLabel: t(`levels.${course.level}`),
                   durationHours: course.duration.hours,
                   durationSessions: course.duration.sessions,
-                  price: course.priceSale ?? course.priceOriginal,
+                  price: getCourseDisplayPrice(course.priceSale, course.priceOriginal),
+                  priceLabel: formatCoursePrice(getCourseDisplayPrice(course.priceSale, course.priceOriginal), locale),
                 }}
               />
             </div>
