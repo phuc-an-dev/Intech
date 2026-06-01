@@ -11,31 +11,20 @@ import { partnerLogos } from "@/data/partners";
 
 export default function AboutPage() {
   const t = useTranslations("about");
-  const galleryImages = [
+  const galleryGroups = [
     {
-      src: "/images/about-gallery/learning-journey-group.webp",
-      alt: "Gallery image - learning journey group",
-      sizes: "(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 20vw",
+      title: t("gallery_industry_title"),
+      images: Array.from({ length: 8 }, (_, index) => ({
+        src: `/images/about-gallery/industry-greenhouse-${String(index + 1).padStart(2, "0")}.webp`,
+        alt: `Gallery image - industry visit ${index + 1}`,
+      })),
     },
     {
-      src: "/images/about-gallery/industry-visit-greenhouse.webp",
-      alt: "Gallery image - industry visit greenhouse",
-      sizes: "(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 20vw",
-    },
-    {
-      src: "/images/about-gallery/industrial-site-walk.webp",
-      alt: "Gallery image - industrial site walk",
-      sizes: "(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 20vw",
-    },
-    {
-      src: "/images/about-gallery/mobility-boat-experience.webp",
-      alt: "Gallery image - mobility boat experience",
-      sizes: "(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 20vw",
-    },
-    {
-      src: "/images/about-gallery/applied-learning-visit.webp",
-      alt: "Gallery image - applied learning visit",
-      sizes: "(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 20vw",
+      title: t("gallery_culture_title"),
+      images: Array.from({ length: 12 }, (_, index) => ({
+        src: `/images/about-gallery/culture-learning-${String(index + 1).padStart(2, "0")}.webp`,
+        alt: `Gallery image - culture learning ${index + 1}`,
+      })),
     },
   ];
 
@@ -139,30 +128,39 @@ export default function AboutPage() {
           </p>
         </motion.div>
 
-        <motion.div
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4"
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-80px" }}
-        >
-          {galleryImages.map((image) => (
-            <motion.div
-              key={image.src}
-              variants={itemVariants}
-              className="relative aspect-[4/3] overflow-hidden rounded-2xl bg-white shadow-md border border-white"
-            >
-              <Image
-                src={image.src}
-                alt={image.alt}
-                fill
-                sizes={image.sizes}
-                className="object-cover transition-transform duration-500 hover:scale-105"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#002D62]/20 via-transparent to-transparent" />
-            </motion.div>
+        <div className="space-y-12">
+          {galleryGroups.map((group) => (
+            <div key={group.title}>
+              <h3 className="font-heading text-2xl font-bold text-[#002D62] mb-5">
+                {group.title}
+              </h3>
+              <motion.div
+                className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4"
+                variants={containerVariants}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, margin: "-80px" }}
+              >
+                {group.images.map((image) => (
+                  <motion.div
+                    key={image.src}
+                    variants={itemVariants}
+                    className="relative aspect-[4/3] overflow-hidden rounded-2xl bg-white shadow-md border border-white"
+                  >
+                    <Image
+                      src={image.src}
+                      alt={image.alt}
+                      fill
+                      sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                      className="object-cover transition-transform duration-500 hover:scale-105"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#002D62]/20 via-transparent to-transparent" />
+                  </motion.div>
+                ))}
+              </motion.div>
+            </div>
           ))}
-        </motion.div>
+        </div>
       </section>
 
       {/* Partner Logo Marquee Section */}

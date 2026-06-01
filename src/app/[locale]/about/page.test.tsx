@@ -8,7 +8,9 @@ describe('About Page', () => {
 
     expect(screen.getByText('gallery_title')).toBeInTheDocument()
     expect(screen.getByText('gallery_desc')).toBeInTheDocument()
+    expect(screen.getByText('gallery_industry_title')).toBeInTheDocument()
+    expect(screen.getByText('gallery_culture_title')).toBeInTheDocument()
     expect(screen.queryByText('gallery_count_label')).not.toBeInTheDocument()
-    expect(screen.getAllByAltText(/gallery image/i)).toHaveLength(5)
+    expect(screen.getAllByAltText(/gallery image/i)).toHaveLength(20)
   })
 })
