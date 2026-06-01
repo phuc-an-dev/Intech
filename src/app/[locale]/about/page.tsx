@@ -6,6 +6,7 @@ import Image from "next/image";
 import { Link } from "@/i18n/routing";
 import { useTranslations } from "next-intl";
 import VideoBackground from "@/components/VideoBackground";
+import AboutGalleryCarousel from "@/components/AboutGalleryCarousel";
 import LogoMarquee from "@/components/LogoMarquee";
 import { partnerLogos } from "@/data/partners";
 
@@ -13,20 +14,19 @@ export default function AboutPage() {
   const t = useTranslations("about");
   const galleryGroups = [
     {
-      title: t("gallery_industry_title"),
       images: Array.from({ length: 8 }, (_, index) => ({
         src: `/images/about-gallery/industry-greenhouse-${String(index + 1).padStart(2, "0")}.webp`,
         alt: `Gallery image - industry visit ${index + 1}`,
       })),
     },
     {
-      title: t("gallery_culture_title"),
       images: Array.from({ length: 12 }, (_, index) => ({
         src: `/images/about-gallery/culture-learning-${String(index + 1).padStart(2, "0")}.webp`,
         alt: `Gallery image - culture learning ${index + 1}`,
       })),
     },
   ];
+  const galleryImages = galleryGroups.flatMap((group) => group.images);
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -128,39 +128,7 @@ export default function AboutPage() {
           </p>
         </motion.div>
 
-        <div className="space-y-12">
-          {galleryGroups.map((group) => (
-            <div key={group.title}>
-              <h3 className="font-heading text-2xl font-bold text-[#002D62] mb-5">
-                {group.title}
-              </h3>
-              <motion.div
-                className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4"
-                variants={containerVariants}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, margin: "-80px" }}
-              >
-                {group.images.map((image) => (
-                  <motion.div
-                    key={image.src}
-                    variants={itemVariants}
-                    className="relative aspect-[4/3] overflow-hidden rounded-2xl bg-white shadow-md border border-white"
-                  >
-                    <Image
-                      src={image.src}
-                      alt={image.alt}
-                      fill
-                      sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 25vw"
-                      className="object-cover transition-transform duration-500 hover:scale-105"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#002D62]/20 via-transparent to-transparent" />
-                  </motion.div>
-                ))}
-              </motion.div>
-            </div>
-          ))}
-        </div>
+        <AboutGalleryCarousel images={galleryImages} />
       </section>
 
       {/* Partner Logo Marquee Section */}
