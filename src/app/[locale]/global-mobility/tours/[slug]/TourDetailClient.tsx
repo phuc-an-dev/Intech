@@ -5,7 +5,6 @@ import { ArrowLeft, MapPin, Users, Award, CheckCircle2, XCircle, ArrowRight, Wre
 import { Link } from '@/i18n/routing'
 import type { TourData } from '@/data/tours'
 import ImagePlaceholder from '@/components/ImagePlaceholder'
-import TourGallery from '@/components/TourGallery'
 
 interface Labels {
   whyTitle: string
@@ -209,14 +208,6 @@ export default function TourDetailClient({ tour, labels }: Props) {
           </div>
         </div>
       </section>
-
-      {/* Gallery */}
-      {tour.gallery && tour.gallery.length > 0 && (
-        <TourGallery
-          images={tour.gallery}
-          title={labels.galleryTitle}
-        />
-      )}
 
       {/* CTA */}
       <section className="py-16 bg-white">

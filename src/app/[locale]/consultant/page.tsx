@@ -14,6 +14,7 @@ import {
 import { Link } from '@/i18n/routing'
 import { useTranslations } from 'next-intl'
 import ImagePlaceholder from '@/components/ImagePlaceholder'
+import VideoBackground from '@/components/VideoBackground'
 import LogoMarquee from '@/components/LogoMarquee'
 import { partnerLogos } from '@/data/partners'
 import SectionWave from '@/components/SectionWave'
@@ -97,11 +98,10 @@ export default function ConsultingPage() {
           <motion.div className="absolute bottom-0 left-10 w-72 h-72 rounded-full bg-[#00A3C1]/15 blur-3xl pointer-events-none" animate={{ y: [0, -24, 0], scale: [1, 1.08, 1] }} transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }} />
           <motion.div className="absolute top-10 left-1/3 w-48 h-48 rounded-full bg-white/5 blur-2xl pointer-events-none" animate={{ y: [0, 18, 0], x: [0, 10, 0] }} transition={{ duration: 9, repeat: Infinity, ease: "easeInOut", delay: 1.5 }} />
           <div className="absolute inset-0">
-            <ImagePlaceholder
-              name="hero-consultant.webp"
-              width={1920}
-              height={600}
-              fill
+            <VideoBackground
+              src="/videos/hero-consultant.mp4"
+              poster="/images/hero-consultant.webp"
+              alt="Consulting"
               className="opacity-10 mix-blend-overlay"
             />
           </div>

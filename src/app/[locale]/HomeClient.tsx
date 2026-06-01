@@ -6,6 +6,7 @@ import { Link } from "@/i18n/routing";
 import { ArrowRight, BookOpen, Briefcase, Globe, CheckCircle, Calendar, Users, MonitorPlay } from "lucide-react";
 import Image from "next/image";
 import ImagePlaceholder from "@/components/ImagePlaceholder";
+import VideoBackground from "@/components/VideoBackground";
 import SectionWave from "@/components/SectionWave";
 import CourseCard from "@/components/CourseCard";
 import { type LocalizedCourse } from "@/lib/courses";
@@ -58,14 +59,11 @@ export default function HomeClient({ featuredCourses }: Props) {
     <div className="w-full">
       {/* 1. Hero Section */}
       <section className="relative pt-24 pb-32 md:pt-32 md:pb-40 overflow-hidden">
-        {/* Background images */}
-        <Image
-          src="/hero-image-pc.jpg"
+        {/* Background media */}
+        <VideoBackground
+          src="/videos/hero_loop.mp4"
+          poster="/hero-image-pc.jpg"
           alt="INTECH ISC Group - Industrial Training & Consulting"
-          fill
-          sizes="100vw"
-          className="object-cover hidden md:block"
-          priority
         />
         <Image
           src="/hero-image-mobile.jpg"

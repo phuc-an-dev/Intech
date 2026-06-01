@@ -5,12 +5,39 @@ import { Building2, GraduationCap, Globe2, ArrowRight, ShieldCheck, FileText } f
 import Image from "next/image";
 import { Link } from "@/i18n/routing";
 import { useTranslations } from "next-intl";
-import ImagePlaceholder from "@/components/ImagePlaceholder";
+import VideoBackground from "@/components/VideoBackground";
 import LogoMarquee from "@/components/LogoMarquee";
 import { partnerLogos } from "@/data/partners";
 
 export default function AboutPage() {
   const t = useTranslations("about");
+  const galleryImages = [
+    {
+      src: "/images/about-gallery/learning-journey-group.webp",
+      alt: "Gallery image - learning journey group",
+      sizes: "(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 20vw",
+    },
+    {
+      src: "/images/about-gallery/industry-visit-greenhouse.webp",
+      alt: "Gallery image - industry visit greenhouse",
+      sizes: "(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 20vw",
+    },
+    {
+      src: "/images/about-gallery/industrial-site-walk.webp",
+      alt: "Gallery image - industrial site walk",
+      sizes: "(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 20vw",
+    },
+    {
+      src: "/images/about-gallery/mobility-boat-experience.webp",
+      alt: "Gallery image - mobility boat experience",
+      sizes: "(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 20vw",
+    },
+    {
+      src: "/images/about-gallery/applied-learning-visit.webp",
+      alt: "Gallery image - applied learning visit",
+      sizes: "(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 20vw",
+    },
+  ];
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -35,11 +62,10 @@ export default function AboutPage() {
           <div className="absolute top-[-50%] right-[-10%] w-3/4 h-[200%] bg-[#00A3C1] opacity-10 blur-3xl transform rotate-45"></div>
           <motion.div className="absolute bottom-0 left-12 w-80 h-80 rounded-full bg-[#00A3C1]/15 blur-3xl pointer-events-none" animate={{ y: [0, -26, 0], scale: [1, 1.06, 1] }} transition={{ duration: 13, repeat: Infinity, ease: "easeInOut" }} />
           <motion.div className="absolute top-8 left-1/2 w-48 h-48 rounded-full bg-white/5 blur-2xl pointer-events-none" animate={{ y: [0, 20, 0], x: [0, -12, 0] }} transition={{ duration: 10, repeat: Infinity, ease: "easeInOut", delay: 2 }} />
-          <ImagePlaceholder
-            name="hero-about.webp"
-            width={1920}
-            height={600}
-            fill
+          <VideoBackground
+            src="/videos/hero-about.mp4"
+            poster="/images/hero-about.webp"
+            alt="About Intech Global Academy"
             className="opacity-10 mix-blend-overlay"
           />
         </div>
@@ -91,6 +117,51 @@ export default function AboutPage() {
               <div className="absolute inset-0 bg-[#00A3C1]/5"></div>
             </div>
           </div>
+        </motion.div>
+      </section>
+
+      {/* Real-world Learning Gallery */}
+      <section className="max-w-7xl mx-auto px-4 py-20 md:py-24">
+        <motion.div
+          className="max-w-3xl mb-10"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+        >
+          <p className="text-[#00A3C1] font-bold uppercase tracking-widest text-sm mb-3">
+            {t("gallery_kicker")}
+          </p>
+          <h2 className="font-heading text-3xl md:text-4xl font-bold text-[#002D62] mb-4">
+            {t("gallery_title")}
+          </h2>
+          <p className="text-gray-600 text-lg leading-relaxed">
+            {t("gallery_desc")}
+          </p>
+        </motion.div>
+
+        <motion.div
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4"
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-80px" }}
+        >
+          {galleryImages.map((image) => (
+            <motion.div
+              key={image.src}
+              variants={itemVariants}
+              className="relative aspect-[4/3] overflow-hidden rounded-2xl bg-white shadow-md border border-white"
+            >
+              <Image
+                src={image.src}
+                alt={image.alt}
+                fill
+                sizes={image.sizes}
+                className="object-cover transition-transform duration-500 hover:scale-105"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#002D62]/20 via-transparent to-transparent" />
+            </motion.div>
+          ))}
         </motion.div>
       </section>
 

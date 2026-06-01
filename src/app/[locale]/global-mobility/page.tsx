@@ -5,6 +5,7 @@ import { MapPin, GraduationCap, ArrowRight, CheckCircle2, BookOpen, Briefcase, U
 import { useTranslations } from 'next-intl'
 import { Link } from '@/i18n/routing'
 import ImagePlaceholder from '@/components/ImagePlaceholder'
+import VideoBackground from '@/components/VideoBackground'
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -85,11 +86,10 @@ export default function GlobalMobilityPage() {
       {/* Hero */}
       <section className="bg-[#002D62] text-white py-24 md:py-32 relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-[#001a3a] via-[#002D62] to-[#003d7a]" />
-        <ImagePlaceholder
-          name="hero-global-mobility.webp"
-          width={1920}
-          height={600}
-          fill
+        <VideoBackground
+          src="/videos/hero-global-mobility.mp4"
+          poster="/images/hero-global-mobility.webp"
+          alt="Global Mobility"
           className="opacity-20 mix-blend-overlay"
         />
         <div className="relative max-w-7xl mx-auto px-4 text-center">
