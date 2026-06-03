@@ -13,6 +13,7 @@ import {
   getInsightBody,
   formatInsightDate,
 } from "@/data/insights";
+import { getAbsoluteUrl } from "@/lib/site";
 import InsightBody from "./InsightBody";
 
 export async function generateStaticParams() {
@@ -29,13 +30,23 @@ export async function generateMetadata(
   const title = `${locale === "vi" ? insight.title_vi : insight.title_en} | Intech ISC`;
   const description = locale === "vi" ? insight.excerpt_vi : insight.excerpt_en;
   const ogImage = insight.coverImage ?? '/og/og-default.webp';
+  const blogPath = `/blog/${slug}`;
+  const canonicalUrl = getAbsoluteUrl(locale, blogPath);
   return {
     title,
     description,
+    alternates: {
+      canonical: canonicalUrl,
+      languages: {
+        vi: getAbsoluteUrl('vi', blogPath),
+        en: getAbsoluteUrl('en', blogPath),
+      },
+    },
     openGraph: {
       title,
       description,
       type: 'article',
+      url: canonicalUrl,
       images: [{ url: ogImage, width: 1200, height: 630, alt: title }],
     },
     twitter: {
@@ -47,7 +58,7 @@ export async function generateMetadata(
   };
 }
 
-export default async function InsightDetailPage(
+export default async function BlogDetailPage(
   props: { params: Promise<{ slug: string; locale: string }> }
 ) {
   const { slug, locale } = await props.params;
@@ -69,7 +80,7 @@ export default async function InsightDetailPage(
         <div className="absolute inset-0 bg-black/40" />
         <div className="max-w-3xl mx-auto relative z-10 text-white">
           <Link
-            href="/insights"
+            href="/blog"
             className="inline-flex items-center gap-2 text-white/80 hover:text-white mb-8 transition-colors text-sm font-medium"
           >
             <ArrowLeft className="w-4 h-4" /> {t("back_to_list")}
@@ -140,7 +151,7 @@ export default async function InsightDetailPage(
               {relatedInsights.map((related) => (
                 <Link
                   key={related.slug}
-                  href={`/insights/${related.slug}`}
+                  href={`/blog/${related.slug}`}
                   className="group bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition-shadow"
                 >
                   <div className={`h-24 bg-gradient-to-br ${related.gradient}`} />

@@ -1,17 +1,18 @@
 import { MetadataRoute } from 'next';
 import { routing } from '@/i18n/routing';
 import { insights } from '@/data/insights';
+import { SITE_URL } from '@/lib/site';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const locales = routing.locales;
-  const baseUrl = 'https://intech.edu.vn'; // Replace with actual domain
+  const baseUrl = SITE_URL;
 
   // Define your static routes
   const staticRoutes = [
     '',
     '/about',
     '/courses',
-    '/insights',
+    '/blog',
     '/coming-soon',
     '/consultant',
     '/contact',
@@ -40,7 +41,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   insights.forEach((insight) => {
     locales.forEach((locale) => {
       const isDefaultLocale = locale === routing.defaultLocale;
-      const url = `${baseUrl}${isDefaultLocale ? '' : `/${locale}`}/insights/${insight.slug}`;
+      const url = `${baseUrl}${isDefaultLocale ? '' : `/${locale}`}/blog/${insight.slug}`;
       sitemapEntries.push({
         url,
         lastModified: new Date(insight.date),

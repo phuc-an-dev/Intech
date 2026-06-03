@@ -10,6 +10,7 @@ import {
   getInsightCategory,
   formatInsightDate,
 } from "@/data/insights";
+import { getAbsoluteUrl } from "@/lib/site";
 
 export async function generateMetadata(
   props: { params: Promise<{ locale: string }> }
@@ -18,13 +19,22 @@ export async function generateMetadata(
   const t = await getTranslations({ locale, namespace: "insights" });
   const title = `${t("page_title")} | Intech ISC`
   const description = t("page_description")
+  const canonicalUrl = getAbsoluteUrl(locale, '/blog')
   return {
     title,
     description,
+    alternates: {
+      canonical: canonicalUrl,
+      languages: {
+        vi: getAbsoluteUrl('vi', '/blog'),
+        en: getAbsoluteUrl('en', '/blog'),
+      },
+    },
     openGraph: {
       title,
       description,
       type: 'website',
+      url: canonicalUrl,
       images: [{ url: '/og/og-default.webp', width: 1200, height: 630, alt: title }],
     },
     twitter: {
@@ -36,7 +46,7 @@ export async function generateMetadata(
   };
 }
 
-export default async function InsightsPage(
+export default async function BlogPage(
   props: { params: Promise<{ locale: string }> }
 ) {
   const { locale } = await props.params;
@@ -65,7 +75,7 @@ export default async function InsightsPage(
       <div className="max-w-5xl mx-auto px-4 mt-[-40px] relative z-10">
         {/* Featured Article */}
         <Link
-          href={`/insights/${featured.slug}`}
+          href={`/blog/${featured.slug}`}
           className="block group bg-white rounded-3xl shadow-xl border border-gray-100 overflow-hidden mb-10 hover:shadow-2xl transition-shadow"
         >
           <div className={`w-full h-56 md:h-72 bg-linear-to-br ${featured.gradient} flex items-center justify-center relative overflow-hidden`}>
@@ -121,7 +131,7 @@ export default async function InsightsPage(
           {rest.map((insight) => (
             <Link
               key={insight.slug}
-              href={`/insights/${insight.slug}`}
+              href={`/blog/${insight.slug}`}
               className="group bg-white rounded-2xl shadow-md border border-gray-100 overflow-hidden hover:shadow-xl transition-shadow"
             >
               <div className={`w-full h-36 bg-linear-to-br ${insight.gradient} flex items-center justify-center relative overflow-hidden`}>

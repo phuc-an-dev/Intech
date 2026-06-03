@@ -11,6 +11,7 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import Header from "@/components/Header";
 import BackToTop from "@/components/BackToTop";
 import ScrollToTop from "@/components/ScrollToTop";
+import { SITE_URL } from "@/lib/site";
 import "../globals.css";
 
 const montserrat = Montserrat({
@@ -29,22 +30,21 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: 'meta' });
   
-  const base = 'https://www.intechisc.com'
   return {
-    metadataBase: new URL(base),
+    metadataBase: new URL(SITE_URL),
     title: t('title'),
     description: t('description'),
     alternates: {
-      canonical: locale === 'vi' ? base : `${base}/en`,
+      canonical: locale === 'vi' ? SITE_URL : `${SITE_URL}/en`,
       languages: {
-        'vi': base,
-        'en': `${base}/en`,
+        'vi': SITE_URL,
+        'en': `${SITE_URL}/en`,
       }
     },
     openGraph: {
       title: t('title'),
       description: t('description'),
-      url: locale === 'vi' ? base : `${base}/en`,
+      url: locale === 'vi' ? SITE_URL : `${SITE_URL}/en`,
       siteName: 'Intech Global Academy',
       locale: locale === 'vi' ? 'vi_VN' : 'en_US',
       type: 'website',
@@ -73,7 +73,7 @@ export default async function RootLayout({
   const { locale } = await params;
 
   // Ensure that the incoming `locale` is valid
-  if (!routing.locales.includes(locale as any)) {
+  if (!routing.locales.includes(locale as (typeof routing.locales)[number])) {
     notFound();
   }
 
@@ -122,7 +122,7 @@ export default async function RootLayout({
                 <ul className="space-y-3 text-[#F4F7F9]/80">
                   <li><Link href="/about" className="hover:text-white transition-colors">{tNav('about')}</Link></li>
                   <li><Link href="/courses" className="hover:text-white transition-colors">{tNav('courses')}</Link></li>
-                  <li><Link href="/insights" className="hover:text-white transition-colors">{tNav('insights')}</Link></li>
+                  <li><Link href="/blog" className="hover:text-white transition-colors">{tNav('insights')}</Link></li>
                   <li><Link href="/consultant" className="hover:text-white transition-colors">{tNav('consulting')}</Link></li>
                   <li><Link href="/global-mobility" className="hover:text-white transition-colors">{tNav('global_mobility')}</Link></li>
                   <li><Link href="/global-partnerships" className="hover:text-white transition-colors">{tNav('partnerships')}</Link></li>
