@@ -37,6 +37,7 @@ export default function LogoMarquee({ logos, speed = 30, className = "" }: Props
             ) : (
               <ImagePlaceholder
                 name={`${logo.name}.webp`}
+                alt={logo.alt}
                 width={logo.width ?? 160}
                 height={logo.height ?? 60}
                 className="rounded-md"

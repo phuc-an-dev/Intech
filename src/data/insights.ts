@@ -13,11 +13,37 @@ export interface Insight {
   tags: string[]
   gradient: string
   coverImage?: string
+  author: InsightAuthor
+  relatedCourseSlug: string
   body_en: string
   body_vi: string
 }
 
-export const insights: Insight[] = [
+export interface InsightAuthor {
+  name: string
+  role_vi: string
+  role_en: string
+  image: string
+  imageAlt: string
+}
+
+const defaultAuthor: InsightAuthor = {
+  name: 'Intech ISC Editorial Team',
+  role_vi: 'Đội ngũ chuyên môn đào tạo và tư vấn công nghiệp',
+  role_en: 'Industrial training and consulting editorial team',
+  image: '/logo.svg',
+  imageAlt: 'Intech ISC Editorial Team',
+}
+
+const relatedCourseByInsightSlug: Record<string, string> = {
+  'ai-augmented-technician-vietnam-2030': 'ai-strategic-leadership',
+  'da-dang-hoa-chuoi-cung-ung-dong-nam-a': 'supply-chain-network-design',
+  'chuyen-minh-ky-nang-ky-thuat-cong-nghiep-so': 'technical-presentation-excellence',
+  'chien-luoc-mo-dun-hoa-bat-dau-nho-tang-truong-nhanh': 'digital-transformation-roadmap',
+  'chuyen-doi-so-lean-tri-tue-du-lieu': 'lean-thinking-4',
+}
+
+const insightEntries: Omit<Insight, 'author' | 'relatedCourseSlug'>[] = [
   {
     slug: 'ai-augmented-technician-vietnam-2030',
     lang: 'en',
@@ -571,6 +597,12 @@ In Lean 4.0, maintenance transitions from reactive "firefighting" to Predictive 
 Lean is not a project but a work culture. Digitalization is not a technology toy; it is the combination of operational excellence infrastructure and modern operational capability. Combining traditional Lean discipline with digital transparency creates a self-reinforcing culture that can withstand market volatility and the complexity of the fourth industrial revolution.`,
   },
 ]
+
+export const insights: Insight[] = insightEntries.map((insight) => ({
+  ...insight,
+  author: defaultAuthor,
+  relatedCourseSlug: relatedCourseByInsightSlug[insight.slug] ?? 'basic-prompt-engineering',
+}))
 
 export function getInsightBySlug(slug: string): Insight | undefined {
   return insights.find(i => i.slug === slug)

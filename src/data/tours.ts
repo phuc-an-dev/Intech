@@ -213,6 +213,87 @@ const toursEn: TourData[] = [
       { name: 'tour-global-gallery-6.webp', alt: 'Networking event' },
     ],
   },
+  {
+    slug: 'international-internship-robotics-iot-smart-information-systems',
+    duration: '03 Weeks',
+    name: 'International Internship Program',
+    subtitle: 'Robotics, IoT & Smart Information Systems Development',
+    destination: 'Robotics, IoT & Programming Laboratories, Vietnam',
+    price: 'USD 1,800 / participant',
+    groupSize: 'Custom cohort size',
+    certificate: 'International Certificate of Completion.',
+    whyJoin:
+      'This international internship program is designed for Information Technology and engineering students who want practical global experience in Industry 4.0 technologies. Through immersive laboratory training, applied engineering projects, technical mentoring, and cross-cultural teamwork in Vietnam, participants develop competencies in robotics engineering, IoT systems integration, automation programming, smart application development, AI applications, and intelligent information systems for modern industries.',
+    highlights: [
+      {
+        title: 'Intensive Foundation Training',
+        desc: 'Build a solid base during the first five days through Robotics and IoT fundamentals, automation programming principles, laboratory setup, and project scoping before moving into the major project phase.',
+      },
+      {
+        title: 'Industry 4.0 Technical Integration',
+        desc: 'Develop hands-on capabilities in robotics engineering, IoT systems integration, automation programming, software development, smart applications, and industrial AI use cases.',
+      },
+      {
+        title: 'Innovation-Driven Prototyping',
+        desc: 'Design, program, and construct functional prototype systems and technology-driven mini-projects with direct technical mentorship from industry experts and academic supervisors.',
+      },
+      {
+        title: 'Global Capability & Cultural Exposure',
+        desc: 'Strengthen international communication and collaboration in cross-cultural teams while experiencing Vietnam’s technology ecosystem, modern industrial practices, and local culture.',
+      },
+    ],
+    audience: [
+      'Information Technology students',
+      'Computer Engineering students',
+      'Electronic Communications students',
+      'Engineering students focused on automation, intelligent systems, and Industry 4.0',
+    ],
+    itinerary: [
+      {
+        period: 'Phase 1 (First 5 Days)',
+        theme: 'Intensive Foundation Training',
+        activities:
+          'High-level technical lectures on Robotics and IoT fundamentals, hands-on coding and automation setup in the laboratory, cross-cultural team formation, and project scoping.',
+      },
+      {
+        period: 'Phase 2 (Subsequent Weeks)',
+        theme: 'Applied Engineering & Projects',
+        activities:
+          'Applied AI, robotics engineering, smart systems integration, prototype design, mini-project development, and scheduled 1:1 mentoring from expert supervisors.',
+      },
+      {
+        period: 'Phase 3 (Program Wrap-up)',
+        theme: 'Closing & Departure',
+        activities:
+          'Prototype finalization, project defense presentations before an expert panel, welcome and closing ceremonies, certificate completion, hotel check-out, and international departure.',
+      },
+    ],
+    includes: [
+      'Full internship supervision and dedicated technical mentoring',
+      'Access to advanced laboratory facilities and technical training materials',
+      'Accommodation support throughout the program duration',
+      'Daily breakfast at the hotel, plus curated lunch and dinner set meals',
+      'Local ground transportation for official program itinerary activities',
+      'Official Welcome Dinner and Closing Ceremony',
+      'Admission tickets for scheduled tourism and cross-cultural field trips',
+      'Official Certificate of Completion awarded after successful project evaluation',
+    ],
+    excludes: [
+      'International round-trip airfare to and from Vietnam',
+      'Passport and entry visa expenses',
+      'Personal living expenses and daily pocket money',
+      'Personal international travel insurance and private medical expenses',
+      'Daily city commuting outside official group activities',
+      'Optional personal travel, entertainment, or sightseeing outside the official itinerary',
+    ],
+    customization:
+      'The program structure, duration split, and project focus can be tailored to the learning outcomes, cohort size, and project deliverables required by international partner universities.',
+    gallery: [
+      { name: 'tour-global-internship-gallery-1.webp', alt: 'Robotics and IoT laboratory activity' },
+      { name: 'tour-global-internship-gallery-2.webp', alt: 'Smart systems project mentoring' },
+      { name: 'tour-global-internship-gallery-3.webp', alt: 'International internship team project' },
+    ],
+  },
 ]
 
 const toursVi: TourData[] = [
@@ -406,6 +487,87 @@ const toursVi: TourData[] = [
       { name: 'tour-global-gallery-4.webp', alt: 'Group workshop' },
       { name: 'tour-global-gallery-5.webp', alt: 'Campus visit' },
       { name: 'tour-global-gallery-6.webp', alt: 'Networking event' },
+    ],
+  },
+  {
+    slug: 'international-internship-robotics-iot-smart-information-systems',
+    duration: '03 Tuần',
+    name: 'International Internship Program',
+    subtitle: 'Phát triển Robotics, IoT & Smart Information Systems',
+    destination: 'Phòng lab Robotics, IoT & Programming tại Việt Nam',
+    price: 'USD 1.800 / học viên',
+    groupSize: 'Theo quy mô đoàn đối tác',
+    certificate: 'International Certificate of Completion.',
+    whyJoin:
+      'Chương trình internship quốc tế này được thiết kế cho sinh viên Công nghệ Thông tin và khối kỹ thuật muốn tích lũy trải nghiệm thực hành quốc tế trong các công nghệ Industry 4.0. Thông qua đào tạo chuyên sâu tại phòng lab, dự án kỹ thuật ứng dụng, mentoring kỹ thuật và làm việc nhóm đa văn hóa tại Việt Nam, học viên phát triển năng lực về robotics engineering, tích hợp hệ thống IoT, lập trình tự động hóa, phát triển ứng dụng thông minh, ứng dụng AI và hệ thống thông tin thông minh cho môi trường công nghiệp hiện đại.',
+    highlights: [
+      {
+        title: 'Đào tạo nền tảng chuyên sâu',
+        desc: 'Xây dựng nền tảng vững chắc trong 5 ngày đầu với Robotics, IoT, nguyên lý lập trình tự động hóa, thiết lập phòng lab và xác định phạm vi dự án trước khi bước vào giai đoạn project chính.',
+      },
+      {
+        title: 'Tích hợp kỹ thuật Industry 4.0',
+        desc: 'Phát triển năng lực thực hành về robotics engineering, tích hợp hệ thống IoT, lập trình tự động hóa, phát triển phần mềm, ứng dụng thông minh và các tình huống AI công nghiệp.',
+      },
+      {
+        title: 'Prototyping định hướng đổi mới',
+        desc: 'Thiết kế, lập trình và xây dựng prototype chức năng cùng các mini-project công nghệ dưới sự hướng dẫn trực tiếp của chuyên gia ngành và giảng viên phụ trách.',
+      },
+      {
+        title: 'Năng lực toàn cầu & trải nghiệm văn hóa',
+        desc: 'Tăng cường giao tiếp quốc tế và năng lực cộng tác trong nhóm đa văn hóa, đồng thời trải nghiệm hệ sinh thái công nghệ, thực hành công nghiệp hiện đại và văn hóa địa phương tại Việt Nam.',
+      },
+    ],
+    audience: [
+      'Sinh viên Công nghệ Thông tin',
+      'Sinh viên Kỹ thuật Máy tính',
+      'Sinh viên Điện tử Viễn thông',
+      'Sinh viên khối kỹ thuật định hướng tự động hóa, hệ thống thông minh và Industry 4.0',
+    ],
+    itinerary: [
+      {
+        period: 'Giai đoạn 1 (5 ngày đầu)',
+        theme: 'Đào tạo nền tảng chuyên sâu',
+        activities:
+          'Bài giảng kỹ thuật về Robotics và IoT, thực hành coding và thiết lập automation trong phòng lab, hình thành nhóm đa văn hóa và xác định phạm vi dự án.',
+      },
+      {
+        period: 'Giai đoạn 2 (Các tuần tiếp theo)',
+        theme: 'Kỹ thuật ứng dụng & Dự án',
+        activities:
+          'Ứng dụng AI, robotics engineering, tích hợp smart systems, thiết kế prototype, phát triển mini-project và mentoring 1:1 định kỳ từ chuyên gia phụ trách.',
+      },
+      {
+        period: 'Giai đoạn 3 (Tổng kết chương trình)',
+        theme: 'Bế mạc & Khởi hành',
+        activities:
+          'Hoàn thiện prototype, bảo vệ dự án trước hội đồng chuyên gia, tham dự welcome/closing ceremonies, nhận chứng chỉ, hoàn tất check-out và khởi hành quốc tế.',
+      },
+    ],
+    includes: [
+      'Giám sát internship đầy đủ và mentoring kỹ thuật chuyên trách',
+      'Quyền sử dụng phòng lab nâng cao và tài liệu đào tạo kỹ thuật',
+      'Hỗ trợ lưu trú trong suốt thời lượng chương trình',
+      'Bữa sáng hàng ngày tại khách sạn, cùng các set menu bữa trưa và bữa tối',
+      'Di chuyển nội địa cho các hoạt động chính thức trong lịch trình',
+      'Welcome Dinner và Closing Ceremony chính thức',
+      'Vé tham quan cho các hoạt động du lịch và trải nghiệm giao lưu văn hóa theo lịch trình',
+      'Certificate of Completion sau khi hoàn thành đánh giá dự án',
+    ],
+    excludes: [
+      'Vé máy bay quốc tế khứ hồi đến và đi từ Việt Nam',
+      'Chi phí hộ chiếu và visa nhập cảnh',
+      'Chi phí sinh hoạt cá nhân và tiền tiêu vặt',
+      'Bảo hiểm du lịch quốc tế cá nhân và chi phí y tế riêng',
+      'Di chuyển hàng ngày trong thành phố ngoài các hoạt động nhóm chính thức',
+      'Du lịch, giải trí hoặc tham quan cá nhân ngoài lịch trình chính thức',
+    ],
+    customization:
+      'Cấu trúc chương trình, phân bổ thời lượng và trọng tâm dự án có thể tùy chỉnh theo learning outcomes, quy mô đoàn và deliverables mà các đại học đối tác quốc tế yêu cầu.',
+    gallery: [
+      { name: 'tour-global-internship-gallery-1.webp', alt: 'Hoạt động phòng lab Robotics và IoT' },
+      { name: 'tour-global-internship-gallery-2.webp', alt: 'Mentoring dự án hệ thống thông minh' },
+      { name: 'tour-global-internship-gallery-3.webp', alt: 'Dự án nhóm internship quốc tế' },
     ],
   },
 ]

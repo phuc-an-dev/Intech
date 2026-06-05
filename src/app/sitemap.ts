@@ -16,6 +16,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/coming-soon',
     '/consultant',
     '/contact',
+    '/global-mobility',
+    '/global-partnerships',
     '/privacy-policy',
     '/terms-of-use',
   ];

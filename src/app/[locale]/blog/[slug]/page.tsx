@@ -69,6 +69,10 @@ export default async function BlogDetailPage(
 
   const t = await getTranslations({ locale, namespace: "insights" });
   const relatedInsights = insights.filter((i) => i.slug !== slug).slice(0, 2);
+  const relatedCourseLabel = locale === "vi" ? "Khóa học liên quan" : "Related course";
+  const relatedCourseNote = locale === "vi"
+    ? "Tiếp tục đào sâu chủ đề này bằng chương trình đào tạo phù hợp."
+    : "Continue exploring this topic through a relevant training program.";
 
   return (
     <div className="w-full bg-[#F4F7F9] min-h-screen pb-24">
@@ -108,6 +112,21 @@ export default async function BlogDetailPage(
           </p>
 
           <div className="flex flex-wrap items-center gap-5 text-sm font-medium">
+            <div className="flex items-center gap-3 bg-black/20 px-4 py-2 rounded-lg backdrop-blur-sm">
+              <Image
+                src={insight.author.image}
+                alt={insight.author.imageAlt}
+                width={28}
+                height={28}
+                className="h-7 w-7 rounded-full bg-white object-contain p-1"
+              />
+              <span>
+                {insight.author.name}
+                <span className="sr-only">
+                  , {locale === "vi" ? insight.author.role_vi : insight.author.role_en}
+                </span>
+              </span>
+            </div>
             <div className="flex items-center gap-2 bg-black/20 px-4 py-2 rounded-lg backdrop-blur-sm">
               <Clock className="w-4 h-4 text-white/80" />
               <span>{insight.readTime} {t("min_read")}</span>
@@ -127,8 +146,38 @@ export default async function BlogDetailPage(
           <InsightBody body={getInsightBody(insight, locale)} />
         </div>
 
+        {/* Related Course CTA */}
+        <div className="bg-gradient-to-br from-[#002D62] to-[#00A3C1] rounded-3xl p-8 md:p-10 text-white mb-8">
+          <p className="text-white/75 text-xs font-bold uppercase tracking-widest mb-3">
+            {relatedCourseLabel}
+          </p>
+          <h2 className="font-heading text-2xl md:text-3xl font-bold mb-3">{t("cta_title")}</h2>
+          <p className="text-white/85 mb-6 max-w-xl">{relatedCourseNote}</p>
+          <Link
+            href={`/courses/${insight.relatedCourseSlug}`}
+            className="inline-flex items-center gap-2 bg-white text-[#002D62] font-bold px-8 py-3 rounded-full hover:bg-gray-50 transition-colors shadow-md"
+          >
+            {t("cta_button")}
+          </Link>
+        </div>
+
         {/* Tags */}
         <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 mb-8">
+          <div className="flex items-center gap-4 mb-5 pb-5 border-b border-gray-100">
+            <Image
+              src={insight.author.image}
+              alt={insight.author.imageAlt}
+              width={48}
+              height={48}
+              className="h-12 w-12 rounded-full bg-[#F4F7F9] object-contain p-2"
+            />
+            <div>
+              <p className="font-heading font-bold text-[#002D62]">{insight.author.name}</p>
+              <p className="text-sm text-gray-500">
+                {locale === "vi" ? insight.author.role_vi : insight.author.role_en}
+              </p>
+            </div>
+          </div>
           <div className="flex flex-wrap gap-2">
             {insight.tags.map((tag, idx) => (
               <span
@@ -169,17 +218,6 @@ export default async function BlogDetailPage(
           </div>
         )}
 
-        {/* CTA */}
-        <div className="bg-gradient-to-br from-[#002D62] to-[#00A3C1] rounded-3xl p-8 md:p-10 text-white text-center">
-          <h2 className="font-heading text-2xl font-bold mb-3">{t("cta_title")}</h2>
-          <p className="text-white/85 mb-6 max-w-lg mx-auto">{t("cta_desc")}</p>
-          <Link
-            href="/courses"
-            className="inline-flex items-center gap-2 bg-white text-[#002D62] font-bold px-8 py-3 rounded-full hover:bg-gray-50 transition-colors shadow-md"
-          >
-            {t("cta_button")}
-          </Link>
-        </div>
       </div>
     </div>
   );

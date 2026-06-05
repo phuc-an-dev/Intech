@@ -27,4 +27,21 @@ describe('sitemap', () => {
     expect(entries.some((entry) => entry.url.includes('/insights'))).toBe(false)
     expect(entries.some((entry) => entry.url.startsWith('https://intech.edu.vn'))).toBe(false)
   })
+
+  it('includes all public service pages for both locales', () => {
+    const entries = sitemap()
+
+    expect(entries).toContainEqual(
+      expect.objectContaining({ url: 'https://www.intechisc.com/global-mobility' })
+    )
+    expect(entries).toContainEqual(
+      expect.objectContaining({ url: 'https://www.intechisc.com/en/global-mobility' })
+    )
+    expect(entries).toContainEqual(
+      expect.objectContaining({ url: 'https://www.intechisc.com/global-partnerships' })
+    )
+    expect(entries).toContainEqual(
+      expect.objectContaining({ url: 'https://www.intechisc.com/en/global-partnerships' })
+    )
+  })
 })

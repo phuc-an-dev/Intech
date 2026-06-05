@@ -23,18 +23,10 @@ describe('Global Mobility Page', () => {
     expect(screen.getByText('overview_desc')).toBeInTheDocument()
   })
 
-  it('renders tour tab buttons', () => {
+  it('renders study tour overview bullets', () => {
     render(<GlobalMobilityPage />)
-    expect(screen.getByText('tab_inbound')).toBeInTheDocument()
-    expect(screen.getByText('tab_outbound')).toBeInTheDocument()
-    expect(screen.getByText('tab_exchange')).toBeInTheDocument()
-  })
-
-  it('renders first tab content by default', () => {
-    render(<GlobalMobilityPage />)
-    expect(screen.getByText('inbound_title')).toBeInTheDocument()
-    expect(screen.getByText('inbound_item1')).toBeInTheDocument()
-    expect(screen.getByText('inbound_item3')).toBeInTheDocument()
+    expect(screen.getByText('tours_bullet1')).toBeInTheDocument()
+    expect(screen.getByText('tours_bullet5')).toBeInTheDocument()
   })
 
   it('renders tour cards', () => {
@@ -42,12 +34,15 @@ describe('Global Mobility Page', () => {
     expect(screen.getByText('tour1_name')).toBeInTheDocument()
     expect(screen.getByText('tour2_name')).toBeInTheDocument()
     expect(screen.getByText('tour3_name')).toBeInTheDocument()
+    expect(screen.getByText('tour4_name')).toBeInTheDocument()
   })
 
   it('renders tour card destinations and highlights', () => {
     render(<GlobalMobilityPage />)
     expect(screen.getByText('tour1_destination')).toBeInTheDocument()
     expect(screen.getByText('tour1_highlight1')).toBeInTheDocument()
+    expect(screen.getByText('tour4_destination')).toBeInTheDocument()
+    expect(screen.getByText('tour4_highlight1')).toBeInTheDocument()
   })
 
   it('renders academic pathways section', () => {

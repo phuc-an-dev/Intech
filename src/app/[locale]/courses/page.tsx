@@ -1,6 +1,7 @@
 import { Metadata } from 'next'
 import { setRequestLocale, getTranslations } from 'next-intl/server'
 import { getCourses, getTopics } from '@/lib/courses'
+import { buildSiteMetadata } from '@/lib/metadata'
 import CoursesClient from './CoursesClient'
 
 export const revalidate = 60
@@ -12,22 +13,13 @@ export async function generateMetadata(
   const t = await getTranslations({ locale, namespace: 'courses' })
   const title = `${t('page_title')} | Intech Global Academy`
   const description = t('page_description')
-  return {
+  return buildSiteMetadata({
+    locale,
+    path: '/courses',
     title,
     description,
-    openGraph: {
-      title,
-      description,
-      type: 'website',
-      images: [{ url: '/og/og-courses.webp', width: 1200, height: 630, alt: title }],
-    },
-    twitter: {
-      card: 'summary_large_image',
-      title,
-      description,
-      images: ['/og/og-courses.webp'],
-    },
-  }
+    image: '/og/og-courses.webp',
+  })
 }
 
 export default async function CoursesPage({ params }: { params: Promise<{ locale: string }> }) {

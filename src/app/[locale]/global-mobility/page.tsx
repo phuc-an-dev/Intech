@@ -52,6 +52,14 @@ export default function GlobalMobilityPage() {
       highlights: [t('tour3_highlight1'), t('tour3_highlight2'), t('tour3_highlight3')],
       price: 'USD 2,000–4,000',
     },
+    {
+      slug: 'international-internship-robotics-iot-smart-information-systems',
+      duration: t('tour4_duration'),
+      name: t('tour4_name'),
+      destination: t('tour4_destination'),
+      highlights: [t('tour4_highlight1'), t('tour4_highlight2'), t('tour4_highlight3')],
+      price: 'USD 1,800',
+    },
   ]
 
   const pathways = [
@@ -79,6 +87,7 @@ export default function GlobalMobilityPage() {
     'tour-vietnam-culture.webp',
     'tour-vietnam-tech.webp',
     'tour-global-leadership.webp',
+    'tour-global-internship.webp',
   ]
 
   return (
@@ -205,7 +214,7 @@ export default function GlobalMobilityPage() {
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
-            className="grid grid-cols-1 md:grid-cols-3 gap-6"
+            className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6"
           >
             {tours.map((tour, i) => (
               <motion.div
