@@ -1,0 +1,52 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  passwordHash String
+  name         String?
+  createdAt    DateTime @default(now())
+}
+
+enum PostStatus {
+  DRAFT
+  PUBLISHED
+}
+
+model Post {
+  id                String     @id @default(cuid())
+  slug              String     @unique
+  status            PostStatus @default(DRAFT)
+  lang              String
+  categoryKey       String
+  category_vi       String
+  category_en       String
+  title_vi          String     @db.Text
+  title_en          String     @db.Text
+  excerpt_vi        String     @db.Text
+  excerpt_en        String     @db.Text
+  body_vi           String     @db.LongText
+  body_en           String     @db.LongText
+  tags              Json
+  gradient          String
+  coverImage        String?
+  readTime          Int        @default(5)
+  date              DateTime
+  authorName        String
+  authorRole_vi     String
+  authorRole_en     String
+  authorImage       String
+  authorImageAlt    String
+  relatedCourseSlug String?
+  createdAt         DateTime   @default(now())
+  updatedAt         DateTime   @updatedAt
+
+  @@index([status])
+}
