@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import { Link } from "@/i18n/routing";
 import { getTranslations, setRequestLocale } from "next-intl/server";
-import { ArrowRight, Clock, Calendar } from "lucide-react";
+import { ArrowRight, Clock, Calendar, Pin } from "lucide-react";
 import Image from "next/image";
 import {
   getPublishedPosts,
@@ -94,7 +94,8 @@ export default async function BlogPage(
             )}
             <div className="absolute inset-0 bg-black/30" />
             <div className="relative z-10 text-center px-8">
-              <span className="inline-block bg-white text-[#002D62] text-xs font-bold px-3 py-1 rounded-full mb-3 uppercase tracking-wide">
+              <span className="inline-flex items-center gap-1.5 bg-white text-[#002D62] text-xs font-bold px-3 py-1 rounded-full mb-3 uppercase tracking-wide">
+                {featured.pinned && <Pin className="w-3 h-3" />}
                 {t("featured_label")}
               </span>
               <p className="text-white/80 text-sm font-medium">
@@ -107,13 +108,6 @@ export default async function BlogPage(
             <div className="flex flex-wrap items-center gap-3 mb-4">
               <span className="text-xs font-bold text-white bg-[#002D62] px-3 py-1 rounded-full">
                 {getPostCategory(featured, locale)}
-              </span>
-              <span className={`text-xs font-bold px-2 py-0.5 rounded border ${
-                featured.lang === "en"
-                  ? "border-blue-300 text-blue-600 bg-blue-50"
-                  : "border-green-300 text-green-600 bg-green-50"
-              }`}>
-                {featured.lang === "en" ? t("lang_badge_en") : t("lang_badge_vi")}
               </span>
               <span className="flex items-center gap-1.5 text-xs text-gray-500">
                 <Clock className="w-3.5 h-3.5" />
@@ -144,11 +138,14 @@ export default async function BlogPage(
               href={`/blog/${post.slug}`}
               className="group bg-white rounded-2xl shadow-md border border-gray-100 overflow-hidden hover:shadow-xl transition-shadow"
             >
-              <div className={`w-full h-36 bg-linear-to-br ${post.gradient} flex items-center justify-center relative overflow-hidden`}>
-                {post.coverImage && (
-                  <Image src={post.coverImage} alt={getPostTitle(post, locale)} fill className="object-cover opacity-50" sizes="(max-width: 768px) 100vw, 400px" />
+              <div className="relative w-full h-44 overflow-hidden">
+                {post.coverImage ? (
+                  <Image src={post.coverImage} alt={getPostTitle(post, locale)} fill className="object-cover transition-transform duration-300 group-hover:scale-105" sizes="(max-width: 768px) 100vw, 400px" />
+                ) : (
+                  <div className={`w-full h-full bg-linear-to-br ${post.gradient}`} />
                 )}
-                <span className="relative z-10 text-white/90 text-xs font-bold uppercase tracking-wider drop-shadow">
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
+                <span className="absolute bottom-3 left-4 z-10 text-white text-xs font-bold uppercase tracking-wider drop-shadow-md">
                   {getPostCategory(post, locale)}
                 </span>
               </div>
@@ -157,13 +154,6 @@ export default async function BlogPage(
                 <div className="flex flex-wrap items-center gap-2 mb-3">
                   <span className="text-xs font-bold text-white bg-[#002D62] px-2.5 py-0.5 rounded-full">
                     {getPostCategory(post, locale)}
-                  </span>
-                  <span className={`text-xs font-bold px-2 py-0.5 rounded border ${
-                    post.lang === "en"
-                      ? "border-blue-300 text-blue-600 bg-blue-50"
-                      : "border-green-300 text-green-600 bg-green-50"
-                  }`}>
-                    {post.lang === "en" ? t("lang_badge_en") : t("lang_badge_vi")}
                   </span>
                   <span className="flex items-center gap-1 text-xs text-gray-400">
                     <Clock className="w-3 h-3" />

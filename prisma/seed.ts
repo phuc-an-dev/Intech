@@ -6,6 +6,26 @@ const prisma = new PrismaClient()
 
 async function seedPosts() {
   for (const i of insights) {
+    // Category — dedupe by unique key.
+    const category = await prisma.category.upsert({
+      where: { key: i.categoryKey },
+      update: { name_vi: i.category_vi, name_en: i.category_en },
+      create: { key: i.categoryKey, name_vi: i.category_vi, name_en: i.category_en },
+    })
+
+    // Author — dedupe by name (no unique constraint → find-or-create).
+    const author =
+      (await prisma.author.findFirst({ where: { name: i.author.name } })) ??
+      (await prisma.author.create({
+        data: {
+          name: i.author.name,
+          role_vi: i.author.role_vi,
+          role_en: i.author.role_en,
+          image: i.author.image,
+          imageAlt: i.author.imageAlt,
+        },
+      }))
+
     await prisma.post.upsert({
       where: { slug: i.slug },
       update: {},
@@ -13,9 +33,8 @@ async function seedPosts() {
         slug: i.slug,
         status: 'PUBLISHED',
         lang: i.lang,
-        categoryKey: i.categoryKey,
-        category_vi: i.category_vi,
-        category_en: i.category_en,
+        categoryId: category.id,
+        authorId: author.id,
         title_vi: i.title_vi,
         title_en: i.title_en,
         excerpt_vi: i.excerpt_vi,
@@ -27,11 +46,6 @@ async function seedPosts() {
         coverImage: i.coverImage ?? null,
         readTime: i.readTime,
         date: new Date(i.date),
-        authorName: i.author.name,
-        authorRole_vi: i.author.role_vi,
-        authorRole_en: i.author.role_en,
-        authorImage: i.author.image,
-        authorImageAlt: i.author.imageAlt,
         relatedCourseSlug: i.relatedCourseSlug || null,
       },
     })

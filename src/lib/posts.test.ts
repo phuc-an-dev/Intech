@@ -3,6 +3,7 @@ import {
   getPostTitle,
   getPostExcerpt,
   getPostCategory,
+  getPostAuthorRole,
   getPostBody,
   getPostTags,
   formatPostDate,
@@ -11,9 +12,10 @@ import {
 const sample = {
   title_vi: 'Tiêu đề', title_en: 'Title',
   excerpt_vi: 'Tóm tắt', excerpt_en: 'Excerpt',
-  category_vi: 'Loại', category_en: 'Category',
   body_vi: 'Nội dung', body_en: 'Body',
   tags: ['a', 'b'],
+  category: { name_vi: 'Loại', name_en: 'Category' },
+  author: { role_vi: 'Vai trò', role_en: 'Role' },
 } as never
 
 describe('post presentation helpers', () => {
@@ -21,10 +23,13 @@ describe('post presentation helpers', () => {
     expect(getPostTitle(sample, 'vi')).toBe('Tiêu đề')
     expect(getPostExcerpt(sample, 'vi')).toBe('Tóm tắt')
     expect(getPostCategory(sample, 'vi')).toBe('Loại')
+    expect(getPostAuthorRole(sample, 'vi')).toBe('Vai trò')
     expect(getPostBody(sample, 'vi')).toBe('Nội dung')
   })
   it('picks en fields for en locale', () => {
     expect(getPostTitle(sample, 'en')).toBe('Title')
+    expect(getPostCategory(sample, 'en')).toBe('Category')
+    expect(getPostAuthorRole(sample, 'en')).toBe('Role')
     expect(getPostBody(sample, 'en')).toBe('Body')
   })
   it('parses tags array', () => {

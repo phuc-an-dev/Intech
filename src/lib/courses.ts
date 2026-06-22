@@ -1,4 +1,5 @@
-import { fetchCoursesSheet, fetchTopicsSheet } from './sheets'
+import { prisma } from './db'
+import type { Course, Topic } from '@prisma/client'
 
 export type CourseLevel = 'foundation' | 'tools' | 'application' | 'advanced' | 'strategic'
 
@@ -30,83 +31,75 @@ export interface LocalizedTopic {
   description: string
 }
 
-function pick(row: Record<string, string>, locale: string, key: string): string {
-  return locale === 'vi'
-    ? (row[`${key}_vi`] ?? '')
-    : (row[`${key}_en`] ?? row[`${key}_vi`] ?? '')
+function strArray(value: unknown): string[] {
+  return Array.isArray(value) ? value.filter((v): v is string => typeof v === 'string') : []
 }
 
-function parsePipe(value: string): string[] {
-  if (!value?.trim()) return []
-  return value.split('|').map(s => s.trim()).filter(Boolean)
+function localized<T extends string>(locale: string, vi: T, en: T): T {
+  return locale === 'vi' ? vi : (en || vi)
 }
 
-function courseImageUrl(row: Record<string, string>): string {
-  const slug = row.slug?.trim()
-  const canonical = `/images/courses/course-${slug}.webp`
-  const imageUrl = row.image_url?.trim()
+function toLocalizedTopic(t: Topic, locale: string): LocalizedTopic {
+  return {
+    slug: t.slug,
+    name: localized(locale, t.name_vi, t.name_en),
+    description: localized(locale, t.description_vi, t.description_en),
+  }
+}
 
-  if (!imageUrl) return canonical
-  if (/^\/images\/courses\/[^/]+\.jpg$/i.test(imageUrl)) return canonical
-  if (/^\/images\/course-[^/]+\.jpg$/i.test(imageUrl)) return canonical
-
-  return imageUrl
+function toLocalizedCourse(c: Course & { topic: Topic }, locale: string): LocalizedCourse {
+  return {
+    slug: c.slug,
+    topicSlug: c.topic.slug,
+    topicName: localized(locale, c.topic.name_vi, c.topic.name_en),
+    level: c.level as CourseLevel,
+    duration: { hours: c.durationHours, sessions: c.durationSessions },
+    title: localized(locale, c.title_vi, c.title_en),
+    description: localized(locale, c.description_vi, c.description_en),
+    tags: strArray(c.tags),
+    learningOutcome: localized(locale, c.learningOutcome_vi, c.learningOutcome_en),
+    priceOriginal: c.priceOriginal,
+    priceSale: c.priceSale,
+    prerequisite: c.prerequisite,
+    targetAudience: locale === 'vi' ? strArray(c.targetAudience_vi) : strArray(c.targetAudience_en),
+    modules: locale === 'vi' ? strArray(c.modules_vi) : strArray(c.modules_en),
+    finalProject: localized(locale, c.finalProject_vi, c.finalProject_en),
+    deliveryFormat: localized(locale, c.deliveryFormat_vi, c.deliveryFormat_en),
+    imageUrl: c.imageUrl,
+  }
 }
 
 export async function getTopics(locale: string): Promise<LocalizedTopic[]> {
-  const rows = await fetchTopicsSheet()
-  return rows
-    .filter(r => r.slug?.trim())
-    .map(r => ({
-      slug: r.slug,
-      name: pick(r, locale, 'name'),
-      description: pick(r, locale, 'description'),
-    }))
+  const topics = await prisma.topic.findMany({ orderBy: { createdAt: 'asc' } })
+  return topics.map((t) => toLocalizedTopic(t, locale))
 }
 
 export async function getCourses(locale: string): Promise<LocalizedCourse[]> {
-  const [rows, topics] = await Promise.all([fetchCoursesSheet(), getTopics(locale)])
-  const topicMap = new Map(topics.map(t => [t.slug, t.name]))
-
-  return rows
-    .filter(r => r.slug?.trim() && r.status === 'published')
-    .map(r => ({
-      slug: r.slug,
-      topicSlug: r.topic_slug ?? '',
-      topicName: topicMap.get(r.topic_slug) ?? r.topic_slug ?? '',
-      level: (r.level as CourseLevel) || 'foundation',
-      duration: {
-        hours: parseInt(r.duration_hours) || 0,
-        sessions: parseInt(r.duration_sessions) || 0,
-      },
-      title: pick(r, locale, 'title'),
-      description: pick(r, locale, 'description'),
-      tags: r.tags ? r.tags.split(',').map(t => t.trim()).filter(Boolean) : [],
-      learningOutcome: pick(r, locale, 'learning_outcome'),
-      priceOriginal: parseInt(r.price_original) || 0,
-      priceSale: r.price_sale?.trim() ? parseInt(r.price_sale) || null : null,
-      prerequisite: r.prerequisite?.trim() || null,
-      targetAudience: parsePipe(pick(r, locale, 'target_audience')),
-      modules: parsePipe(pick(r, locale, 'modules')),
-      finalProject: pick(r, locale, 'final_project'),
-      deliveryFormat: pick(r, locale, 'delivery_format') || 'Online / Hybrid',
-      imageUrl: courseImageUrl(r),
-    }))
+  const courses = await prisma.course.findMany({
+    where: { status: 'PUBLISHED' },
+    include: { topic: true },
+    orderBy: { createdAt: 'asc' },
+  })
+  return courses.map((c) => toLocalizedCourse(c, locale))
 }
 
 export async function getCourseBySlug(slug: string, locale: string): Promise<LocalizedCourse | null> {
-  const courses = await getCourses(locale)
-  return courses.find(c => c.slug === slug) ?? null
+  const course = await prisma.course.findFirst({
+    where: { slug, status: 'PUBLISHED' },
+    include: { topic: true },
+  })
+  return course ? toLocalizedCourse(course, locale) : null
 }
 
 export async function getTopicBySlug(slug: string, locale: string): Promise<LocalizedTopic | null> {
-  const topics = await getTopics(locale)
-  return topics.find(t => t.slug === slug) ?? null
+  const topic = await prisma.topic.findUnique({ where: { slug } })
+  return topic ? toLocalizedTopic(topic, locale) : null
 }
 
 export async function getAllCourseSlugs(): Promise<{ slug: string }[]> {
-  const rows = await fetchCoursesSheet()
-  return rows
-    .filter(r => r.slug?.trim() && r.status === 'published')
-    .map(r => ({ slug: r.slug }))
+  const courses = await prisma.course.findMany({
+    where: { status: 'PUBLISHED' },
+    select: { slug: true },
+  })
+  return courses
 }

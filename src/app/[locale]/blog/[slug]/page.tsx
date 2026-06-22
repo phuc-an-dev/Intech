@@ -11,6 +11,7 @@ import {
   getPostTitle,
   getPostExcerpt,
   getPostCategory,
+  getPostAuthorRole,
   getPostBody,
   getPostTags,
   formatPostDate,
@@ -119,16 +120,16 @@ export default async function BlogDetailPage(
           <div className="flex flex-wrap items-center gap-5 text-sm font-medium">
             <div className="flex items-center gap-3 bg-black/20 px-4 py-2 rounded-lg backdrop-blur-sm">
               <Image
-                src={post.authorImage}
-                alt={post.authorImageAlt}
+                src={post.author.image}
+                alt={post.author.imageAlt}
                 width={28}
                 height={28}
                 className="h-7 w-7 rounded-full bg-white object-contain p-1"
               />
               <span>
-                {post.authorName}
+                {post.author.name}
                 <span className="sr-only">
-                  , {locale === "vi" ? post.authorRole_vi : post.authorRole_en}
+                  , {getPostAuthorRole(post, locale)}
                 </span>
               </span>
             </div>
@@ -172,16 +173,16 @@ export default async function BlogDetailPage(
         <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 mb-8">
           <div className="flex items-center gap-4 mb-5 pb-5 border-b border-gray-100">
             <Image
-              src={post.authorImage}
-              alt={post.authorImageAlt}
+              src={post.author.image}
+              alt={post.author.imageAlt}
               width={48}
               height={48}
               className="h-12 w-12 rounded-full bg-[#F4F7F9] object-contain p-2"
             />
             <div>
-              <p className="font-heading font-bold text-[#002D62]">{post.authorName}</p>
+              <p className="font-heading font-bold text-[#002D62]">{post.author.name}</p>
               <p className="text-sm text-gray-500">
-                {locale === "vi" ? post.authorRole_vi : post.authorRole_en}
+                {getPostAuthorRole(post, locale)}
               </p>
             </div>
           </div>

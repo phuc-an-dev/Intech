@@ -1,5 +1,14 @@
 import { render, screen } from '@testing-library/react'
-import { describe, it, expect } from 'vitest'
+import { describe, it, expect, vi } from 'vitest'
+
+// Featured courses now load from the DB; stub the data accessors so the home
+// page renders without a live database (tests assert static translated keys).
+vi.mock('@/lib/courses', async (importActual) => ({
+  ...(await importActual<typeof import('@/lib/courses')>()),
+  getCourses: vi.fn().mockResolvedValue([]),
+  getTopics: vi.fn().mockResolvedValue([]),
+}))
+
 import Home from './page'
 
 describe('Home Page', () => {

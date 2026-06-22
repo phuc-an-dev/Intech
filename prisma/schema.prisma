@@ -20,14 +20,95 @@ enum PostStatus {
   PUBLISHED
 }
 
+enum CourseStatus {
+  DRAFT
+  PUBLISHED
+}
+
+enum CourseLevel {
+  foundation
+  tools
+  application
+  advanced
+  strategic
+}
+
+model Category {
+  id        String   @id @default(cuid())
+  key       String   @unique
+  name_vi   String
+  name_en   String
+  posts     Post[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Author {
+  id        String   @id @default(cuid())
+  name      String
+  role_vi   String
+  role_en   String
+  image     String
+  imageAlt  String
+  posts     Post[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Topic {
+  id             String   @id @default(cuid())
+  slug           String   @unique
+  name_vi        String
+  name_en        String
+  description_vi String   @db.Text
+  description_en String   @db.Text
+  courses        Course[]
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+}
+
+model Course {
+  id                 String       @id @default(cuid())
+  slug               String       @unique
+  status             CourseStatus @default(DRAFT)
+  level              CourseLevel  @default(foundation)
+  topicId            String
+  topic              Topic        @relation(fields: [topicId], references: [id])
+  durationHours      Int          @default(0)
+  durationSessions   Int          @default(0)
+  title_vi           String       @db.Text
+  title_en           String       @db.Text
+  description_vi     String       @db.Text
+  description_en     String       @db.Text
+  learningOutcome_vi String       @db.Text
+  learningOutcome_en String       @db.Text
+  targetAudience_vi  Json
+  targetAudience_en  Json
+  modules_vi         Json
+  modules_en         Json
+  finalProject_vi    String       @db.Text
+  finalProject_en    String       @db.Text
+  deliveryFormat_vi  String
+  deliveryFormat_en  String
+  tags               Json
+  prerequisite       String?      @db.Text
+  priceOriginal      Int          @default(0)
+  priceSale          Int?
+  imageUrl           String
+  createdAt          DateTime     @default(now())
+  updatedAt          DateTime     @updatedAt
+
+  @@index([status])
+  @@index([topicId])
+  @@index([level])
+}
+
 model Post {
   id                String     @id @default(cuid())
   slug              String     @unique
   status            PostStatus @default(DRAFT)
+  pinned            Boolean    @default(false)
   lang              String
-  categoryKey       String
-  category_vi       String
-  category_en       String
   title_vi          String     @db.Text
   title_en          String     @db.Text
   excerpt_vi        String     @db.Text
@@ -39,14 +120,16 @@ model Post {
   coverImage        String?
   readTime          Int        @default(5)
   date              DateTime
-  authorName        String
-  authorRole_vi     String
-  authorRole_en     String
-  authorImage       String
-  authorImageAlt    String
   relatedCourseSlug String?
+  categoryId        String
+  authorId          String
+  category          Category   @relation(fields: [categoryId], references: [id])
+  author            Author     @relation(fields: [authorId], references: [id])
   createdAt         DateTime   @default(now())
   updatedAt         DateTime   @updatedAt
 
   @@index([status])
+  @@index([pinned])
+  @@index([categoryId])
+  @@index([authorId])
 }

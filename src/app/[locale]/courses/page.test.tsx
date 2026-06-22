@@ -1,5 +1,14 @@
 import { render, screen } from '@testing-library/react'
-import { describe, it, expect } from 'vitest'
+import { describe, it, expect, vi } from 'vitest'
+
+// Course data now comes from the DB; the page test only asserts static UI,
+// so stub the data accessors (keeping real exports like COURSE_LEVELS).
+vi.mock('@/lib/courses', async (importActual) => ({
+  ...(await importActual<typeof import('@/lib/courses')>()),
+  getCourses: vi.fn().mockResolvedValue([]),
+  getTopics: vi.fn().mockResolvedValue([]),
+}))
+
 import CoursesPage, { generateMetadata } from './page'
 
 describe('Courses Page', () => {

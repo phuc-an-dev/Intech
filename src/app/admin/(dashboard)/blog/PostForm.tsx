@@ -1,159 +1,312 @@
 'use client'
 
 import { useState } from 'react'
-import ReactMarkdown from 'react-markdown'
-import remarkGfm from 'remark-gfm'
-import { savePost } from './actions'
+import { useRouter } from 'next/navigation'
+import dynamic from 'next/dynamic'
+import dayjs from 'dayjs'
+import {
+  Form,
+  Input,
+  InputNumber,
+  DatePicker,
+  Switch,
+  Select,
+  Button,
+  Card,
+  Row,
+  Col,
+  Segmented,
+  Upload,
+  Space,
+  Image,
+  Typography,
+  App,
+} from 'antd'
+import type { UploadProps } from 'antd'
+import { UploadCloud, Save, HelpCircle } from 'lucide-react'
+import { savePost, type PostInput } from './actions'
+
+const MarkdownEditor = dynamic(() => import('./MarkdownEditor'), {
+  ssr: false,
+  loading: () => (
+    <div style={{ height: 440, display: 'grid', placeItems: 'center', color: '#bbb' }}>
+      Đang tải trình soạn thảo…
+    </div>
+  ),
+})
 
 export interface PostFormValues {
   id?: string
-  slug: string; status: string; lang: string; categoryKey: string
-  category_vi: string; category_en: string
+  slug: string; status: string; lang: string
+  categoryId: string; authorId: string
   title_vi: string; title_en: string
   excerpt_vi: string; excerpt_en: string
   body_vi: string; body_en: string
   tags: string; gradient: string; coverImage: string; readTime: string
-  date: string; authorName: string; authorRole_vi: string; authorRole_en: string
-  authorImage: string; authorImageAlt: string; relatedCourseSlug: string
+  date: string; relatedCourseSlug: string
+}
+
+export interface Option {
+  value: string
+  label: string
 }
 
 const empty: PostFormValues = {
-  slug: '', status: 'DRAFT', lang: 'vi', categoryKey: '',
-  category_vi: '', category_en: '', title_vi: '', title_en: '',
-  excerpt_vi: '', excerpt_en: '', body_vi: '', body_en: '',
-  tags: '', gradient: 'from-[#002D62] to-blue-800', coverImage: '', readTime: '5',
-  date: new Date().toISOString().slice(0, 10), authorName: 'Intech ISC Editorial Team',
-  authorRole_vi: '', authorRole_en: '', authorImage: '/logo.svg', authorImageAlt: '',
-  relatedCourseSlug: '',
+  slug: '', status: 'DRAFT', lang: 'vi', categoryId: '', authorId: '',
+  title_vi: '', title_en: '', excerpt_vi: '', excerpt_en: '',
+  body_vi: '', body_en: '', tags: '', gradient: 'from-[#002D62] to-blue-800',
+  coverImage: '', readTime: '5', date: dayjs().format('YYYY-MM-DD'), relatedCourseSlug: '',
 }
 
-function Field({ name, label, defaultValue, textarea }: {
-  name: string; label: string; defaultValue?: string; textarea?: boolean
+export default function PostForm({
+  post,
+  categories,
+  authors,
+}: {
+  post?: PostFormValues
+  categories: Option[]
+  authors: Option[]
 }) {
-  return (
-    <label className="block text-sm">
-      <span className="mb-1 block text-gray-600">{label}</span>
-      {textarea ? (
-        <textarea name={name} defaultValue={defaultValue} rows={3}
-          className="w-full rounded border px-3 py-2 text-sm" />
-      ) : (
-        <input name={name} defaultValue={defaultValue} className="w-full rounded border px-3 py-2" />
-      )}
-    </label>
-  )
-}
-
-export default function PostForm({ post }: { post?: PostFormValues }) {
   const v = post ?? empty
-  const [lang, setLang] = useState<'vi' | 'en'>('vi')
+  const router = useRouter()
+  const { message } = App.useApp()
+  const [form] = Form.useForm()
+
+  const [editLang, setEditLang] = useState<'vi' | 'en'>('vi')
   const [bodyVi, setBodyVi] = useState(v.body_vi)
   const [bodyEn, setBodyEn] = useState(v.body_en)
   const [cover, setCover] = useState(v.coverImage)
-  const [preview, setPreview] = useState(false)
-  const [uploading, setUploading] = useState(false)
+  const [coverUploading, setCoverUploading] = useState(false)
+  const [submitting, setSubmitting] = useState(false)
 
-  async function onUpload(e: React.ChangeEvent<HTMLInputElement>) {
-    const file = e.target.files?.[0]
-    if (!file) return
-    setUploading(true)
-    const fd = new FormData()
-    fd.append('file', file)
-    const res = await fetch('/api/admin/upload', { method: 'POST', body: fd })
-    setUploading(false)
-    if (res.ok) { const { url } = await res.json(); setCover(url) }
-    else alert('Upload thất bại')
+  const uploadCover: UploadProps['customRequest'] = async ({ file, onSuccess, onError }) => {
+    setCoverUploading(true)
+    try {
+      const fd = new FormData()
+      fd.append('file', file as File)
+      const res = await fetch('/api/admin/upload', { method: 'POST', body: fd })
+      if (!res.ok) throw new Error()
+      const { url } = await res.json()
+      setCover(url)
+      message.success('Đã tải ảnh bìa')
+      onSuccess?.(url)
+    } catch (e) {
+      message.error('Tải ảnh thất bại')
+      onError?.(e as Error)
+    } finally {
+      setCoverUploading(false)
+    }
   }
 
+  async function onFinish(values: Record<string, unknown>) {
+    setSubmitting(true)
+    const tags = Array.isArray(values.tags) ? (values.tags as string[]).join(',') : ''
+    const input: PostInput = {
+      id: post?.id,
+      slug: post?.slug, // existing slug on edit; server auto-generates otherwise
+      status: values.published ? 'PUBLISHED' : 'DRAFT',
+      lang: 'vi',
+      categoryId: values.categoryId as string,
+      authorId: values.authorId as string,
+      title_vi: values.title_vi as string,
+      title_en: values.title_en as string,
+      excerpt_vi: values.excerpt_vi as string,
+      excerpt_en: values.excerpt_en as string,
+      tags,
+      gradient: v.gradient,
+      readTime: values.readTime as number,
+      date: values.date ? (values.date as dayjs.Dayjs).format('YYYY-MM-DD') : undefined,
+      relatedCourseSlug: values.relatedCourseSlug as string,
+      coverImage: cover,
+      body_vi: bodyVi,
+      body_en: bodyEn,
+    }
+    const res = await savePost(input)
+    if (res?.error) {
+      message.error(res.error)
+      setSubmitting(false)
+    }
+  }
+
+  const initialValues = {
+    published: v.status === 'PUBLISHED',
+    categoryId: v.categoryId || undefined,
+    authorId: v.authorId || undefined,
+    title_vi: v.title_vi,
+    title_en: v.title_en,
+    excerpt_vi: v.excerpt_vi,
+    excerpt_en: v.excerpt_en,
+    tags: v.tags ? v.tags.split(',').map((t) => t.trim()).filter(Boolean) : [],
+    readTime: Number(v.readTime) || 5,
+    date: v.date ? dayjs(v.date) : dayjs(),
+    relatedCourseSlug: v.relatedCourseSlug,
+  }
+
+  // Per-language text fields (both stay mounted so antd Form keeps their values).
+  const langFields = (lng: 'vi' | 'en') => (
+    <div style={{ display: editLang === lng ? 'block' : 'none' }}>
+      <Form.Item name={`title_${lng}`} label="Tiêu đề">
+        <Input placeholder={lng === 'vi' ? 'Tiêu đề bài viết' : 'Article title'} />
+      </Form.Item>
+      <Form.Item name={`excerpt_${lng}`} label="Tóm tắt">
+        <Input.TextArea
+          rows={3}
+          placeholder={lng === 'vi' ? 'Mô tả ngắn hiển thị trên danh sách…' : 'Short description…'}
+        />
+      </Form.Item>
+    </div>
+  )
+
   return (
-    <form action={savePost} className="flex max-w-3xl flex-col gap-4">
-      {post?.id && <input type="hidden" name="id" defaultValue={post.id} />}
-      <input type="hidden" name="coverImage" value={cover} />
-      <input type="hidden" name="body_vi" value={bodyVi} />
-      <input type="hidden" name="body_en" value={bodyEn} />
+    <Form
+      form={form}
+      layout="vertical"
+      initialValues={initialValues}
+      onFinish={onFinish}
+      requiredMark="optional"
+      style={{ maxWidth: 960, margin: '0 auto', paddingBottom: 48 }}
+    >
+      <Typography.Title level={3} style={{ color: '#002D62', marginTop: 0 }}>
+        {post?.id ? 'Sửa bài viết' : 'Bài viết mới'}
+      </Typography.Title>
 
-      {/* Metadata grid */}
-      <div className="grid grid-cols-2 gap-4">
-        <Field name="slug" label="Slug" defaultValue={v.slug} />
-        <label className="block text-sm">
-          <span className="mb-1 block text-gray-600">Trạng thái</span>
-          <select name="status" defaultValue={v.status} className="w-full rounded border px-3 py-2">
-            <option value="DRAFT">Nháp</option>
-            <option value="PUBLISHED">Đã đăng</option>
-          </select>
-        </label>
-        <Field name="categoryKey" label="Category key" defaultValue={v.categoryKey} />
-        <Field name="date" label="Ngày (YYYY-MM-DD)" defaultValue={v.date} />
-        <Field name="readTime" label="Read time (phút)" defaultValue={v.readTime} />
-        <Field name="tags" label="Tags (phân tách bằng dấu phẩy)" defaultValue={v.tags} />
-        <Field name="gradient" label="Gradient CSS" defaultValue={v.gradient} />
-        <Field name="relatedCourseSlug" label="Related course slug" defaultValue={v.relatedCourseSlug} />
-      </div>
+      {/* ── Thông tin chung ── */}
+      <Card title="Thông tin chung" style={{ marginBottom: 20 }}>
+        <Row gutter={16}>
+          <Col xs={24} sm={12}>
+            <Form.Item name="categoryId" label="Danh mục" rules={[{ required: true, message: 'Chọn danh mục' }]}>
+              <Select
+                placeholder="Chọn danh mục"
+                options={categories}
+                showSearch
+                optionFilterProp="label"
+                notFoundContent="Chưa có danh mục — tạo ở mục Danh mục"
+              />
+            </Form.Item>
+          </Col>
+          <Col xs={24} sm={12}>
+            <Form.Item name="authorId" label="Tác giả" rules={[{ required: true, message: 'Chọn tác giả' }]}>
+              <Select
+                placeholder="Chọn tác giả"
+                options={authors}
+                showSearch
+                optionFilterProp="label"
+                notFoundContent="Chưa có tác giả — tạo ở mục Tác giả"
+              />
+            </Form.Item>
+          </Col>
+          <Col xs={24} sm={8}>
+            <Form.Item name="published" label="Trạng thái" valuePropName="checked">
+              <Switch checkedChildren="Đã đăng" unCheckedChildren="Nháp" />
+            </Form.Item>
+          </Col>
+          <Col xs={24} sm={8}>
+            <Form.Item name="date" label="Ngày đăng">
+              <DatePicker style={{ width: '100%' }} format="YYYY-MM-DD" />
+            </Form.Item>
+          </Col>
+          <Col xs={24} sm={8}>
+            <Form.Item name="readTime" label="Read time (phút)">
+              <InputNumber min={1} style={{ width: '100%' }} />
+            </Form.Item>
+          </Col>
+          <Col xs={24} sm={16}>
+            <Form.Item name="tags" label="Tags">
+              <Select
+                mode="tags"
+                open={false}
+                suffixIcon={null}
+                tokenSeparators={[',']}
+                placeholder="Nhập tag rồi nhấn Enter"
+                style={{ width: '100%' }}
+              />
+            </Form.Item>
+          </Col>
+          <Col xs={24} sm={8}>
+            <Form.Item name="relatedCourseSlug" label="Related course slug">
+              <Input placeholder="(tuỳ chọn)" />
+            </Form.Item>
+          </Col>
+        </Row>
+      </Card>
 
-      {/* Cover image */}
-      <div className="text-sm">
-        <span className="mb-1 block text-gray-600">Ảnh bìa</span>
-        <input type="file" accept="image/*" onChange={onUpload} className="text-sm" />
-        {uploading && <span className="ml-2 text-gray-400 text-xs">Đang tải…</span>}
-        {cover && <img src={cover} alt="" className="mt-2 h-32 rounded object-cover" />}
-      </div>
+      {/* ── Ảnh bìa ── */}
+      <Card title="Ảnh bìa" style={{ marginBottom: 20 }}>
+        <Space align="start" size="large">
+          <Upload showUploadList={false} accept="image/*" customRequest={uploadCover}>
+            <Button icon={<UploadCloud size={16} />} loading={coverUploading}>
+              {cover ? 'Đổi ảnh' : 'Chọn ảnh'}
+            </Button>
+          </Upload>
+          {cover && (
+            <Space orientation="vertical" size={4}>
+              <Image
+                src={cover}
+                alt="cover"
+                width={180}
+                height={120}
+                style={{ objectFit: 'cover', borderRadius: 8 }}
+              />
+              <Button type="link" danger size="small" onClick={() => setCover('')}>
+                Xóa ảnh
+              </Button>
+            </Space>
+          )}
+        </Space>
+        <Typography.Paragraph type="secondary" style={{ marginTop: 8, marginBottom: 0, fontSize: 12 }}>
+          JPEG, PNG, WebP, AVIF · tối đa 5MB · nhấp ảnh để xem to
+        </Typography.Paragraph>
+      </Card>
 
-      {/* Language tabs */}
-      <div className="flex gap-2 border-b">
-        {(['vi', 'en'] as const).map((l) => (
-          <button key={l} type="button" onClick={() => setLang(l)}
-            className={`px-4 py-2 text-sm ${lang === l ? 'border-b-2 border-[#002D62] font-semibold' : 'text-gray-400'}`}>
-            {l.toUpperCase()}
-          </button>
-        ))}
-      </div>
+      {/* ── Nội dung ── */}
+      <Card style={{ marginBottom: 20 }}>
+        <Segmented
+          value={editLang}
+          onChange={(val) => setEditLang(val as 'vi' | 'en')}
+          options={[
+            { label: '🇻🇳 Tiếng Việt', value: 'vi' },
+            { label: '🇬🇧 English', value: 'en' },
+          ]}
+          style={{ marginBottom: 20 }}
+        />
 
-      {/* VI fields */}
-      <div className={lang === 'vi' ? 'flex flex-col gap-4' : 'hidden'}>
-        <Field name="title_vi" label="Tiêu đề (VI)" defaultValue={v.title_vi} />
-        <Field name="excerpt_vi" label="Tóm tắt (VI)" defaultValue={v.excerpt_vi} textarea />
-        <Field name="category_vi" label="Category (VI)" defaultValue={v.category_vi} />
-        <Field name="authorRole_vi" label="Author role (VI)" defaultValue={v.authorRole_vi} />
-        <label className="block text-sm">
-          <span className="mb-1 block text-gray-600">Nội dung Markdown (VI)</span>
-          <textarea value={bodyVi} onChange={(e) => setBodyVi(e.target.value)}
-            rows={16} className="w-full rounded border px-3 py-2 font-mono text-sm" />
-        </label>
-      </div>
+        {langFields('vi')}
+        {langFields('en')}
 
-      {/* EN fields */}
-      <div className={lang === 'en' ? 'flex flex-col gap-4' : 'hidden'}>
-        <Field name="title_en" label="Title (EN)" defaultValue={v.title_en} />
-        <Field name="excerpt_en" label="Excerpt (EN)" defaultValue={v.excerpt_en} textarea />
-        <Field name="category_en" label="Category (EN)" defaultValue={v.category_en} />
-        <Field name="authorRole_en" label="Author role (EN)" defaultValue={v.authorRole_en} />
-        <label className="block text-sm">
-          <span className="mb-1 block text-gray-600">Markdown body (EN)</span>
-          <textarea value={bodyEn} onChange={(e) => setBodyEn(e.target.value)}
-            rows={16} className="w-full rounded border px-3 py-2 font-mono text-sm" />
-        </label>
-      </div>
+        <Form.Item
+          label={
+            <span style={{ display: 'inline-flex', alignItems: 'center', gap: 6 }}>
+              Nội dung Markdown
+              <a
+                href="https://www.markdownguide.org/basic-syntax/"
+                target="_blank"
+                rel="noreferrer"
+                title="Cách dùng Markdown"
+                style={{ display: 'inline-flex', color: '#00A3C1' }}
+              >
+                <HelpCircle size={15} />
+              </a>
+            </span>
+          }
+          style={{ marginBottom: 0 }}
+        >
+          <MarkdownEditor
+            key={editLang}
+            value={editLang === 'vi' ? bodyVi : bodyEn}
+            onChange={editLang === 'vi' ? setBodyVi : setBodyEn}
+          />
+        </Form.Item>
+      </Card>
 
-      {/* Author */}
-      <Field name="authorName" label="Author name" defaultValue={v.authorName} />
-      <Field name="authorImage" label="Author image path" defaultValue={v.authorImage} />
-      <Field name="authorImageAlt" label="Author image alt" defaultValue={v.authorImageAlt} />
-
-      {/* Preview */}
-      <button type="button" onClick={() => setPreview((p) => !p)}
-        className="self-start text-sm text-[#00A3C1] hover:underline">
-        {preview ? 'Ẩn xem trước' : 'Xem trước'} ({lang.toUpperCase()})
-      </button>
-      {preview && (
-        <div className="prose max-w-none rounded border bg-white p-4 text-sm">
-          <ReactMarkdown remarkPlugins={[remarkGfm]}>
-            {lang === 'vi' ? bodyVi : bodyEn}
-          </ReactMarkdown>
-        </div>
-      )}
-
-      <button className="self-start rounded bg-[#002D62] px-6 py-2 font-semibold text-white hover:bg-[#00396e]">
-        Lưu
-      </button>
-    </form>
+      {/* ── Actions ── */}
+      <Space>
+        <Button type="primary" htmlType="submit" icon={<Save size={16} />} size="large" loading={submitting}>
+          Lưu bài viết
+        </Button>
+        <Button size="large" onClick={() => router.push('/admin/blog')}>
+          Huỷ
+        </Button>
+      </Space>
+    </Form>
   )
 }
