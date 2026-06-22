@@ -27,6 +27,9 @@ const nextConfig: NextConfig = {
   images: {
     formats: ['image/avif', 'image/webp'],
     minimumCacheTTL: 60 * 60 * 24 * 30,
+    remotePatterns: [
+      { protocol: 'https', hostname: 'intech-web.s3.ap-southeast-1.amazonaws.com' },
+    ],
   },
 };
 

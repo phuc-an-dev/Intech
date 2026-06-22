@@ -4,12 +4,12 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { ArrowRight, Clock, Calendar } from "lucide-react";
 import Image from "next/image";
 import {
-  insights,
-  getInsightTitle,
-  getInsightExcerpt,
-  getInsightCategory,
-  formatInsightDate,
-} from "@/data/insights";
+  getPublishedPosts,
+  getPostTitle,
+  getPostExcerpt,
+  getPostCategory,
+  formatPostDate,
+} from "@/lib/posts";
 import { getAbsoluteUrl } from "@/lib/site";
 
 export async function generateMetadata(
@@ -53,7 +53,17 @@ export default async function BlogPage(
   setRequestLocale(locale);
   const t = await getTranslations({ locale, namespace: "insights" });
 
-  const [featured, ...rest] = insights;
+  const posts = await getPublishedPosts();
+
+  if (posts.length === 0) {
+    return (
+      <div className="w-full bg-[#F4F7F9] min-h-screen pb-24 pt-28 text-center text-gray-500">
+        {t("page_description")}
+      </div>
+    );
+  }
+
+  const [featured, ...rest] = posts;
 
   return (
     <div className="w-full bg-[#F4F7F9] min-h-screen pb-24">
@@ -80,7 +90,7 @@ export default async function BlogPage(
         >
           <div className={`w-full h-56 md:h-72 bg-linear-to-br ${featured.gradient} flex items-center justify-center relative overflow-hidden`}>
             {featured.coverImage && (
-              <Image src={featured.coverImage} alt={getInsightTitle(featured, locale)} fill className="object-cover opacity-60" sizes="(max-width: 768px) 100vw, 800px" />
+              <Image src={featured.coverImage} alt={getPostTitle(featured, locale)} fill className="object-cover opacity-60" sizes="(max-width: 768px) 100vw, 800px" />
             )}
             <div className="absolute inset-0 bg-black/30" />
             <div className="relative z-10 text-center px-8">
@@ -88,7 +98,7 @@ export default async function BlogPage(
                 {t("featured_label")}
               </span>
               <p className="text-white/80 text-sm font-medium">
-                {getInsightCategory(featured, locale)}
+                {getPostCategory(featured, locale)}
               </p>
             </div>
           </div>
@@ -96,7 +106,7 @@ export default async function BlogPage(
           <div className="p-8 md:p-10">
             <div className="flex flex-wrap items-center gap-3 mb-4">
               <span className="text-xs font-bold text-white bg-[#002D62] px-3 py-1 rounded-full">
-                {getInsightCategory(featured, locale)}
+                {getPostCategory(featured, locale)}
               </span>
               <span className={`text-xs font-bold px-2 py-0.5 rounded border ${
                 featured.lang === "en"
@@ -111,14 +121,14 @@ export default async function BlogPage(
               </span>
               <span className="flex items-center gap-1.5 text-xs text-gray-500">
                 <Calendar className="w-3.5 h-3.5" />
-                {formatInsightDate(featured.date, locale)}
+                {formatPostDate(featured.date, locale)}
               </span>
             </div>
             <h2 className="font-heading text-2xl md:text-3xl font-extrabold text-[#002D62] mb-3 group-hover:text-[#00A3C1] transition-colors leading-tight">
-              {getInsightTitle(featured, locale)}
+              {getPostTitle(featured, locale)}
             </h2>
             <p className="text-gray-600 leading-relaxed mb-6">
-              {getInsightExcerpt(featured, locale)}
+              {getPostExcerpt(featured, locale)}
             </p>
             <span className="inline-flex items-center gap-2 text-[#00A3C1] font-semibold text-sm group-hover:gap-3 transition-all">
               {t("read_more")} <ArrowRight className="w-4 h-4" />
@@ -128,43 +138,43 @@ export default async function BlogPage(
 
         {/* Card Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {rest.map((insight) => (
+          {rest.map((post) => (
             <Link
-              key={insight.slug}
-              href={`/blog/${insight.slug}`}
+              key={post.slug}
+              href={`/blog/${post.slug}`}
               className="group bg-white rounded-2xl shadow-md border border-gray-100 overflow-hidden hover:shadow-xl transition-shadow"
             >
-              <div className={`w-full h-36 bg-linear-to-br ${insight.gradient} flex items-center justify-center relative overflow-hidden`}>
-                {insight.coverImage && (
-                  <Image src={insight.coverImage} alt={getInsightTitle(insight, locale)} fill className="object-cover opacity-50" sizes="(max-width: 768px) 100vw, 400px" />
+              <div className={`w-full h-36 bg-linear-to-br ${post.gradient} flex items-center justify-center relative overflow-hidden`}>
+                {post.coverImage && (
+                  <Image src={post.coverImage} alt={getPostTitle(post, locale)} fill className="object-cover opacity-50" sizes="(max-width: 768px) 100vw, 400px" />
                 )}
                 <span className="relative z-10 text-white/90 text-xs font-bold uppercase tracking-wider drop-shadow">
-                  {getInsightCategory(insight, locale)}
+                  {getPostCategory(post, locale)}
                 </span>
               </div>
 
               <div className="p-6">
                 <div className="flex flex-wrap items-center gap-2 mb-3">
                   <span className="text-xs font-bold text-white bg-[#002D62] px-2.5 py-0.5 rounded-full">
-                    {getInsightCategory(insight, locale)}
+                    {getPostCategory(post, locale)}
                   </span>
                   <span className={`text-xs font-bold px-2 py-0.5 rounded border ${
-                    insight.lang === "en"
+                    post.lang === "en"
                       ? "border-blue-300 text-blue-600 bg-blue-50"
                       : "border-green-300 text-green-600 bg-green-50"
                   }`}>
-                    {insight.lang === "en" ? t("lang_badge_en") : t("lang_badge_vi")}
+                    {post.lang === "en" ? t("lang_badge_en") : t("lang_badge_vi")}
                   </span>
                   <span className="flex items-center gap-1 text-xs text-gray-400">
                     <Clock className="w-3 h-3" />
-                    {insight.readTime} {t("min_read")}
+                    {post.readTime} {t("min_read")}
                   </span>
                 </div>
                 <h3 className="font-heading text-lg font-bold text-[#002D62] mb-2 group-hover:text-[#00A3C1] transition-colors leading-snug line-clamp-2">
-                  {getInsightTitle(insight, locale)}
+                  {getPostTitle(post, locale)}
                 </h3>
                 <p className="text-gray-500 text-sm leading-relaxed line-clamp-2 mb-4">
-                  {getInsightExcerpt(insight, locale)}
+                  {getPostExcerpt(post, locale)}
                 </p>
                 <span className="inline-flex items-center gap-1.5 text-[#00A3C1] font-semibold text-sm group-hover:gap-2.5 transition-all">
                   {t("read_more")} <ArrowRight className="w-3.5 h-3.5" />

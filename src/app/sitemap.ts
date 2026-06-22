@@ -1,13 +1,12 @@
 import { MetadataRoute } from 'next';
 import { routing } from '@/i18n/routing';
-import { insights } from '@/data/insights';
+import { getPublishedSlugs } from '@/lib/posts';
 import { SITE_URL } from '@/lib/site';
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const locales = routing.locales;
   const baseUrl = SITE_URL;
 
-  // Define your static routes
   const staticRoutes = [
     '',
     '/about',
@@ -28,25 +27,23 @@ export default function sitemap(): MetadataRoute.Sitemap {
     locales.forEach((locale) => {
       const isDefaultLocale = locale === routing.defaultLocale;
       const url = `${baseUrl}${isDefaultLocale ? '' : `/${locale}`}${route}`;
-      
       sitemapEntries.push({
         url,
         lastModified: new Date(),
         changeFrequency: 'monthly',
         priority: route === '' ? 1 : 0.8,
-        // Optional: alternate languages
-        // alternateRefs: locales.map(l => ({ href: ..., hrefLang: l }))
       });
     });
   });
 
-  insights.forEach((insight) => {
+  const slugs = await getPublishedSlugs();
+  slugs.forEach(({ slug }) => {
     locales.forEach((locale) => {
       const isDefaultLocale = locale === routing.defaultLocale;
-      const url = `${baseUrl}${isDefaultLocale ? '' : `/${locale}`}/blog/${insight.slug}`;
+      const url = `${baseUrl}${isDefaultLocale ? '' : `/${locale}`}/blog/${slug}`;
       sitemapEntries.push({
         url,
-        lastModified: new Date(insight.date),
+        lastModified: new Date(),
         changeFrequency: 'yearly',
         priority: 0.6,
       });
