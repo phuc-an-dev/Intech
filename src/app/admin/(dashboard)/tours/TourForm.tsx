@@ -21,7 +21,7 @@ import {
 import type { UploadProps } from 'antd'
 import {
   UploadCloud, Save, Plus, Trash2, Info, FileText, Sparkles,
-  CalendarDays, Users, Images, ImageOff,
+  CalendarDays, Users, Images, ImageOff, ImagePlus,
 } from 'lucide-react'
 import { saveTour, type TourInput } from './actions'
 import { Section, LangToggle, ADMIN_NAVY as NAVY } from '../Section'
@@ -37,6 +37,7 @@ export interface TourFormValues {
   slug: string
   status: string
   order: number
+  coverImage: string
   duration_vi: string; duration_en: string
   name_vi: string; name_en: string
   subtitle_vi: string; subtitle_en: string
@@ -55,7 +56,7 @@ export interface TourFormValues {
 }
 
 const empty: TourFormValues = {
-  slug: '', status: 'PUBLISHED', order: 0,
+  slug: '', status: 'PUBLISHED', order: 0, coverImage: '',
   duration_vi: '', duration_en: '', name_vi: '', name_en: '',
   subtitle_vi: '', subtitle_en: '', destination_vi: '', destination_en: '',
   price_vi: '', price_en: '', groupSize_vi: '', groupSize_en: '',
@@ -173,6 +174,23 @@ export default function TourForm({ tour }: { tour?: TourFormValues }) {
   const [form] = Form.useForm()
   const [editLang, setEditLang] = useState<Lang>('vi')
   const [submitting, setSubmitting] = useState(false)
+  const [cover, setCover] = useState(v.coverImage)
+  const [coverUploading, setCoverUploading] = useState(false)
+
+  const uploadCover: UploadProps['customRequest'] = async ({ file, onSuccess, onError }) => {
+    setCoverUploading(true)
+    try {
+      const url = await uploadToS3(file as File)
+      setCover(url)
+      message.success('Đã tải ảnh đại diện')
+      onSuccess?.(url)
+    } catch (e) {
+      message.error('Tải ảnh thất bại')
+      onError?.(e as Error)
+    } finally {
+      setCoverUploading(false)
+    }
+  }
 
   async function onFinish(values: Record<string, unknown>) {
     setSubmitting(true)
@@ -181,6 +199,7 @@ export default function TourForm({ tour }: { tour?: TourFormValues }) {
       slug: tour?.slug,
       status: values.published ? 'PUBLISHED' : 'DRAFT',
       order: (values.order as number) ?? 0,
+      coverImage: cover,
       duration_vi: values.duration_vi as string, duration_en: values.duration_en as string,
       name_vi: values.name_vi as string, name_en: values.name_en as string,
       subtitle_vi: values.subtitle_vi as string, subtitle_en: values.subtitle_en as string,
@@ -405,6 +424,27 @@ export default function TourForm({ tour }: { tour?: TourFormValues }) {
               </Form.Item>
             </Col>
           </Row>
+        </Section>
+
+        <Section icon={<ImagePlus size={16} />} title="Ảnh đại diện">
+          <Space align="start" size="large">
+            <Upload showUploadList={false} accept="image/*" customRequest={uploadCover}>
+              <Button icon={<UploadCloud size={16} />} loading={coverUploading}>
+                {cover ? 'Đổi ảnh' : 'Chọn ảnh'}
+              </Button>
+            </Upload>
+            {cover && (
+              <Space orientation="vertical" size={4}>
+                <Image src={cover} alt="cover" width={200} height={120} style={{ objectFit: 'cover', borderRadius: 8 }} />
+                <Button type="link" danger size="small" onClick={() => setCover('')}>
+                  Xóa ảnh
+                </Button>
+              </Space>
+            )}
+          </Space>
+          <Typography.Paragraph type="secondary" style={{ marginTop: 8, marginBottom: 0, fontSize: 12 }}>
+            Dùng làm ảnh thẻ ở trang danh sách và ảnh nền hero ở trang chi tiết.
+          </Typography.Paragraph>
         </Section>
 
         {langFields('vi')}

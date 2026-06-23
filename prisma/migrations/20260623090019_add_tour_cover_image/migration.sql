@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE `Tour` ADD COLUMN `coverImage` VARCHAR(191) NOT NULL DEFAULT '';

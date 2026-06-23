@@ -113,6 +113,7 @@ model Tour {
   slug           String     @unique
   status         TourStatus @default(PUBLISHED)
   order          Int        @default(0)
+  coverImage     String     @default("")
   duration_vi    String
   duration_en    String
   name_vi        String

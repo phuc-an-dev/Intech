@@ -10,6 +10,14 @@ import { toursEn, toursVi, type TourData } from './tours-seed-data'
 
 const prisma = new PrismaClient()
 
+// Existing curated thumbnails (previously hardcoded on the listing page), by slug.
+const COVER_BY_SLUG: Record<string, string> = {
+  'vietnam-industry-culture-experience': '/images/tour-vietnam-culture.webp',
+  'vietnam-tech-immersion': '/images/tour-vietnam-tech.webp',
+  'global-industry-leadership': '/images/tour-global-leadership.webp',
+  'international-internship-robotics-iot-smart-information-systems': '/images/tour-global-internship.webp',
+}
+
 async function main() {
   const viBySlug = new Map<string, TourData>(toursVi.map((t) => [t.slug, t]))
   let imported = 0
@@ -21,6 +29,7 @@ async function main() {
     const data = {
       status: 'PUBLISHED' as TourStatus,
       order: i,
+      coverImage: COVER_BY_SLUG[en.slug] ?? '',
       duration_vi: vi.duration, duration_en: en.duration,
       name_vi: vi.name, name_en: en.name,
       subtitle_vi: vi.subtitle, subtitle_en: en.subtitle,

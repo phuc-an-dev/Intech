@@ -40,6 +40,7 @@ export default function TourDetailClient({ tour, labels }: Props) {
         <div className="absolute inset-0 bg-gradient-to-br from-[#001a3a] via-[#002D62] to-[#003d7a]" />
         <ImagePlaceholder
           name={`hero-tour-${tour.slug ?? 'detail'}.webp`}
+          src={tour.coverImage || undefined}
           width={1920}
           height={600}
           fill

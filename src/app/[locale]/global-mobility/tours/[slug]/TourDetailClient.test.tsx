@@ -5,6 +5,7 @@ import TourDetailClient from './TourDetailClient'
 
 const tour: TourData = {
   slug: 'vietnam-industry-culture-experience',
+  coverImage: '',
   duration: '7 days',
   name: 'Vietnam Industry & Culture Experience',
   subtitle: 'Study tour',

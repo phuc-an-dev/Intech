@@ -18,6 +18,7 @@ export default async function EditTourPage(props: { params: Promise<{ id: string
     slug: t.slug,
     status: t.status,
     order: t.order,
+    coverImage: t.coverImage,
     duration_vi: t.duration_vi, duration_en: t.duration_en,
     name_vi: t.name_vi, name_en: t.name_en,
     subtitle_vi: t.subtitle_vi, subtitle_en: t.subtitle_en,

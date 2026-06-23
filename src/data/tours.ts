@@ -6,6 +6,7 @@ export type TourHighlight = { title: string; desc: string }
 
 export type TourData = {
   slug: string
+  coverImage: string
   duration: string
   name: string
   subtitle: string
@@ -30,6 +31,7 @@ function toTourData(t: Tour, locale: string): TourData {
   const pick = <T,>(vi: T, en: T): T => (v ? vi : en)
   return {
     slug: t.slug,
+    coverImage: t.coverImage,
     duration: pick(t.duration_vi, t.duration_en),
     name: pick(t.name_vi, t.name_en),
     subtitle: pick(t.subtitle_vi, t.subtitle_en),
@@ -51,6 +53,37 @@ function toTourData(t: Tour, locale: string): TourData {
 export async function getTourBySlug(slug: string, locale: string): Promise<TourData | undefined> {
   const tour = await prisma.tour.findFirst({ where: { slug, status: 'PUBLISHED' } })
   return tour ? toTourData(tour, locale) : undefined
+}
+
+export interface TourCard {
+  slug: string
+  coverImage: string
+  name: string
+  duration: string
+  destination: string
+  price: string
+  highlights: string[]
+}
+
+/** Lightweight published tours for the listing page (cards). */
+export async function getToursList(locale: string): Promise<TourCard[]> {
+  const tours = await prisma.tour.findMany({
+    where: { status: 'PUBLISHED' },
+    orderBy: [{ order: 'asc' }, { createdAt: 'asc' }],
+  })
+  const v = isVi(locale)
+  return tours.map((t) => {
+    const highlights = (v ? t.highlights_vi : t.highlights_en) as TourHighlight[] | null
+    return {
+      slug: t.slug,
+      coverImage: t.coverImage,
+      name: v ? t.name_vi : t.name_en,
+      duration: v ? t.duration_vi : t.duration_en,
+      destination: v ? t.destination_vi : t.destination_en,
+      price: v ? t.price_vi : t.price_en,
+      highlights: (Array.isArray(highlights) ? highlights : []).slice(0, 3).map((h) => h.title).filter(Boolean),
+    }
+  })
 }
 
 export async function getAllTourSlugs(): Promise<{ slug: string }[]> {

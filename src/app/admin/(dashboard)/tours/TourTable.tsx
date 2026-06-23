@@ -3,14 +3,15 @@
 import { useEffect, useMemo, useState } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { Table, Tag, Button, Space, Typography, Card, Input, App } from 'antd'
-import { Plus, Pencil, Trash2, Search } from 'lucide-react'
+import { Table, Tag, Button, Space, Typography, Card, Input, Image, App } from 'antd'
+import { Plus, Pencil, Trash2, Search, ImageOff } from 'lucide-react'
 import type { ColumnsType } from 'antd/es/table'
 import { deleteTour } from './actions'
 
 export interface TourRow {
   id: string
   slug: string
+  coverImage: string
   name_vi: string
   destination_vi: string
   duration_vi: string
@@ -60,6 +61,20 @@ export default function TourTable({ tours }: { tours: TourRow[] }) {
   }
 
   const columns: ColumnsType<TourRow> = [
+    {
+      title: 'Ảnh',
+      dataIndex: 'coverImage',
+      key: 'coverImage',
+      width: 88,
+      render: (src: string) =>
+        src ? (
+          <Image src={src} alt="" width={64} height={40} style={{ objectFit: 'cover', borderRadius: 6 }} />
+        ) : (
+          <div style={{ width: 64, height: 40, borderRadius: 6, background: '#f5f6f8', display: 'grid', placeItems: 'center', color: '#bfbfbf' }}>
+            <ImageOff size={16} />
+          </div>
+        ),
+    },
     {
       title: 'Tên tour',
       dataIndex: 'name_vi',
