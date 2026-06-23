@@ -1,7 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { MapPin, GraduationCap, ArrowRight, CheckCircle2, BookOpen, Briefcase, Users, Award } from 'lucide-react'
+import { MapPin, GraduationCap, ArrowRight, CheckCircle2, BookOpen, Briefcase, Award } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { Link } from '@/i18n/routing'
 import ImagePlaceholder from '@/components/ImagePlaceholder'
@@ -179,60 +179,56 @@ export default function GlobalMobilityClient({ tours }: { tours: TourCard[] }) {
               <motion.div
                 key={tour.slug}
                 variants={itemVariants}
-                className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden flex flex-col"
+                className="group bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 overflow-hidden flex flex-col"
               >
-                {/* Tour thumbnail */}
-                <div className="h-48 w-full relative overflow-hidden">
+                {/* Thumbnail */}
+                <div className="relative h-52 w-full overflow-hidden">
                   <ImagePlaceholder
                     name={`tour-${tour.slug}.webp`}
                     src={tour.coverImage || undefined}
                     width={800}
                     height={450}
                     fill
+                    className="transition-transform duration-500 group-hover:scale-105"
                   />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-black/0 to-black/0" />
+                  <span className="absolute top-3 left-3 bg-[#002D62] text-white text-xs font-bold px-3 py-1 rounded-full shadow-sm">
+                    {tour.duration}
+                  </span>
+                  <span className="absolute top-3 right-3 inline-flex items-center gap-1 bg-white/90 backdrop-blur-sm text-[#002D62] text-xs font-semibold px-2.5 py-1 rounded-full shadow-sm">
+                    <Award className="w-3.5 h-3.5 text-[#00A3C1]" />
+                    {t('tour_certificate_label')}
+                  </span>
                 </div>
 
-                {/* Card content */}
-                <div className="p-6 flex flex-col flex-1">
-                  <div className="flex items-center justify-between mb-3">
-                    <span className="bg-[#002D62] text-white text-xs font-bold px-3 py-1 rounded-full">
-                      {tour.duration}
-                    </span>
-                    <div className="flex items-center gap-1.5">
-                      <Award className="w-4 h-4 text-[#00A3C1]" />
-                      <span className="text-xs text-[#00A3C1] font-medium">{t('tour_certificate_label')}</span>
-                    </div>
-                  </div>
-                  <h4 className="font-heading font-bold text-[#002D62] text-lg mb-1">{tour.name}</h4>
-                  <div className="flex items-center gap-1.5 mb-3">
-                    <MapPin className="w-3.5 h-3.5 text-[#00A3C1] flex-shrink-0" />
+                {/* Content */}
+                <div className="p-5 flex flex-col flex-1">
+                  <h4 className="font-heading font-bold text-[#002D62] text-lg leading-snug line-clamp-2 min-h-[3.5rem]">
+                    {tour.name}
+                  </h4>
+                  <div className="flex items-start gap-1.5 mt-2 mb-4">
+                    <MapPin className="w-4 h-4 text-[#00A3C1] flex-shrink-0 mt-0.5" />
                     <p className="text-[#00A3C1] text-sm font-medium">{tour.destination}</p>
                   </div>
-                  <ul className="space-y-2 flex-1">
+                  <ul className="space-y-2.5 flex-1">
                     {tour.highlights.map((h) => (
                       <li key={h} className="flex items-start gap-2 text-sm text-[#4A4A4A]">
                         <CheckCircle2 className="w-4 h-4 text-[#00A3C1] mt-0.5 flex-shrink-0" />
-                        {h}
+                        <span className="leading-snug">{h}</span>
                       </li>
                     ))}
                   </ul>
-                  <div className="mt-4 pt-4 border-t border-gray-100 flex items-center justify-between">
-                    <div>
-                      <p className="text-xs text-[#4A4A4A]/60 mb-0.5">{t('tour_for_label')} {t('tour_participants_label')}</p>
-                      <p className="text-sm font-bold text-[#002D62]">{tour.price}</p>
-                    </div>
-                    <div className="flex items-center gap-1 text-[#4A4A4A]/50 text-xs">
-                      <Users className="w-3.5 h-3.5" />
-                      15–40
-                    </div>
+
+                  {/* Footer */}
+                  <div className="mt-5 pt-4 border-t border-gray-100">
+                    <Link
+                      href={`/global-mobility/tours/${tour.slug}`}
+                      className="w-full inline-flex items-center justify-center gap-2 bg-[#002D62] hover:bg-[#00A3C1] text-white font-semibold text-sm py-2.5 rounded-xl transition-colors"
+                    >
+                      {t('tour_cta')}
+                      <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                    </Link>
                   </div>
-                  <Link
-                    href={`/global-mobility/tours/${tour.slug}`}
-                    className="mt-4 flex items-center gap-2 text-[#002D62] font-semibold text-sm hover:text-[#00A3C1] transition-colors group"
-                  >
-                    {t('tour_cta')}
-                    <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                  </Link>
                 </div>
               </motion.div>
             ))}
