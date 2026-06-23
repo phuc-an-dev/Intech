@@ -9,10 +9,8 @@ import {
   Switch,
   Select,
   Button,
-  Card,
   Row,
   Col,
-  Segmented,
   Upload,
   Space,
   Image,
@@ -20,7 +18,8 @@ import {
   App,
 } from 'antd'
 import type { UploadProps } from 'antd'
-import { UploadCloud, Save } from 'lucide-react'
+import { UploadCloud, Save, Info, Image as ImageIcon, FileText } from 'lucide-react'
+import { Section, LangToggle, ADMIN_NAVY } from '../Section'
 import { saveCourse, type CourseInput } from './actions'
 import { LEVEL_OPTIONS, type CourseLevelKey } from './levels'
 
@@ -217,12 +216,14 @@ export default function CourseForm({
       requiredMark="optional"
       style={{ maxWidth: 960, margin: '0 auto', paddingBottom: 48 }}
     >
-      <Typography.Title level={3} style={{ color: '#002D62', marginTop: 0 }}>
-        {course?.id ? 'Sửa khóa học' : 'Khóa học mới'}
-      </Typography.Title>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 12, marginBottom: 20 }}>
+        <Typography.Title level={3} style={{ color: ADMIN_NAVY, margin: 0 }}>
+          {course?.id ? 'Sửa khóa học' : 'Khóa học mới'}
+        </Typography.Title>
+        <LangToggle value={editLang} onChange={setEditLang} />
+      </div>
 
-      {/* ── Thông tin chung ── */}
-      <Card title="Thông tin chung" style={{ marginBottom: 20 }}>
+      <Section icon={<Info size={16} />} title="Thông tin chung">
         <Row gutter={16}>
           <Col xs={24} sm={12}>
             <Form.Item name="topicId" label="Chủ đề" rules={[{ required: true, message: 'Chọn chủ đề' }]}>
@@ -302,10 +303,9 @@ export default function CourseForm({
             </Form.Item>
           </Col>
         </Row>
-      </Card>
+      </Section>
 
-      {/* ── Ảnh khóa học ── */}
-      <Card title="Ảnh khóa học" style={{ marginBottom: 20 }}>
+      <Section icon={<ImageIcon size={16} />} title="Ảnh khóa học">
         <Space align="start" size="large">
           <Upload showUploadList={false} accept="image/*" customRequest={uploadImage}>
             <Button icon={<UploadCloud size={16} />} loading={imageUploading}>
@@ -324,22 +324,12 @@ export default function CourseForm({
         <Typography.Paragraph type="secondary" style={{ marginTop: 8, marginBottom: 0, fontSize: 12 }}>
           JPEG, PNG, WebP, AVIF · tối đa 5MB · nhấp ảnh để xem to
         </Typography.Paragraph>
-      </Card>
+      </Section>
 
-      {/* ── Nội dung song ngữ ── */}
-      <Card title="Nội dung" style={{ marginBottom: 20 }}>
-        <Segmented
-          value={editLang}
-          onChange={(val) => setEditLang(val as 'vi' | 'en')}
-          options={[
-            { label: '🇻🇳 Tiếng Việt', value: 'vi' },
-            { label: '🇬🇧 English', value: 'en' },
-          ]}
-          style={{ marginBottom: 20 }}
-        />
+      <Section icon={<FileText size={16} />} title="Nội dung">
         {langFields('vi')}
         {langFields('en')}
-      </Card>
+      </Section>
 
       <Space>
         <Button type="primary" htmlType="submit" icon={<Save size={16} />} size="large" loading={submitting}>

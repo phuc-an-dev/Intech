@@ -10,6 +10,7 @@ import type { ColumnsType } from 'antd/es/table'
 import { Plus, Pencil, Trash2, UploadCloud } from 'lucide-react'
 import { saveAuthor, deleteAuthor, type AuthorInput } from './actions'
 import { langLabel } from '../langLabel'
+import { LangToggle, type EditLang } from '../Section'
 
 export interface AuthorRow {
   id: string
@@ -34,11 +35,13 @@ export default function AuthorManager({ authors }: { authors: AuthorRow[] }) {
   // Mount the Modal only after hydration — forceRender would otherwise SSR the
   // portal (targets document.body) and mismatch the server HTML.
   const [mounted, setMounted] = useState(false)
+  const [editLang, setEditLang] = useState<EditLang>('vi')
   // eslint-disable-next-line react-hooks/set-state-in-effect -- intentional: defer portal to post-hydration
   useEffect(() => setMounted(true), [])
 
   function openCreate() {
     setEditing(null)
+    setEditLang('vi')
     form.resetFields()
     setImage('/logo.svg')
     setOpen(true)
@@ -46,6 +49,7 @@ export default function AuthorManager({ authors }: { authors: AuthorRow[] }) {
 
   function openEdit(row: AuthorRow) {
     setEditing(row)
+    setEditLang('vi')
     form.setFieldsValue({ name: row.name, role_vi: row.role_vi, role_en: row.role_en, imageAlt: row.imageAlt })
     setImage(row.image)
     setOpen(true)
@@ -183,7 +187,12 @@ export default function AuthorManager({ authors }: { authors: AuthorRow[] }) {
 
       {mounted && (
       <Modal
-        title={editing ? 'Sửa tác giả' : 'Thêm tác giả'}
+        title={
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12, paddingInlineEnd: 28 }}>
+            <span>{editing ? 'Sửa tác giả' : 'Thêm tác giả'}</span>
+            <LangToggle size="small" value={editLang} onChange={setEditLang} />
+          </div>
+        }
         open={open}
         onOk={onSubmit}
         onCancel={() => setOpen(false)}
@@ -196,12 +205,16 @@ export default function AuthorManager({ authors }: { authors: AuthorRow[] }) {
           <Form.Item name="name" label="Tên tác giả" rules={[{ required: true, message: 'Tên là bắt buộc' }]}>
             <Input placeholder="Intech ISC Editorial Team" />
           </Form.Item>
-          <Form.Item name="role_vi" label={langLabel('Chức danh', 'vi')}>
-            <Input placeholder="Đội ngũ chuyên môn…" />
-          </Form.Item>
-          <Form.Item name="role_en" label={langLabel('Chức danh', 'en')}>
-            <Input placeholder="Editorial team…" />
-          </Form.Item>
+          <div style={{ display: editLang === 'vi' ? 'block' : 'none' }}>
+            <Form.Item name="role_vi" label="Chức danh">
+              <Input placeholder="Đội ngũ chuyên môn…" />
+            </Form.Item>
+          </div>
+          <div style={{ display: editLang === 'en' ? 'block' : 'none' }}>
+            <Form.Item name="role_en" label="Chức danh">
+              <Input placeholder="Editorial team…" />
+            </Form.Item>
+          </div>
           <Form.Item label="Ảnh tác giả">
             <Space align="center" size="middle">
               <Upload showUploadList={false} accept="image/*" customRequest={uploadImage}>

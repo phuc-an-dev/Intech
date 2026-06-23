@@ -33,6 +33,11 @@ enum CourseLevel {
   strategic
 }
 
+enum TourStatus {
+  DRAFT
+  PUBLISHED
+}
+
 model Category {
   id        String   @id @default(cuid())
   key       String   @unique
@@ -101,6 +106,47 @@ model Course {
   @@index([status])
   @@index([topicId])
   @@index([level])
+}
+
+model Tour {
+  id             String     @id @default(cuid())
+  slug           String     @unique
+  status         TourStatus @default(PUBLISHED)
+  order          Int        @default(0)
+  duration_vi    String
+  duration_en    String
+  name_vi        String
+  name_en        String
+  subtitle_vi    String     @db.Text
+  subtitle_en    String     @db.Text
+  destination_vi String
+  destination_en String
+  price_vi       String
+  price_en       String
+  groupSize_vi   String
+  groupSize_en   String
+  certificate_vi String     @db.Text
+  certificate_en String     @db.Text
+  whyJoin_vi     String     @db.Text
+  whyJoin_en     String     @db.Text
+  customization_vi String   @db.Text
+  customization_en String   @db.Text
+  highlights_vi  Json
+  highlights_en  Json
+  audience_vi    Json
+  audience_en    Json
+  itinerary_vi   Json
+  itinerary_en   Json
+  includes_vi    Json
+  includes_en    Json
+  excludes_vi    Json
+  excludes_en    Json
+  gallery_vi     Json
+  gallery_en     Json
+  createdAt      DateTime   @default(now())
+  updatedAt      DateTime   @updatedAt
+
+  @@index([status])
 }
 
 model Post {

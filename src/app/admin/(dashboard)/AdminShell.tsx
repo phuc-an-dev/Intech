@@ -11,6 +11,7 @@ import {
   Users,
   GraduationCap,
   Shapes,
+  Plane,
   LogOut,
   PanelLeftClose,
   PanelLeftOpen,
@@ -27,9 +28,9 @@ const NAV_ITEMS = [
     type: 'group' as const,
     label: <span style={{ fontSize: 11, fontWeight: 600, letterSpacing: 1, textTransform: 'uppercase' }}>Blog</span>,
     children: [
-      { key: '/admin/blog', icon: <FileText size={17} />, label: 'Blog' },
       { key: '/admin/categories', icon: <FolderTree size={17} />, label: 'Danh mục' },
       { key: '/admin/authors', icon: <Users size={17} />, label: 'Tác giả' },
+      { key: '/admin/blog', icon: <FileText size={17} />, label: 'Blog' },
     ],
   },
   {
@@ -40,10 +41,17 @@ const NAV_ITEMS = [
       { key: '/admin/courses', icon: <GraduationCap size={17} />, label: 'Khóa học' },
     ],
   },
+  {
+    type: 'group' as const,
+    label: <span style={{ fontSize: 11, fontWeight: 600, letterSpacing: 1, textTransform: 'uppercase' }}>Study Tour</span>,
+    children: [
+      { key: '/admin/tours', icon: <Plane size={17} />, label: 'Study Tour' },
+    ],
+  },
 ]
 
 // Flat list of routable keys, used to resolve the active menu item.
-const NAV_KEYS = ['/admin', '/admin/blog', '/admin/categories', '/admin/authors', '/admin/topics', '/admin/courses']
+const NAV_KEYS = ['/admin', '/admin/blog', '/admin/categories', '/admin/authors', '/admin/topics', '/admin/courses', '/admin/tours']
 
 export default function AdminShell({
   children,
@@ -83,7 +91,7 @@ export default function AdminShell({
         onBreakpoint={(broken) => setCollapsed(broken)}
         width={232}
         style={{
-          background: '#002D62',
+          background: '#001B40',
           position: 'fixed',
           insetInlineStart: 0,
           top: 0,

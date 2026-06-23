@@ -12,10 +12,8 @@ import {
   Switch,
   Select,
   Button,
-  Card,
   Row,
   Col,
-  Segmented,
   Upload,
   Space,
   Image,
@@ -23,8 +21,9 @@ import {
   App,
 } from 'antd'
 import type { UploadProps } from 'antd'
-import { UploadCloud, Save, HelpCircle } from 'lucide-react'
+import { UploadCloud, Save, HelpCircle, Info, FileText, Image as ImageIcon } from 'lucide-react'
 import { savePost, type PostInput } from './actions'
+import { Section, LangToggle, ADMIN_NAVY } from '../Section'
 
 const MarkdownEditor = dynamic(() => import('./MarkdownEditor'), {
   ssr: false,
@@ -166,12 +165,14 @@ export default function PostForm({
       requiredMark="optional"
       style={{ maxWidth: 960, margin: '0 auto', paddingBottom: 48 }}
     >
-      <Typography.Title level={3} style={{ color: '#002D62', marginTop: 0 }}>
-        {post?.id ? 'Sửa bài viết' : 'Bài viết mới'}
-      </Typography.Title>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 12, marginBottom: 20 }}>
+        <Typography.Title level={3} style={{ color: ADMIN_NAVY, margin: 0 }}>
+          {post?.id ? 'Sửa bài viết' : 'Bài viết mới'}
+        </Typography.Title>
+        <LangToggle value={editLang} onChange={setEditLang} />
+      </div>
 
-      {/* ── Thông tin chung ── */}
-      <Card title="Thông tin chung" style={{ marginBottom: 20 }}>
+      <Section icon={<Info size={16} />} title="Thông tin chung">
         <Row gutter={16}>
           <Col xs={24} sm={12}>
             <Form.Item name="categoryId" label="Danh mục" rules={[{ required: true, message: 'Chọn danh mục' }]}>
@@ -228,10 +229,9 @@ export default function PostForm({
             </Form.Item>
           </Col>
         </Row>
-      </Card>
+      </Section>
 
-      {/* ── Ảnh bìa ── */}
-      <Card title="Ảnh bìa" style={{ marginBottom: 20 }}>
+      <Section icon={<ImageIcon size={16} />} title="Ảnh bìa">
         <Space align="start" size="large">
           <Upload showUploadList={false} accept="image/*" customRequest={uploadCover}>
             <Button icon={<UploadCloud size={16} />} loading={coverUploading}>
@@ -256,20 +256,9 @@ export default function PostForm({
         <Typography.Paragraph type="secondary" style={{ marginTop: 8, marginBottom: 0, fontSize: 12 }}>
           JPEG, PNG, WebP, AVIF · tối đa 5MB · nhấp ảnh để xem to
         </Typography.Paragraph>
-      </Card>
+      </Section>
 
-      {/* ── Nội dung ── */}
-      <Card style={{ marginBottom: 20 }}>
-        <Segmented
-          value={editLang}
-          onChange={(val) => setEditLang(val as 'vi' | 'en')}
-          options={[
-            { label: '🇻🇳 Tiếng Việt', value: 'vi' },
-            { label: '🇬🇧 English', value: 'en' },
-          ]}
-          style={{ marginBottom: 20 }}
-        />
-
+      <Section icon={<FileText size={16} />} title="Nội dung">
         {langFields('vi')}
         {langFields('en')}
 
@@ -296,7 +285,7 @@ export default function PostForm({
             onChange={editLang === 'vi' ? setBodyVi : setBodyEn}
           />
         </Form.Item>
-      </Card>
+      </Section>
 
       {/* ── Actions ── */}
       <Space>

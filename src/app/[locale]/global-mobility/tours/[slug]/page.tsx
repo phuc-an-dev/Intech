@@ -3,13 +3,13 @@ import { setRequestLocale, getTranslations } from 'next-intl/server'
 import { getTourBySlug, getAllTourSlugs } from '@/data/tours'
 import TourDetailClient from './TourDetailClient'
 
-export function generateStaticParams() {
+export async function generateStaticParams() {
   return getAllTourSlugs()
 }
 
 export async function generateMetadata(props: { params: Promise<{ slug: string; locale: string }> }) {
   const { slug, locale } = await props.params
-  const tour = getTourBySlug(slug, locale)
+  const tour = await getTourBySlug(slug, locale)
   if (!tour) return { title: 'Tour not found' }
   return {
     title: `${tour.name} | Intech ISC`,
@@ -21,7 +21,7 @@ export default async function TourDetailPage(props: { params: Promise<{ slug: st
   const { slug, locale } = await props.params
   setRequestLocale(locale)
 
-  const tour = getTourBySlug(slug, locale)
+  const tour = await getTourBySlug(slug, locale)
   if (!tour) notFound()
 
   const t = await getTranslations({ locale, namespace: 'globalMobility' })

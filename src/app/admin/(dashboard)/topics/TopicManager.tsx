@@ -7,6 +7,7 @@ import type { ColumnsType } from 'antd/es/table'
 import { Plus, Pencil, Trash2 } from 'lucide-react'
 import { saveTopic, deleteTopic, type TopicInput } from './actions'
 import { langLabel } from '../langLabel'
+import { LangToggle, type EditLang } from '../Section'
 
 export interface TopicRow {
   id: string
@@ -29,17 +30,20 @@ export default function TopicManager({ topics }: { topics: TopicRow[] }) {
   // Mount the Modal only after hydration — forceRender would otherwise SSR the
   // portal (targets document.body) and mismatch the server HTML.
   const [mounted, setMounted] = useState(false)
+  const [editLang, setEditLang] = useState<EditLang>('vi')
   // eslint-disable-next-line react-hooks/set-state-in-effect -- intentional: defer portal to post-hydration
   useEffect(() => setMounted(true), [])
 
   function openCreate() {
     setEditing(null)
+    setEditLang('vi')
     form.resetFields()
     setOpen(true)
   }
 
   function openEdit(row: TopicRow) {
     setEditing(row)
+    setEditLang('vi')
     form.setFieldsValue({
       name_vi: row.name_vi,
       name_en: row.name_en,
@@ -50,7 +54,15 @@ export default function TopicManager({ topics }: { topics: TopicRow[] }) {
   }
 
   async function onSubmit() {
-    const values = await form.validateFields()
+    let values: { name_vi: string; name_en: string; description_vi?: string; description_en?: string }
+    try {
+      values = await form.validateFields()
+    } catch (err) {
+      const field = (err as { errorFields?: { name: (string | number)[] }[] }).errorFields?.[0]?.name?.[0]
+      if (typeof field === 'string' && field.endsWith('_en')) setEditLang('en')
+      else setEditLang('vi')
+      return
+    }
     setSaving(true)
     const input: TopicInput = { id: editing?.id, ...values }
     const res = await saveTopic(input)
@@ -159,7 +171,12 @@ export default function TopicManager({ topics }: { topics: TopicRow[] }) {
 
       {mounted && (
       <Modal
-        title={editing ? 'Sửa chủ đề' : 'Thêm chủ đề'}
+        title={
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12, paddingInlineEnd: 28 }}>
+            <span>{editing ? 'Sửa chủ đề' : 'Thêm chủ đề'}</span>
+            <LangToggle size="small" value={editLang} onChange={setEditLang} />
+          </div>
+        }
         open={open}
         onOk={onSubmit}
         onCancel={() => setOpen(false)}
@@ -169,18 +186,22 @@ export default function TopicManager({ topics }: { topics: TopicRow[] }) {
         forceRender
       >
         <Form form={form} layout="vertical" requiredMark={false} style={{ marginTop: 12 }}>
-          <Form.Item name="name_vi" label={langLabel('Tên', 'vi')} rules={[{ required: true, message: 'Bắt buộc' }]}>
-            <Input placeholder="Trí tuệ nhân tạo" />
-          </Form.Item>
-          <Form.Item name="name_en" label={langLabel('Tên', 'en')} rules={[{ required: true, message: 'Bắt buộc' }]}>
-            <Input placeholder="Artificial Intelligence" />
-          </Form.Item>
-          <Form.Item name="description_vi" label={langLabel('Mô tả', 'vi')}>
-            <Input.TextArea rows={3} placeholder="Mô tả ngắn về chủ đề…" />
-          </Form.Item>
-          <Form.Item name="description_en" label={langLabel('Mô tả', 'en')}>
-            <Input.TextArea rows={3} placeholder="Short description…" />
-          </Form.Item>
+          <div style={{ display: editLang === 'vi' ? 'block' : 'none' }}>
+            <Form.Item name="name_vi" label="Tên chủ đề" rules={[{ required: true, message: 'Bắt buộc' }]}>
+              <Input placeholder="Trí tuệ nhân tạo" />
+            </Form.Item>
+            <Form.Item name="description_vi" label="Mô tả">
+              <Input.TextArea rows={3} placeholder="Mô tả ngắn về chủ đề…" />
+            </Form.Item>
+          </div>
+          <div style={{ display: editLang === 'en' ? 'block' : 'none' }}>
+            <Form.Item name="name_en" label="Tên chủ đề" rules={[{ required: true, message: 'Bắt buộc' }]}>
+              <Input placeholder="Artificial Intelligence" />
+            </Form.Item>
+            <Form.Item name="description_en" label="Mô tả">
+              <Input.TextArea rows={3} placeholder="Short description…" />
+            </Form.Item>
+          </div>
         </Form>
       </Modal>
       )}

@@ -7,6 +7,7 @@ import type { ColumnsType } from 'antd/es/table'
 import { Plus, Pencil, Trash2 } from 'lucide-react'
 import { saveCategory, deleteCategory, type CategoryInput } from './actions'
 import { langLabel } from '../langLabel'
+import { LangToggle, type EditLang } from '../Section'
 
 export interface CategoryRow {
   id: string
@@ -27,23 +28,34 @@ export default function CategoryManager({ categories }: { categories: CategoryRo
   // Mount the Modal only after hydration — forceRender would otherwise SSR the
   // portal (targets document.body) and mismatch the server HTML.
   const [mounted, setMounted] = useState(false)
+  const [editLang, setEditLang] = useState<EditLang>('vi')
   // eslint-disable-next-line react-hooks/set-state-in-effect -- intentional: defer portal to post-hydration
   useEffect(() => setMounted(true), [])
 
   function openCreate() {
     setEditing(null)
+    setEditLang('vi')
     form.resetFields()
     setOpen(true)
   }
 
   function openEdit(row: CategoryRow) {
     setEditing(row)
+    setEditLang('vi')
     form.setFieldsValue({ name_vi: row.name_vi, name_en: row.name_en })
     setOpen(true)
   }
 
   async function onSubmit() {
-    const values = await form.validateFields()
+    let values: { name_vi: string; name_en: string }
+    try {
+      values = await form.validateFields()
+    } catch (err) {
+      const field = (err as { errorFields?: { name: (string | number)[] }[] }).errorFields?.[0]?.name?.[0]
+      if (typeof field === 'string' && field.endsWith('_en')) setEditLang('en')
+      else setEditLang('vi')
+      return
+    }
     setSaving(true)
     const input: CategoryInput = { id: editing?.id, ...values }
     const res = await saveCategory(input)
@@ -140,7 +152,12 @@ export default function CategoryManager({ categories }: { categories: CategoryRo
 
       {mounted && (
       <Modal
-        title={editing ? 'Sửa danh mục' : 'Thêm danh mục'}
+        title={
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12, paddingInlineEnd: 28 }}>
+            <span>{editing ? 'Sửa danh mục' : 'Thêm danh mục'}</span>
+            <LangToggle size="small" value={editLang} onChange={setEditLang} />
+          </div>
+        }
         open={open}
         onOk={onSubmit}
         onCancel={() => setOpen(false)}
@@ -150,12 +167,16 @@ export default function CategoryManager({ categories }: { categories: CategoryRo
         forceRender
       >
         <Form form={form} layout="vertical" requiredMark={false} style={{ marginTop: 12 }}>
-          <Form.Item name="name_vi" label={langLabel('Tên', 'vi')} rules={[{ required: true, message: 'Bắt buộc' }]}>
-            <Input placeholder="AI & Nhân lực" />
-          </Form.Item>
-          <Form.Item name="name_en" label={langLabel('Tên', 'en')} rules={[{ required: true, message: 'Bắt buộc' }]}>
-            <Input placeholder="AI & Workforce" />
-          </Form.Item>
+          <div style={{ display: editLang === 'vi' ? 'block' : 'none' }}>
+            <Form.Item name="name_vi" label="Tên danh mục" rules={[{ required: true, message: 'Bắt buộc' }]}>
+              <Input placeholder="AI & Nhân lực" />
+            </Form.Item>
+          </div>
+          <div style={{ display: editLang === 'en' ? 'block' : 'none' }}>
+            <Form.Item name="name_en" label="Tên danh mục" rules={[{ required: true, message: 'Bắt buộc' }]}>
+              <Input placeholder="AI & Workforce" />
+            </Form.Item>
+          </div>
         </Form>
       </Modal>
       )}
